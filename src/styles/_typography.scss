@@ -1,0 +1,114 @@
+@import 'variables';
+@import 'colors';
+
+// TEXT XXL
+.text-xxl {
+  font-family: $font-poppins;
+  font-weight: $font-xxl-weight;
+  font-size: $font-xxl-size;
+  line-height: $font-xxl-line-height;
+  letter-spacing: $font-xxl-letter-spacing;
+  color: $color-black;
+}
+
+// H1
+.h1 {
+  font-family: $font-h1;
+  font-weight: $font-h1-weight;
+  font-size: $font-h1-size;
+  line-height: $font-h1-line-height;
+  letter-spacing: $font-h1-letter-spacing;
+  color: $color-black;
+}
+
+// H2
+.h2 {
+  font-weight: $font-h2-weight;
+  font-size: $font-h2-size;
+  line-height: $font-h2-line-height;
+  letter-spacing: $font-h2-letter-spacing;
+  color: $color-black;
+}
+
+// TITLE M
+.title-m {
+  font-weight: $font-title-m-weight;
+  font-size: $font-title-m-size;
+  line-height: $font-title-m-line-height;
+  letter-spacing: $font-title-m-letter-spacing;
+  color: $color-black;
+}
+
+// H3
+.h3 {
+  font-weight: $font-h3-weight;
+  font-size: $font-h3-size;
+  line-height: $font-h3-line-height;
+  letter-spacing: $font-h3-letter-spacing;
+  color: $color-black;
+  text-decoration: none;
+}
+
+// FILTERS
+.text-filters {
+  font-weight: $font-filters-weight;
+  font-size: $font-filters-size;
+  line-height: $font-filters-line-height;
+  letter-spacing: $font-filters-letter-spacing;
+  color: $color-black;
+}
+
+// INPUT
+.input {
+  font-weight: $font-input-weight;
+  font-size: $font-input-size;
+  line-height: $font-input-line-height;
+  letter-spacing: $font-input-letter-spacing;
+  color: $color-black;
+}
+
+// BODY
+.body {
+  font-weight: $font-body-weight;
+  font-size: $font-body-size;
+  line-height: $font-body-line-height;
+  letter-spacing: $font-body-letter-spacing;
+  color: $color-black;
+}
+
+// TEXT XS
+.text-xs {
+  font-weight: $font-text-xs-weight;
+  font-size: $font-text-xs-size;
+  line-height: $font-text-xs-line-height;
+  letter-spacing: $font-text-xs-letter-spacing;
+  color: $color-black;
+}
+
+// BUTTON
+.button-text {
+  font-weight: $font-button-weight;
+  font-size: $font-button-size;
+  line-height: $font-button-line-height;
+  letter-spacing: $font-button-letter-spacing;
+  font-family: $font-poppins;
+  color: rgba(249, 247, 242, 1);
+}
+
+// SUBTITLE
+.subtitle {
+  font-weight: $font-subtitle-weight;
+  font-size: $font-subtitle-size;
+  line-height: $font-subtitle-line-height;
+  letter-spacing: $font-subtitle-letter-spacing;
+  color: $color-black;
+}
+
+// TEXT S
+.text-s {
+  font-weight: $font-text-s-weight;
+  font-size: $font-text-s-size;
+  line-height: $font-text-s-line-height;
+  letter-spacing: $font-text-s-letter-spacing;
+  color: $color-black;
+}

@@ -1,0 +1,76 @@
+@import "../../styles/colors";
+
+.header-container {
+    width: 100%;
+    border-bottom: 1px solid rgba(100, 98, 99, 0.3);
+
+    .inner {
+        height: 84px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+}
+
+.nav-links {
+    display: flex;
+    gap: 32px;
+}
+
+.icons-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.actions {
+    display: flex;
+    gap: 12px;
+}
+
+.btn-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.footer-container {
+    width: 100%;
+    border-top: 1px solid rgba(100, 98, 99, 0.3);
+
+    .inner {
+        padding: 60px 0px;
+    }
+}
+
+.contact-info-container {
+    display: flex;
+    gap: 54px;
+    border-bottom: 1px solid #544745;
+    padding-bottom: 40px;
+}
+
+.contact-info-inner {
+    display: flex;
+    gap: 24px;
+
+    ul {
+        width: 200px;
+
+        li {
+            margin-bottom: 12px;
+
+            a {
+                text-decoration: none;
+                color: $color-black
+            }
+        }
+    }
+}
+
+.newsletter {
+    width: 312px;
+    display: flex;
+    flex-direction: column;
+
+}

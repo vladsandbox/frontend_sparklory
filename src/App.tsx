@@ -1,0 +1,29 @@
+import { createBrowserRouter, RouterProvider, Navigate } from "react-router-dom";
+
+import Layout from "./components/Layout";
+
+import Home from "./pages/Home";
+import BestSellers from "./pages/BestSellers";
+import Gifts from "./pages/Gifts";
+import Community from "./pages/Community";
+import Company from "./pages/Company";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Layout />,
+    errorElement: <div>Something went wrong!</div>,
+    children: [
+      { index: true, element: <Home /> },
+      { path: "best-sellers", element: <BestSellers /> },
+      { path: "gifts", element: <Gifts /> },
+      { path: "community", element: <Community /> },
+      { path: "company", element: <Company /> },
+      { path: "*", element: <Navigate to="/" replace /> },
+    ],
+  },
+]);
+
+export default function App() {
+  return <RouterProvider router={router} />;
+}
