@@ -3,14 +3,20 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@reduxjs/toolkit": "^2.5.1",
+    "@reduxjs/toolkit": "^2.5.0",
+    "@types/react": "^19.0.8",
+    "@types/react-router-dom": "^5.3.3",
+    "axios": "^1.7.9",
     "cra-template": "1.2.0",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "react-redux": "^9.2.0",
+    "react-router-dom": "^7.1.1",
     "react-scripts": "5.0.1",
     "redux": "^5.0.1",
-    "sass": "^1.84.0"
+    "redux-thunk": "^3.1.0",
+    "sass": "^1.83.0",
+    "typescript": "^5.7.3"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -35,5 +41,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "eslint": "^8.57.1",
+    "eslint-config-react-app": "^7.0.1",
+    "eslint-plugin-react": "^7.37.3"
   }
 }

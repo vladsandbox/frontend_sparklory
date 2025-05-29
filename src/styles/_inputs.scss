@@ -1,0 +1,23 @@
+@import 'colors';
+
+// PRIMARY INPUT STYLE
+.primary-input {
+  padding: 13px 24px;
+  background-color: $color-white;
+  border: 1px solid $color-disabled;
+  border-radius: 12px;
+  transition: border-color 0.2s ease;
+
+  &:hover {
+    border-color: $color-grey;
+  }
+
+  &:active {
+    border-color: $color-grey;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: $color-grey;
+  }
+}
