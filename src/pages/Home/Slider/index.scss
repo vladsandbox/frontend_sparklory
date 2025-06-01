@@ -1,0 +1,107 @@
+@import '../../../styles/colors';
+
+.slider-container {
+    height: 495px;
+    border-radius: 12px;
+    display: flex;
+    justify-content: space-between;
+    padding: 87px 40px;
+    background-size: cover;
+    background-position: center;
+}
+
+.text-container {
+    width: 720px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    p {
+        color: $color-white;
+    }
+
+    .buttons {
+        display: flex;
+        gap: 12px;
+        margin-top: 24px;
+    }
+}
+
+.slider-text {
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 30px;
+    letter-spacing: 1.5%;
+    width: 605px;
+}
+
+.btn-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.slide-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: $color-white;
+    font-size: 18px;
+    gap: 10px;
+    align-self: flex-end;
+}
+
+.progress-track-vertical {
+    width: 6px;
+    height: 138px;
+    background-color: $color-slider;
+    border-radius: 3px;
+    position: relative;
+    overflow: hidden;
+}
+
+.progress-indicator-vertical {
+    width: 100%;
+    background-color: $color-button;
+    position: absolute;
+    left: 0;
+    border-radius: 3px;
+    transition: top 0.4s ease-in-out;
+}
+
+.nav-buttons {
+    display: flex;
+    gap: 40px;
+
+    .arrow {
+        height: 39px;
+        width: 44px;
+        border-radius: 20px;
+        border: none;
+        background-color: $color-button;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 16px 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+
+        &.left {
+            background-image: url('../../../assets/icons/arrow-left.svg');
+        }
+
+        &.right {
+            background-image: url('../../../assets/icons/arrow-right.svg');
+        }
+
+        &:not(:disabled):hover {
+            background-color: $color-button;
+        }
+
+        &:disabled {
+            border: 1px solid $color-white;
+            background-color: transparent;
+            cursor: default;
+        }
+    }
+}
