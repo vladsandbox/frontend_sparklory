@@ -1,0 +1,52 @@
+.bar {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    position: relative;
+    margin-bottom: 40px !important;
+}
+
+.button {
+    width: 312px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.inputWrapper {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  position: relative;
+
+  .results {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: rgba(249, 246, 241, 1);
+    border-radius: 12px;
+    margin-top: 2px;
+    padding-left: 56px;
+    z-index: 10;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+    li {
+      padding: 14px 0;
+      cursor: pointer;
+    }
+  }
+}
+
+.icon {
+    position: absolute;
+    left: 24px;
+    width: 24px;
+    height: 24px;
+}
+
+.input {
+    padding-left: 56px;
+    height: 55px;
+    width: 100%;
+}

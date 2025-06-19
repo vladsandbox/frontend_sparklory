@@ -42,7 +42,7 @@ const Layout = () => {
                 </div>
             </header>
 
-            <main className="wrapper" style={{paddingTop: 24, paddingBottom: 120}}>
+            <main style={{paddingTop: 24}}>
                 <Outlet />
             </main>
 

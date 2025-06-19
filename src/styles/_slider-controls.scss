@@ -1,0 +1,36 @@
+.nav-buttons {
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+
+    .arrow {
+        height: 39px;
+        width: 44px;
+        border-radius: 20px;
+        border: none;
+        background-color: $color-button;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 16px 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+
+        &.left {
+            background-image: url('../assets/icons/arrow-left.svg');
+        }
+
+        &.right {
+            background-image: url('../assets/icons/arrow-right.svg');
+        }
+
+        &:not(:disabled):hover {
+            background-color: $color-button;
+        }
+
+        &:disabled {
+            border: 1px solid $color-white;
+            background-color: transparent;
+            cursor: default;
+        }
+    }
+}
