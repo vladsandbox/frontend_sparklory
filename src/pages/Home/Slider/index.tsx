@@ -47,51 +47,53 @@ export const HomeSlider: React.FC = () => {
     const indicatorTop = currentIndex * indicatorHeight;
 
     return (
-        <div
-            className="slider-container"
-            style={{ backgroundImage: `url(${currentSlide.image})` }}
-        >
-            <div className="text-container">
-                <div>
-                    <p className="h1" style={{ marginBottom: 24 }}>{currentSlide.title}</p>
-                    <p className="slider-text">{currentSlide.text}</p>
-                </div>
-                <div className="buttons">
-                    <button className="primary-btn big button-text" style={{width: 272}}>View Collections</button>
-                    <button className="secondary-btn big button-text" style={{width: 272}}>Create your own</button>
-                </div>
-            </div>
-
-            <div className="btn-container">
-                <div className="slide-info">
-                    <span className="button-text">
-                        {String(currentIndex + 1).padStart(2, '0')}
-                    </span>
-                    <div className="progress-track-vertical">
-                        <div
-                            className="progress-indicator-vertical"
-                            style={{ top: `${indicatorTop}px`, height: `${indicatorHeight}px` }}
-                        ></div>
+        <div className="wrapper">
+            <div
+                className="slider-container"
+                style={{ backgroundImage: `url(${currentSlide.image})`, marginBottom: 80 }}
+            >
+                <div className="text-container">
+                    <div>
+                        <p className="h1" style={{ marginBottom: 24 }}>{currentSlide.title}</p>
+                        <p className="slider-text">{currentSlide.text}</p>
                     </div>
-                    <span className="button-text">
-                        {String(slides.length).padStart(2, '0')}
-                    </span>
+                    <div className="buttons">
+                        <button className="primary-btn big button-text" style={{ width: 272 }}>View Collections</button>
+                        <button className="secondary-btn big button-text" style={{ width: 272 }}>Create your own</button>
+                    </div>
                 </div>
 
-                <div className="nav-buttons">
-                    <button
-                        className="arrow left"
-                        onClick={handlePrev}
-                        disabled={currentIndex === 0}
-                    />
-                    <button
-                        className="arrow right"
-                        onClick={handleNext}
-                        disabled={currentIndex === slides.length - 1}
-                    />
+                <div className="btn-container">
+                    <div className="slide-info">
+                        <span className="button-text">
+                            {String(currentIndex + 1).padStart(2, '0')}
+                        </span>
+                        <div className="progress-track-vertical">
+                            <div
+                                className="progress-indicator-vertical"
+                                style={{ top: `${indicatorTop}px`, height: `${indicatorHeight}px` }}
+                            ></div>
+                        </div>
+                        <span className="button-text">
+                            {String(slides.length).padStart(2, '0')}
+                        </span>
+                    </div>
+
+                    <div className="nav-buttons">
+                        <button
+                            className="arrow left"
+                            onClick={handlePrev}
+                            disabled={currentIndex === 0}
+                        />
+                        <button
+                            className="arrow right"
+                            onClick={handleNext}
+                            disabled={currentIndex === slides.length - 1}
+                        />
+                    </div>
                 </div>
+
             </div>
-
         </div>
     );
 };
