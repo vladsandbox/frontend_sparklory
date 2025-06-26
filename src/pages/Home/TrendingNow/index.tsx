@@ -5,6 +5,7 @@ import "keen-slider/keen-slider.min.css";
 import MaterialSelector from '../../../components/MaterialSelector/MaterialSelector';
 import { Product } from '../../../types/Products';
 import { gold, whiteGold, silver } from "../../../assets";
+import { useProductNavigation } from "../../../utils/hooks/useProductNavigation";
 
 import "./index.scss";
 
@@ -22,6 +23,7 @@ type Props = {
 };
 
 export default function TrendingNow({ products, loading }: Props) {
+  const { goToProduct } = useProductNavigation();
   const trendingProducts = useMemo(() => {
     return Array.isArray(products)
       ? products.filter((product) => product.action?.includes("trendingNow"))
@@ -72,7 +74,12 @@ export default function TrendingNow({ products, loading }: Props) {
                 {trendingProducts.map((product) => {
                   const selected = selectedMaterials[product._id] || "silver";
                   return (
-                    <div className="keen-slider__slide slide-border" key={product._id}>
+                    <div
+                      className="keen-slider__slide slide-border"
+                      key={product._id}
+                      onClick={() => goToProduct(product._id)}
+                      style={{ cursor: "pointer" }}
+                    >
                       <div className="slide">
                         <img src={product.image?.[0]} alt={product.name} className="slide-image" />
                         <p className="title-m" style={{ height: 55 }}>{product.name}</p>
@@ -87,8 +94,9 @@ export default function TrendingNow({ products, loading }: Props) {
                         <div className="product-actions">
                           <button
                             className="primary-btn button-text"
-                            style={{ height: 40, width: 312 }}
-                            onClick={() => {
+                            style={{ height: 40, width: 312, marginTop: 27 }}
+                            onClick={(e) => {
+                              e.stopPropagation();
                               console.log({
                                 productId: product._id,
                                 name: product.name,
@@ -102,6 +110,7 @@ export default function TrendingNow({ products, loading }: Props) {
                         </div>
                       </div>
                     </div>
+
                   );
                 })}
               </div>

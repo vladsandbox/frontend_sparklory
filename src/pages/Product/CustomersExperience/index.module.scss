@@ -1,0 +1,31 @@
+@import '../../../styles/colors';
+
+.avatar-container {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  gap: 60px
+}
+
+.progress-bar-background {
+  flex: 1;
+  height: 5px;
+  background-color: $color-background;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background-color: $color-button;
+}
+
+.ratings-container {
+  padding: 35px 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  width: 50%;
+  background-color: $color-background-ratings;
+  border-radius: 12px;
+}

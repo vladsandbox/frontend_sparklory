@@ -1,0 +1,45 @@
+.recommendedProductsWrapper {
+  margin-bottom: 120px;
+}
+
+.recommendedContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.recommendedCard {
+  width: 314px;
+  height: 463px;
+  border: 1px solid;
+  border-image-source: linear-gradient(0deg, #544745, #544745),
+    linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2));
+  border-image-slice: 1;
+  border-radius: 12px;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.imageWrapper {
+  width: 100%;
+  height: 323px;
+  flex-shrink: 0;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+}
+
+.cardContent {
+  padding: 24px 24px 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  flex-grow: 1;
+}

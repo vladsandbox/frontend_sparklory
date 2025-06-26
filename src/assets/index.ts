@@ -17,7 +17,6 @@ import mens from './images/mens.png';
 import necklaces from './images/necklaces.png';
 import rings from './images/rings.png';
 import watches from './images/watches.png';
-import trending1 from './images/trending1.png';
 import whiteGold from './images/white-gold.png';
 import gold from './images/gold.png';
 import silver from './images/silver.png'
@@ -30,6 +29,8 @@ import star from './icons/star.svg'
 import subscribeImg from './images/subscribeImg.jpg'
 import catalog from './icons/catalog.svg'
 import search from './icons/search.svg'
+import chooseFileBackground from './images/chooseFileBackground.jpg'
+import galleryAdd from './icons/gallery-add.svg'
 
 export {
   heart,
@@ -51,7 +52,6 @@ export {
   necklaces,
   rings,
   watches,
-  trending1,
   silver,
   gold,
   whiteGold,
@@ -63,5 +63,7 @@ export {
   star,
   subscribeImg,
   catalog,
-  search
+  search,
+  chooseFileBackground,
+  galleryAdd
 };
