@@ -45,63 +45,9 @@
     }
 }
 
-
-.review-card {
-    background-color: transparent;
-    padding: 20px 32px;
-    border-radius: 16px;
-    border: 1px solid rgba(84, 71, 69, 1);
-}
-
-.review-avatar-large {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    object-fit: cover;
-}
-
-
-.review-rating {
-    display: flex;
-    width: fit-content;
-    height: 40px;
-    align-items: center;
-
-    .star {
-        width: 44px;
-        height: 40px;
-        opacity: 0.3;
-    }
-
-    .star.active {
-        opacity: 1;
-    }
-}
-
 .slider-controls {
     margin-top: 20px;
     display: flex;
     justify-content: center;
     gap: 12px;
-}
-
-.review-text {
-    max-height: 120px;
-    overflow-y: auto;
-    padding-right: 8px;
-
-    &::-webkit-scrollbar {
-        width: 6px;
-    }
-
-    &::-webkit-scrollbar-track {
-        background: transparent;
-    }
-
-    &::-webkit-scrollbar-thumb {
-        background-color: rgba(0, 0, 0, 0.2);
-        border-radius: 4px;
-    }
-
-    scroll-behavior: smooth;
 }

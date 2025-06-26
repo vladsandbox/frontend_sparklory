@@ -1,0 +1,104 @@
+@import '../../../styles/colors';
+
+.chooseFileBackground {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+}
+
+.fileUploadOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.fileCard {
+    width: 100%;
+    max-width: 384px;
+    background: $color-background;
+    border: 1px solid $color-button;
+    border-radius: 12px;
+    text-align: center;
+    padding: 24px;
+    cursor: pointer;
+    transition: border-color 0.2s ease;
+
+    &:hover {
+        border-color: #999;
+    }
+
+    p {
+        margin-bottom: 8px;
+    }
+
+}
+
+.reviewForm {
+    display: flex;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 60px;
+    height: 500px;
+
+    &__form {
+        width: 50%;
+    }
+
+    &__fields {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__fieldGroup {
+        margin-bottom: 12px;
+    }
+
+    &__label {
+        margin-bottom: 7px;
+    }
+
+    &__error {
+        color: red;
+        font-size: 12px;
+        margin-bottom: 4px;
+    }
+
+    &__stars {
+        display: flex;
+        gap: 8px;
+    }
+
+    &__star {
+        font-size: 24px;
+        cursor: pointer;
+        color: #ccc;
+    }
+
+    &__starActive {
+        font-size: 24px;
+        cursor: pointer;
+        color: #FFD700;
+    }
+
+    &__uploadContainer {
+        width: 50%;
+        position: relative;
+    }
+}
+
+.fileCard__description {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin: 20px 0;
+}
+
+.fileCard__input {
+    display: none;
+}

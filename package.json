@@ -8,6 +8,7 @@
     "@types/react-router-dom": "^5.3.3",
     "axios": "^1.7.9",
     "cra-template": "1.2.0",
+    "formik": "^2.4.6",
     "keen-slider": "^6.8.6",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
@@ -17,7 +18,8 @@
     "redux": "^5.0.1",
     "redux-thunk": "^3.1.0",
     "sass": "^1.83.0",
-    "typescript": "^5.7.3"
+    "typescript": "^5.7.3",
+    "yup": "^1.6.1"
   },
   "scripts": {
     "start": "react-scripts start",

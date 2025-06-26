@@ -1,11 +1,13 @@
 import { useState } from "react";
-import MaterialSelector from "../../../components/MaterialSelector/MaterialSelector";
-import { silver, whiteGold, gold } from "../../../assets";
 import { useKeenSlider } from "keen-slider/react";
+
+import MaterialSelector from "../../../components/MaterialSelector/MaterialSelector";
 import { Product } from "../../../types/Products";
+import ProductTabs from "./ProductTabs";
+
+import { silver, whiteGold, gold } from "../../../assets";
 
 import styles from "./index.module.scss";
-
 
 const materials = [
     { id: "silver", label: "Silver", img: silver },
@@ -159,6 +161,13 @@ export default function ProductDetails({ product, isFavorite, onToggleFavorite }
                     </div>
                 </div>
             </div>
+            <ProductTabs
+                details={product.description}
+                shipping={`Standard Shipping: 3–5 business days (Free over $100)
+Express Shipping: 1–2 business days (calculated at checkout)
+Returns: Free 14-day return policy on unworn items
+Packaging: Shipped in eco-friendly gift box`}
+            />
         </div>
     );
 }

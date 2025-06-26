@@ -4,7 +4,8 @@ export type Review = {
   text: string;
   rating: number;
   createdAt: string;
-  image?: string;
+  image?: string[];
+  _id?: string;
 };
 
 export type Product = {

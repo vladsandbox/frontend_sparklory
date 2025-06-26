@@ -15,7 +15,7 @@ type Props = {
 
 export default function MaterialSelector({ productId, selectedMaterial, onChange, materials }: Props) {
     return (
-        <div>
+        <div onClick={(e) => e.stopPropagation()}>
             {materials.map(({ id, label, img }) => (
                 <label key={id}
                     className={`${styles["material-option"]} ${selectedMaterial === id ? styles["selected"] : ""}`}

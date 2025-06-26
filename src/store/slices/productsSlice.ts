@@ -1,12 +1,18 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Product } from "../../types/Products";
-import { fetchProducts, getProductById } from "../thunks/productsThunk";
+import { Product, Review } from "../../types/Products";
+import { fetchProducts, getProductById, fetchProductReviews, fetchAllProductReviews } from "../thunks/productsThunk";
 
 type ProductState = {
     products: Product[];
     loading: boolean;
     error: string;
     singleProduct: Product | null;
+
+    reviews: Review[];
+    allReviews: Review[];
+    reviewsTotal: number;
+    reviewsLoading: boolean;
+    reviewsError: string;
 };
 
 const initialState: ProductState = {
@@ -14,6 +20,12 @@ const initialState: ProductState = {
     loading: false,
     error: "",
     singleProduct: null,
+
+    reviews: [],
+    allReviews: [],
+    reviewsTotal: 0,
+    reviewsLoading: false,
+    reviewsError: "",
 };
 
 const productsSlice = createSlice({
@@ -48,8 +60,27 @@ const productsSlice = createSlice({
             .addCase(getProductById.rejected, (state, action: PayloadAction<string | undefined>) => {
                 state.loading = false;
                 state.error = action.payload || "Failed to fetch product";
-            });
-    },
+            })
+            .addCase(fetchProductReviews.pending, (state) => {
+                state.reviewsLoading = true;
+                state.reviewsError = "";
+            })
+            .addCase(fetchProductReviews.fulfilled, (state, action: PayloadAction<{ reviews: Review[]; total: number }>) => {
+                state.reviewsLoading = false;
+                state.reviews = action.payload.reviews;
+                state.reviewsTotal = action.payload.total;
+            })
+            .addCase(fetchProductReviews.rejected, (state, action: PayloadAction<string | undefined>) => {
+                state.reviewsLoading = false;
+                state.reviewsError = action.payload || "Failed to fetch reviews";
+            })
+            .addCase(fetchAllProductReviews.fulfilled, (state, action: PayloadAction<Review[]>) => {
+                state.allReviews = action.payload;
+            })
+            .addCase(fetchAllProductReviews.rejected, (state) => {
+                state.allReviews = [];
+            })
+},
 });
 
 export default productsSlice.reducer;
