@@ -3,7 +3,7 @@ import { useKeenSlider } from "keen-slider/react";
 
 import MaterialSelector from "../../../components/MaterialSelector/MaterialSelector";
 import FavoriteButton from "../../../components/FavoriteButton";
-import { Product } from "../../../types/Products";
+import type { Product } from "../../../types/Products";
 import { silver, gold, whiteGold } from "../../../assets";
 import { getLocalStorage, setLocalStorage } from "../../../utils/localStorage";
 import { useProductNavigation } from "../../../utils/hooks/useProductNavigation";

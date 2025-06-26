@@ -2,7 +2,7 @@ import { useEffect, useState, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { fetchProducts, getProductById } from "../../store/thunks/productsThunk";
-import { RootState, AppDispatch } from "../../store";
+import type { RootState, AppDispatch } from "../../store";
 
 import { getLocalStorage, setLocalStorage } from "../../utils/localStorage";
 import ProductDetails from "./Details";

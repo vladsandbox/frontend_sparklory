@@ -1,4 +1,4 @@
-import { Review } from "../../types/Products";
+import type { Review } from "../../types/Products";
 import { star } from "../../assets";
 
 import "./index.scss";

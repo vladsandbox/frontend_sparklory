@@ -1,13 +1,13 @@
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { Product, Review } from "../../types/Products";
+import type { Product, Review } from "../../types/Products";
 
 type FetchReviewsResponse = {
     reviews: Review[];
     total: number;
 };
 
-const apiProductsUrl = process.env.REACT_APP_PRODUCTS_GET_URL ?? "";
+const apiProductsUrl = import.meta.env.VITE_PRODUCTS_GET_URL ?? "";
 
 export const fetchProducts = createAsyncThunk<
     Product[],
@@ -34,7 +34,7 @@ export const getProductById = createAsyncThunk<
     "products/getProductById",
     async (id, { rejectWithValue }) => {
         try {
-            const response = await axios.get(`${process.env.REACT_APP_PRODUCTS_GET_URL}/${id}`);
+            const response = await axios.get(`${apiProductsUrl}/${id}`);
             return response.data;
         } catch (error) {
             const message = error instanceof Error ? error.message : "Unknown error";

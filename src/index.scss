@@ -1,6 +1,6 @@
-@import "./styles/reset";
-@import "./styles/variables";
-@import "./styles/colors";
+@use "./styles/reset" as *;
+@use "./styles/variables" as *;
+@use "./styles/colors" as *;
 
 * {
   box-sizing: border-box;

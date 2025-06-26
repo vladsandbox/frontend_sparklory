@@ -1,4 +1,4 @@
-@import '../assets/fonts/fonts.scss';
+@use '../assets/fonts/fonts.scss' as *;
 
 // fonts
 $font-poppins: 'Poppins', sans-serif;

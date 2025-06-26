@@ -3,7 +3,7 @@ import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
 
 import MaterialSelector from '../../../components/MaterialSelector/MaterialSelector';
-import { Product } from '../../../types/Products';
+import type { Product } from '../../../types/Products';
 import { gold, whiteGold, silver } from "../../../assets";
 import { useProductNavigation } from "../../../utils/hooks/useProductNavigation";
 

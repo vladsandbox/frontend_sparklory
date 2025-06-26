@@ -1,53 +1,41 @@
 {
-  "name": "frontend_sparklory",
-  "version": "0.1.0",
+  "name": "vite-sparklory",
   "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  },
   "dependencies": {
-    "@reduxjs/toolkit": "^2.5.0",
-    "@types/react": "^19.0.8",
-    "@types/react-router-dom": "^5.3.3",
-    "axios": "^1.7.9",
-    "cra-template": "1.2.0",
+    "@reduxjs/toolkit": "^2.8.2",
+    "axios": "^1.10.0",
     "formik": "^2.4.6",
     "keen-slider": "^6.8.6",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
     "react-redux": "^9.2.0",
-    "react-router-dom": "^7.1.1",
-    "react-scripts": "5.0.1",
+    "react-router-dom": "^7.6.2",
     "redux": "^5.0.1",
     "redux-thunk": "^3.1.0",
-    "sass": "^1.83.0",
-    "typescript": "^5.7.3",
+    "sass": "^1.89.2",
     "yup": "^1.6.1"
   },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
   "devDependencies": {
-    "eslint": "^8.57.1",
-    "eslint-config-react-app": "^7.0.1",
-    "eslint-plugin-react": "^7.37.3"
+    "@eslint/js": "^9.29.0",
+    "@types/node": "^24.0.4",
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
+    "@types/react-router-dom": "^5.3.3",
+    "@vitejs/plugin-react": "^4.5.2",
+    "eslint": "^9.29.0",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.20",
+    "globals": "^16.2.0",
+    "typescript": "~5.8.3",
+    "typescript-eslint": "^8.34.1",
+    "vite": "^7.0.0"
   }
 }

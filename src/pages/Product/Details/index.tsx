@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useKeenSlider } from "keen-slider/react";
 
 import MaterialSelector from "../../../components/MaterialSelector/MaterialSelector";
-import { Product } from "../../../types/Products";
+import type { Product } from "../../../types/Products";
 import ProductTabs from "./ProductTabs";
 
 import { silver, whiteGold, gold } from "../../../assets";

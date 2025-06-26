@@ -2,7 +2,7 @@ import { useMemo, useState, useEffect } from "react";
 import { useKeenSlider } from "keen-slider/react";
 import { reviews1, reviews2, reviews3, reviews4, reviews5 } from "../../../assets";
 import ReviewCard from "../../../components/ReviewCard";
-import { Product } from "../../../types/Products";
+import type { Product } from "../../../types/Products";
 
 import "./index.scss";
 

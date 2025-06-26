@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchProducts } from "../../store/thunks/productsThunk";
-import { RootState, AppDispatch } from "../../store";
+import type { RootState, AppDispatch } from "../../store";
 
 import { HomeSlider } from "./Slider";
 import CategoryHome from "./Category";

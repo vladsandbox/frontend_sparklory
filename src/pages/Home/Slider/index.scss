@@ -1,4 +1,4 @@
-@import '../../../styles/colors';
+@use '../../../styles/colors' as *;
 
 .slider-container {
     height: 495px;

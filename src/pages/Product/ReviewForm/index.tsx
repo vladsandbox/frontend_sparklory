@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import * as Yup from "yup";
 
 import { chooseFileBackground, galleryAdd } from "../../../assets";
-import { AppDispatch } from "../../../store";
+import type { AppDispatch } from "../../../store";
 import { postProductReview } from "../../../store/thunks/productsThunk";
 
 import styles from "./index.module.scss";
@@ -23,7 +23,7 @@ export default function ReviewForm({ productId }: Props) {
 
         try {
             await fetch(
-                `${process.env.REACT_APP_PRODUCTS_GET_URL}/${productId}/reviews/${reviewId}/upload`,
+                `${import.meta.env.VITE_PRODUCTS_GET_URL}/${productId}/reviews/${reviewId}/upload`,
                 {
                     method: "POST",
                     body: formData,

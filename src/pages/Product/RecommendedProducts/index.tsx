@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
 
-import { Product } from "../../../types/Products";
+import type { Product } from "../../../types/Products";
 import FavoriteButton from "../../../components/FavoriteButton";
 import { useProductNavigation } from "../../../utils/hooks/useProductNavigation";
 import styles from "./index.module.scss";

@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
 import { useSelector } from "react-redux";
-import { RootState } from "../../store";
+import type { RootState } from "../../store";
 
 import { useProductNavigation } from "../../utils/hooks/useProductNavigation";
 import { search, catalog } from "../../assets";

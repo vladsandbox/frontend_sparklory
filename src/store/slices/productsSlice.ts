@@ -1,5 +1,6 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Product, Review } from "../../types/Products";
+import { createSlice } from "@reduxjs/toolkit";
+import type { PayloadAction } from "@reduxjs/toolkit";
+import type { Product, Review } from "../../types/Products";
 import { fetchProducts, getProductById, fetchProductReviews, fetchAllProductReviews } from "../thunks/productsThunk";
 
 type ProductState = {
