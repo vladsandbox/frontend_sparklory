@@ -1,6 +1,6 @@
 import { Outlet, NavLink } from 'react-router-dom';
 
-import { heart,bag, logo, logoFooter, instagram, youtube, facebook } from '../../assets';
+import { heart, bag, logo, logoFooter, instagram, youtube, facebook } from '../../assets';
 
 import '../../styles/index.scss';
 import styles from './index.module.scss';
@@ -26,9 +26,9 @@ const Layout = () => {
 
                         <div className={styles['actions']}>
                             <div className={styles['icons-container']}>
-                                <a href="/" className={styles['icon-link']}>
+                                <NavLink to="/wishlist" className={styles['icon-link']}>
                                     <img src={heart} alt="Heart" />
-                                </a>
+                                </NavLink>
                                 <a href="/" className={styles['icon-link']}>
                                     <img src={bag} alt="Shopping Bag" />
                                 </a>
@@ -42,7 +42,7 @@ const Layout = () => {
                 </div>
             </header>
 
-            <main style={{paddingTop: 24}}>
+            <main style={{ paddingTop: 24 }}>
                 <Outlet />
             </main>
 
@@ -88,7 +88,7 @@ const Layout = () => {
                                 <div className={styles['newsletter']}>
                                     <p className="h3" style={{ marginBottom: 32 }}>Get our updates</p>
                                     <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
-                                        <input type="text" className="primary-input input" placeholder="Write your E-mail"/>
+                                        <input type="text" className="primary-input input" placeholder="Write your E-mail" />
                                         <button className="primary-btn button-text">Subscribe</button>
                                     </div>
                                 </div>
@@ -96,7 +96,7 @@ const Layout = () => {
                         </div>
                         <div style={{ paddingTop: 40, display: "flex", justifyContent: "space-between" }}>
                             <p>Copyright © 2024 | Privacy Policy</p>
-                            <div style={{display: "flex", gap: 24}}>
+                            <div style={{ display: "flex", gap: 24 }}>
                                 <a href="/" className={styles['icon-link']}>
                                     <img src={instagram} alt="Instagram" />
                                 </a>

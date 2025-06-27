@@ -8,6 +8,8 @@ import Gifts from "./pages/Gifts";
 import Community from "./pages/Community";
 import Company from "./pages/Company";
 import Product from "./pages/Product";
+import WishList from "./pages/Wishlist";
+import Catalog from "./pages/Catalog";
 
 const router = createBrowserRouter([
   {
@@ -21,6 +23,8 @@ const router = createBrowserRouter([
       { path: "community", element: <Community /> },
       { path: "company", element: <Company /> },
       { path: "product/:id", element: <Product /> },
+      { path: "wishlist", element: <WishList /> },
+      { path: "catalog", element: <Catalog /> },
       { path: "*", element: <Navigate to="/" replace /> },
     ],
   },
