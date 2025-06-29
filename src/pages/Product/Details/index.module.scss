@@ -129,25 +129,6 @@
     border: 1px solid $color-black;
 }
 
-.sizeWrapper {
-    display: flex;
-    gap: 12px;
-    margin-top: 8px;
-}
-
-.sizeBtn {
-    padding: 4px 18px;
-    border: 1px solid $color-black;
-    border-radius: 12px;
-    background: transparent;
-    cursor: pointer;
-
-
-    &.active {
-        border: 2px solid;
-    }
-}
-
 .tabsContainer {
     margin-top: 48px;
 }

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useKeenSlider } from "keen-slider/react";
 
 import MaterialSelector from "../../../components/MaterialSelector/MaterialSelector";
+import SizeSelector from "../../../components/SizeSelector";
 import type { Product } from "../../../types/Products";
 import ProductTabs from "./ProductTabs";
 
@@ -110,20 +111,14 @@ export default function ProductDetails({ product, isFavorite, onToggleFavorite }
                                 materials={materials}
                             />
                         </div>
-                        <div>
-                            <p className="h3">Size</p>
-                            <div className={styles.sizeWrapper}>
-                                {sizes.map((size) => (
-                                    <button
-                                        key={size}
-                                        className={`text-s ${styles.sizeBtn} ${selectedSize === size ? styles.active : ""}`}
-                                        onClick={() => setSelectedSize(size)}
-                                    >
-                                        {size}
-                                    </button>
-                                ))}
-                            </div>
-                        </div>
+
+                        {product.category === "rings" && (
+                            <SizeSelector
+                                sizes={sizes}
+                                selected={selectedSize}
+                                onSelect={setSelectedSize}
+                            />
+                        )}
 
                         <div>
                             <p className="h3">Quantity</p>
