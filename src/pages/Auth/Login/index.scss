@@ -1,0 +1,44 @@
+@import "../../../styles/colors";
+
+.auth-container {
+  width: 424px;
+  display: flex;
+  flex-direction: column;
+  margin: 60px auto 120px;
+
+  .secondary-btn {
+    display: flex;
+  }
+
+  .btn-title {
+    margin-left:80px;
+  }
+
+  label {
+    font-size: 18px;
+  }
+
+  input, label {
+    margin-top: 12px;
+    width: 424px;
+  }
+}
+
+.auth-buttons {
+  display: flex;
+  flex-direction: column;
+  gap:8px;
+  margin-top: 23px;
+}
+
+.auth-description {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: #686868;
+  margin-top: 24px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}

@@ -1,11 +1,25 @@
-import { Outlet, NavLink } from 'react-router-dom';
+import {Outlet, NavLink, useNavigate} from 'react-router-dom';
 
 import { heart, bag, logo, logoFooter, instagram, youtube, facebook } from '../../assets';
 
 import '../../styles/index.scss';
 import styles from './index.module.scss';
+import {useAuth} from "../../utils/hooks/useAuth";
+import {useDispatch} from "react-redux";
+import {logout} from "../../store/slices/userSlice";
+import {clearLocalStorage} from "../../utils/localStorage";
 
 const Layout = () => {
+    const isAuth = useAuth();
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const logoutHandler = () => {
+        dispatch(logout());
+        clearLocalStorage('token');
+        navigate('/');
+    }
+
     return (
         <>
             <header className={styles['header-container']}>
@@ -34,8 +48,20 @@ const Layout = () => {
                                 </a>
                             </div>
                             <div className={styles['btn-container']}>
-                                <button className="primary-btn button-text">Log in</button>
-                                <button className="secondary-btn button-text">Sign up</button>
+                                {!isAuth ? (
+                                <>
+                                    <NavLink to="/login">
+                                        <button className="primary-btn button-text">Log in</button>
+                                    </NavLink>
+                                    <NavLink to="/registration">
+                                        <button className="secondary-btn button-text">Sign up</button>
+                                    </NavLink>
+                                </>
+                                ) : (
+                                    <NavLink to="/logout" onClick={logoutHandler}>
+                                        <button className="primary-btn button-text">Logout</button>
+                                    </NavLink>
+                                )}
                             </div>
                         </div>
                     </div>

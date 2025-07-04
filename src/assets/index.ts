@@ -28,6 +28,9 @@ import reviews5 from './images/reviews5.jpg'
 import star from './icons/star.svg'
 import subscribeImg from './images/subscribeImg.jpg'
 import catalog from './icons/catalog.svg'
+import logoFacebook from './icons/logo-facebook.svg'
+import logoGoogle from './icons/logo-google.svg'
+import eyeSlash from './icons/eye-slash.svg'
 import search from './icons/search.svg'
 import chooseFileBackground from './images/chooseFileBackground.jpg'
 import galleryAdd from './icons/gallery-add.svg'
@@ -64,6 +67,9 @@ export {
   subscribeImg,
   catalog,
   search,
+  logoFacebook,
+  logoGoogle,
+  eyeSlash,
   chooseFileBackground,
   galleryAdd
 };
