@@ -4,10 +4,10 @@ import { heart, bag, logo, logoFooter, instagram, youtube, facebook } from '../.
 
 import '../../styles/index.scss';
 import styles from './index.module.scss';
-import {useAuth} from "../../utils/hooks/useAuth";
-import {useDispatch} from "react-redux";
-import {logout} from "../../store/slices/userSlice";
-import {clearLocalStorage} from "../../utils/localStorage";
+import { useAuth } from "../../utils/hooks/useAuth";
+import { useDispatch } from "react-redux";
+import { logout } from "../../store/slices/userSlice";
+import { clearLocalStorage } from "../../utils/localStorage";
 
 const Layout = () => {
     const isAuth = useAuth();

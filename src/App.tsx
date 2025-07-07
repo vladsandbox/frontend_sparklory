@@ -12,12 +12,13 @@ import WishList from "./pages/Wishlist";
 import Catalog from "./pages/Catalog";
 import Login from "./pages/Auth/Login";
 import Registration from "./pages/Auth/Registration";
-import {getLocalStorage} from "./utils/localStorage";
-import {useDispatch} from "react-redux";
-import {AuthService} from "./services/auth.service";
-import type {IResponseUser} from "./types/Auth";
-import {login, logout} from "./store/slices/userSlice";
-import {useEffect} from "react";
+import { getLocalStorage} from "./utils/localStorage";
+import { useDispatch } from "react-redux";
+import { AuthService } from "./services/auth.service";
+import type { IResponseUser } from "./types/Auth";
+import { login, logout } from "./store/slices/userSlice";
+import { useEffect } from "react";
+import axios from "axios";
 
 const router = createBrowserRouter([
   {
@@ -57,9 +58,15 @@ export default function App() {
                 } else {
                     dispatch(logout());
                 }
-            } catch (error: any) {
-                const errorMessage = error.response?.data.message;
-                console.log("Error message:", errorMessage);
+            } catch (error) {
+                let errorMessage = "Unknown error";
+
+                if (axios.isAxiosError(error) && error.response) {
+                    errorMessage = error.response.data.message || error.message;
+                } else if (error instanceof Error) {
+                    errorMessage = error.message;
+                }
+                console.log("Error message: ", errorMessage);
             }
         }
     }

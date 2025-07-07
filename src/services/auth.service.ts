@@ -1,13 +1,13 @@
-import {
+import type {
     ILoginUserData,
     IRegistrationUserData, IResponseUser,
     IResponseUserData,
 } from "../types/Auth";
-import {instance} from "../api/axios.api";
+import { instance } from "../api/axios.api";
 
-const apiLoginUrl = process.env.REACT_APP_LOGIN_URL ?? "";
-const apiRegistrationUrl = process.env.REACT_APP_REGISTRATION_URL ?? "";
-const apiProfileUrl = process.env.REACT_APP_PROFILE_URL ?? "";
+const apiLoginUrl = import.meta.env.VITE_APP_LOGIN_URL ?? "";
+const apiRegistrationUrl = import.meta.env.VITE_APP_REGISTRATION_URL ?? "";
+const apiProfileUrl = import.meta.env.VITE_APP_PROFILE_URL ?? "";
 
 export const AuthService = {
     async registration(userData: IRegistrationUserData) : Promise<IResponseUser> {

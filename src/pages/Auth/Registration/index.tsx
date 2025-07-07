@@ -1,11 +1,13 @@
 import "./index.scss"
-import {eyeSlash, logoFacebook, logoGoogle} from "../../../assets";
-import {useState} from "react";
-import {AuthService} from "../../../services/auth.service";
-import {IResponseUser} from "../../../types/Auth";
-import {Formik, Form, Field, ErrorMessage, FormikHelpers} from "formik";
+import { eyeSlash, logoFacebook, logoGoogle} from "../../../assets";
+import { useState} from "react";
+import { AuthService} from "../../../services/auth.service";
+import type {IResponseUser} from "../../../types/Auth";
+import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import {NavLink} from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import axios from "axios";
+import {toast} from "react-toastify";
 
 export default function Registration() {
     const [message, setMessage] = useState('');
@@ -26,21 +28,25 @@ export default function Registration() {
         agreeTerms: false
     };
     const handleSubmit = async (
-        values: FormValues,
-        {setSubmitting}: FormikHelpers<FormValues>
+        values: FormValues
     ) => {
         setMessage('');
 
         try {
             const data: IResponseUser = await AuthService.registration(values);
             if (data) {
-                setMessage("Account has been created!");
+                toast.success('Account has been created!');
             }
-        } catch (error: any) {
-            const message = error instanceof Error ? error.message : "Unknown error";
-            console.log("Register Error message:", message);
-            const errorMessage = error.response?.data.message;
-            setMessage(errorMessage);
+        } catch (error) {
+            let errorMessage = "Unknown error";
+
+            if (axios.isAxiosError(error) && error.response) {
+                errorMessage = error.response.data.message || error.message;
+            } else if (error instanceof Error) {
+                errorMessage = error.message;
+            }
+
+            toast.error(errorMessage);
         }
     };
 
@@ -126,7 +132,7 @@ export default function Registration() {
                                     className="primary-btn button-text"
                                     disabled={isSubmitting}
                                 >
-                                    {isSubmitting ? 'Submitting...' : 'Log In'}
+                                    {isSubmitting ? 'Submitting...' : 'Sign Up'}
                                 </button>
                                 <button className="secondary-btn button-text">
                                     <img className="fb-img" src={logoFacebook} alt="Facebook"/>
