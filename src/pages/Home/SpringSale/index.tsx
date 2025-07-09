@@ -1,12 +1,12 @@
 import { useMemo, useState, useEffect } from "react";
 import { useKeenSlider } from "keen-slider/react";
 
-import MaterialSelector from "../../../components/MaterialSelector/MaterialSelector";
-import FavoriteButton from "../../../components/FavoriteButton";
-import type { Product } from "../../../types/Products";
-import { silver, gold, whiteGold } from "../../../assets";
-import { getLocalStorage, setLocalStorage } from "../../../utils/localStorage";
-import { useProductNavigation } from "../../../utils/hooks/useProductNavigation";
+import MaterialSelector from "@/components/MaterialSelector/MaterialSelector";
+import FavoriteButton from "@/components/FavoriteButton";
+import type { Product } from "@/types/Products.ts";
+import { silver, gold, whiteGold } from "@/assets";
+import { getLocalStorage, setLocalStorage } from "@/utils/localStorage.ts";
+import { useProductNavigation } from "@/utils/hooks/useProductNavigation.ts";
 
 import "./index.scss";
 
@@ -95,11 +95,13 @@ export default function SpringSale({ products, loading }: Props) {
                       onClick={() => goToProduct(product._id)}
                       style={{ cursor: "pointer" }}
                     >
-                      <FavoriteButton
-                        productId={product._id}
-                        initialFavorite={isFavorite}
-                        onToggle={handleToggleFavorite}
-                      />
+                      <div className="buttons-container">
+                        <FavoriteButton
+                            productId={product._id}
+                            initialFavorite={isFavorite}
+                            onToggle={handleToggleFavorite}
+                        />
+                      </div>
                       <img src={product.image?.[0]} alt={product.name} className="product-image" />
 
                       <div style={{ padding: '13px 24px 24px 24px' }}>

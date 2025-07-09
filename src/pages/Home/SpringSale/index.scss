@@ -1,4 +1,5 @@
-@use '../../../styles/colors' as *;
+@use "@/styles/colors" as *;
+@use "@/styles/mixins" as mixins;
 
 .spring-sale-wrapper {
     margin-bottom: 120px;
@@ -30,6 +31,10 @@
         height: 100%;
         display: flex;
         flex-direction: column;
+
+        .buttons-container {
+            @include mixins.absolute-top-right;
+        }
 
         .product-image {
             width: 100%;
