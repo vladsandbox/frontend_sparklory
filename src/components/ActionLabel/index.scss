@@ -1,0 +1,17 @@
+@use "@/styles/variables" as var;
+@use "@/styles/colors" as colors;
+
+.actionLabel {
+  display: flex;
+  padding: 4px 8px;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  border-radius: 12px;
+  background: rgba(132, 116, 106, 0.40);
+  box-shadow: 0 0 60px 0 rgba(255, 255, 255, 0.15) inset;
+  backdrop-filter: blur(50px);  font-size: var.$font-subtitle-size;
+  font-weight: var.$font-subtitle-weight;
+  line-height: var.$font-subtitle-line-height;
+  letter-spacing: var.$font-subtitle-letter-spacing;
+}
