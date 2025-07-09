@@ -1,6 +1,6 @@
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import type { Product, Review } from "../../types/Products";
+import type { Product, Review } from "@/types/Products";
 
 type FetchReviewsResponse = {
     reviews: Review[];
@@ -18,6 +18,26 @@ export const fetchProducts = createAsyncThunk<
     async (_, { rejectWithValue }) => {
         try {
             const response = await axios.get(apiProductsUrl);
+            return response.data;
+        } catch (error) {
+            const message = error instanceof Error ? error.message : "Unknown error";
+            return rejectWithValue(message);
+        }
+    }
+);
+
+/**
+ * Takes a category string, fetches matching products (Product[]), or rejects with an error message (string)
+ */
+ export const fetchProductsByCategory = createAsyncThunk<
+    Product[],
+    string,
+    { rejectValue: string }
+>(
+    "products/fetchProductsByCategory",
+    async (category, { rejectWithValue }) => {
+        try {
+            const response = await axios.get(`${apiProductsUrl}/category/${category}`);
             return response.data;
         } catch (error) {
             const message = error instanceof Error ? error.message : "Unknown error";

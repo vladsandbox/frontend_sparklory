@@ -1,6 +1,6 @@
 import {Outlet, NavLink } from 'react-router-dom';
 
-import {heart, bag, logo, logoFooter, instagram, youtube, facebook, profile} from '../../assets';
+import {heart, bag, logo, logoFooter, instagram, youtube, facebook, profile} from '@/assets';
 
 import '../../styles/index.scss';
 import styles from './index.module.scss';
