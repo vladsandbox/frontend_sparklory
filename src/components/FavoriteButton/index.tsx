@@ -38,11 +38,11 @@ export default function FavoriteButton({ productId, initialFavorite = false, onT
       >
         <path
           d="M16.827 27.7466C16.3737 27.9066 15.627 27.9066 15.1737 27.7466C11.307 26.4266 2.66699 20.92 2.66699 11.5866C2.66699 7.46663 5.98699 4.1333 10.0803 4.1333C12.507 4.1333 14.6537 5.30663 16.0003 7.11997C17.347 5.30663 19.507 4.1333 21.9203 4.1333C26.0137 4.1333 29.3337 7.46663 29.3337 11.5866C29.3337 20.92 20.6937 26.4266 16.827 27.7466Z"
-          stroke={isFavorite ? "#none" : "black"}
+          stroke={isFavorite ? "#513E3E" : "black"}
           strokeWidth="1.5"
           strokeLinecap="round"
           strokeLinejoin="round"
-          fill={isFavorite ? "#FF0000" : "none"}
+          fill={isFavorite ? "#5E4B4B" : "none"}
         />
       </svg>
     </button>

@@ -1,0 +1,12 @@
+@use "@/styles/colors" as colors;
+@use "@/styles/variables" as var;
+
+.catalog-title {
+  color: colors.$color-black;
+  font-family: var.$font-lora;
+  font-size: 42px;
+  font-style: normal;
+  font-weight: var.$font-xxl-weight;
+  line-height: var.$font-h2-line-height;
+  margin: 20px 0;
+}

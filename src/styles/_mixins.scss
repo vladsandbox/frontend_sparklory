@@ -1,0 +1,13 @@
+@mixin absolute-top-right($top: 24px, $right: 24px) {
+  position: absolute;
+  top: $top;
+  right: $right;
+  z-index: 2;
+}
+
+@mixin absolute-top-left($top: 24px, $left: 24px) {
+  position: absolute;
+  top: $top;
+  left: $left;
+  z-index: 2;
+}
