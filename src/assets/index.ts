@@ -34,6 +34,7 @@ import eyeSlash from './icons/eye-slash.svg'
 import search from './icons/search.svg'
 import chooseFileBackground from './images/chooseFileBackground.jpg'
 import galleryAdd from './icons/gallery-add.svg'
+import profile from './images/profile.png'
 
 export {
   heart,
@@ -71,5 +72,6 @@ export {
   logoGoogle,
   eyeSlash,
   chooseFileBackground,
-  galleryAdd
+  galleryAdd,
+  profile
 };

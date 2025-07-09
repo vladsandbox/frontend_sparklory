@@ -1,16 +1,16 @@
-import "./index.scss"
-import { eyeSlash, logoFacebook, logoGoogle} from "../../../assets";
-import { useState} from "react";
-import { AuthService} from "../../../services/auth.service";
-import type {IResponseUser} from "../../../types/Auth";
-import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+
+import { Formik, Form, Field, ErrorMessage } from "formik";
 import { NavLink } from "react-router-dom";
-import axios from "axios";
-import {toast} from "react-toastify";
+import { useDispatch } from "react-redux";
+import { registration } from "../../../store/thunks/userThunk.ts";
+import { toast } from "react-toastify";
+import type { AppDispatch } from "../../../store";
+
+import { eyeSlash, logoFacebook, logoGoogle} from "../../../assets";
+import "./index.scss"
 
 export default function Registration() {
-    const [message, setMessage] = useState('');
 
     interface FormValues {
         name: string
@@ -27,26 +27,17 @@ export default function Registration() {
         confirmPassword: '',
         agreeTerms: false
     };
+
+    const dispatch: AppDispatch = useDispatch();
     const handleSubmit = async (
         values: FormValues
     ) => {
-        setMessage('');
+        const result = await dispatch(registration(values));
 
-        try {
-            const data: IResponseUser = await AuthService.registration(values);
-            if (data) {
-                toast.success('Account has been created!');
-            }
-        } catch (error) {
-            let errorMessage = "Unknown error";
-
-            if (axios.isAxiosError(error) && error.response) {
-                errorMessage = error.response.data.message || error.message;
-            } else if (error instanceof Error) {
-                errorMessage = error.message;
-            }
-
-            toast.error(errorMessage);
+        if (registration.fulfilled.match(result)) {
+            toast.success("Registration successful!");
+        } else {
+            toast.error(result.payload || "Registration error");
         }
     };
 
@@ -72,7 +63,6 @@ export default function Registration() {
                 <h1 className="h1" style={{marginBottom: 60, textAlign: "center"}}>
                     Sign Up
                 </h1>
-                <p className='message-wrapper'>{message}</p>
                 <Formik
                     initialValues={initialValues}
                     onSubmit={handleSubmit}

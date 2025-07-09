@@ -1,18 +1,17 @@
-import "./index.scss"
-import { eyeSlash, logoFacebook, logoGoogle } from "../../../assets";
-import { NavLink, useNavigate } from "react-router-dom";
-import { useState } from "react";
-import { AuthService } from "../../../services/auth.service";
-import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as Yup from "yup";
+
+import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { login } from "../../../store/slices/userSlice";
-import { setLocalStorage } from "../../../utils/localStorage";
-import axios from "axios";
+import { ErrorMessage, Field, Form, Formik } from "formik";
 import { toast } from "react-toastify";
+import { loginUser } from "../../../store/thunks/userThunk.ts";
+import { setLocalStorage } from "../../../utils/localStorage.ts";
+import type {AppDispatch} from "../../../store";
+
+import { eyeSlash, logoFacebook, logoGoogle } from "../../../assets";
+import "./index.scss"
 
 export default function Login() {
-    const [message, setMessage] = useState('');
     const navigate = useNavigate();
 
     interface FormValues {
@@ -25,30 +24,18 @@ export default function Login() {
         password: '',
     };
 
-    const dispatch = useDispatch();
+    const dispatch: AppDispatch = useDispatch();
     const handleSubmit = async (
         values: FormValues
     ) => {
-        setMessage('');
+        const result = await dispatch(loginUser(values));
 
-        try {
-            const data = await AuthService.login(values);
-            if (data) {
-                dispatch(login(data.user));
-                setLocalStorage('token', data.accessToken);
-                toast.success('Logged in successfully!');
-                navigate('/');
-            }
-        } catch (error) {
-            let errorMessage = "Unknown error";
-
-            if (axios.isAxiosError(error) && error.response) {
-                errorMessage = error.response.data.message || error.message;
-            } else if (error instanceof Error) {
-                errorMessage = error.message;
-            }
-
-            toast.error(errorMessage);
+        if (loginUser.fulfilled.match(result)) {
+            setLocalStorage("token", result.payload.accessToken);
+            toast.success("Logged in successfully!");
+            navigate("/");
+        } else {
+            toast.error(result.payload || "Login failed");
         }
     };
 
@@ -67,7 +54,6 @@ export default function Login() {
                 <h1 className="h1" style={{marginBottom: 60, textAlign: "center"}}>
                     Log In
                 </h1>
-                <p className='message-wrapper'>{message}</p>
                 <Formik
                     initialValues={initialValues}
                     onSubmit={handleSubmit}

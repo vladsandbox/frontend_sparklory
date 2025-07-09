@@ -1,6 +1,6 @@
 import {Outlet, NavLink, useNavigate} from 'react-router-dom';
 
-import { heart, bag, logo, logoFooter, instagram, youtube, facebook } from '../../assets';
+import {heart, bag, logo, logoFooter, instagram, youtube, facebook, profile} from '../../assets';
 
 import '../../styles/index.scss';
 import styles from './index.module.scss';
@@ -58,8 +58,8 @@ const Layout = () => {
                                     </NavLink>
                                 </>
                                 ) : (
-                                    <NavLink to="/logout" onClick={logoutHandler}>
-                                        <button className="primary-btn button-text">Logout</button>
+                                    <NavLink to="/profile" onClick={logoutHandler} className={styles['icon-link']}>
+                                        <img src={profile} alt="profile" />
                                     </NavLink>
                                 )}
                             </div>
