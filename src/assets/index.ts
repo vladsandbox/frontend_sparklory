@@ -1,7 +1,7 @@
 import heart from './icons/heart.svg';
 import bag from './icons/shopping-bag.svg';
-import logo from './images/logo2.png';
-import logoFooter from './images/logo-footer.png';
+import logo from './icons/logo.svg';
+import logoFooter from './icons/logo-footer.svg';
 import instagram from './icons/instagram.svg';
 import youtube from './icons/youtube.svg';
 import facebook from './icons/facebook-logo.svg';
@@ -17,9 +17,9 @@ import mens from './images/mens.png';
 import necklaces from './images/necklaces.png';
 import rings from './images/rings.png';
 import watches from './images/watches.png';
-import whiteGold from './images/white-gold.png';
-import gold from './images/gold.png';
-import silver from './images/silver.png'
+import whiteGold from './icons/white-gold.svg';
+import gold from './icons/gold.svg';
+import silver from './icons/silver.svg'
 import reviews1 from './images/reviews1.jpg'
 import reviews2 from './images/reviews2.jpg'
 import reviews3 from './images/reviews3.jpg'
@@ -34,6 +34,7 @@ import eyeSlash from './icons/eye-slash.svg'
 import search from './icons/search.svg'
 import chooseFileBackground from './images/chooseFileBackground.jpg'
 import galleryAdd from './icons/gallery-add.svg'
+import noImg from './icons/no-image.svg'
 import profile from './images/profile.png'
 
 export {
@@ -73,5 +74,6 @@ export {
   eyeSlash,
   chooseFileBackground,
   galleryAdd,
+  noImg,
   profile
 };
