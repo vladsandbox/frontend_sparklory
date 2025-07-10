@@ -20,4 +20,8 @@ export type Product = {
   inStock: boolean;
   action: string[] | null;
   reviews: Review[];
+  collection: string;
+  discount: number;
+  discountEnd: string;
+  discountStart: string;
 };

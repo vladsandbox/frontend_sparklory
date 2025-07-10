@@ -1,7 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import type { Product, Review } from "../../types/Products";
-import { fetchProducts, getProductById, fetchProductReviews, fetchAllProductReviews } from "../thunks/productsThunk";
+import type { Product, Review } from "@/types/Products";
+import {
+    fetchProducts,
+    getProductById,
+    fetchProductReviews,
+    fetchAllProductReviews,
+    fetchProductsByCategory
+} from "../thunks/productsThunk";
 
 type ProductState = {
     products: Product[];
@@ -81,7 +87,20 @@ const productsSlice = createSlice({
             .addCase(fetchAllProductReviews.rejected, (state) => {
                 state.allReviews = [];
             })
-},
+            // Products by category
+            .addCase(fetchProductsByCategory.pending, state => {
+                state.loading = true;
+                state.error = "";
+            })
+            .addCase(fetchProductsByCategory.fulfilled, (state, action: PayloadAction<Product[]>) => {
+                state.loading = false;
+                state.products = action.payload;
+            })
+            .addCase(fetchProductsByCategory.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload ?? "Failed to load by category";
+            });
+    },
 });
 
 export default productsSlice.reducer;

@@ -1,10 +1,10 @@
 import {Outlet, NavLink } from 'react-router-dom';
+import { useAuth } from "../../utils/hooks/useAuth";
 
-import {heart, bag, logo, logoFooter, instagram, youtube, facebook, profile} from '../../assets';
+import { heart, bag, logo, logoFooter, instagram, youtube, facebook, profile } from '@/assets';
 
 import '../../styles/index.scss';
 import styles from './index.module.scss';
-import { useAuth } from "../../utils/hooks/useAuth";
 
 const Layout = () => {
     const isAuth = useAuth();

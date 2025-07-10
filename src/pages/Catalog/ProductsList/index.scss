@@ -1,0 +1,6 @@
+.catalog-wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(312px, 1fr));
+  gap: 24px;
+  margin-bottom: 60px;
+}
