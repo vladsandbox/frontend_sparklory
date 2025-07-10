@@ -1,24 +1,13 @@
-import {Outlet, NavLink, useNavigate} from 'react-router-dom';
+import {Outlet, NavLink } from 'react-router-dom';
 
 import {heart, bag, logo, logoFooter, instagram, youtube, facebook, profile} from '../../assets';
 
 import '../../styles/index.scss';
 import styles from './index.module.scss';
 import { useAuth } from "../../utils/hooks/useAuth";
-import { useDispatch } from "react-redux";
-import { logout } from "../../store/slices/userSlice";
-import { clearLocalStorage } from "../../utils/localStorage";
 
 const Layout = () => {
     const isAuth = useAuth();
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-
-    const logoutHandler = () => {
-        dispatch(logout());
-        clearLocalStorage('token');
-        navigate('/');
-    }
 
     return (
         <>
@@ -58,7 +47,7 @@ const Layout = () => {
                                     </NavLink>
                                 </>
                                 ) : (
-                                    <NavLink to="/profile" onClick={logoutHandler} className={styles['icon-link']}>
+                                    <NavLink to="/profile" className={styles['icon-link']}>
                                         <img src={profile} alt="profile" />
                                     </NavLink>
                                 )}
