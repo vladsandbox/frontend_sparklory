@@ -34,7 +34,6 @@ import eyeSlash from './icons/eye-slash.svg'
 import search from './icons/search.svg'
 import chooseFileBackground from './images/chooseFileBackground.jpg'
 import galleryAdd from './icons/gallery-add.svg'
-import noImg from './icons/no-image.svg'
 import profile from './images/profile.png'
 import noImg from './icons/no-image.svg'
 
@@ -75,7 +74,6 @@ export {
   eyeSlash,
   chooseFileBackground,
   galleryAdd,
-  noImg,
-  profile
+  profile,
   noImg
 };
