@@ -1,4 +1,11 @@
 import { useState, useEffect } from "react";
+
+import { useDispatch, useSelector } from "react-redux";
+import { useAuth } from "@/utils/hooks/useAuth";
+import type { RootState, AppDispatch } from "@/store";
+import { toggleWishlist } from "@/store/thunks/wishlistThunk";
+import { getLocalStorage, setLocalStorage } from "@/utils/localStorage";
+
 import styles from "./index.module.scss";
 
 type Props = {
@@ -8,17 +15,41 @@ type Props = {
 };
 
 export default function FavoriteButton({ productId, initialFavorite = false, onToggle }: Props) {
+  const isAuth = useAuth();
+  const dispatch: AppDispatch = useDispatch();
+
+  const wishlist = useSelector((state: RootState) => state.wishlist.ids ?? []);
   const [isFavorite, setIsFavorite] = useState(initialFavorite);
 
   useEffect(() => {
-    setIsFavorite(initialFavorite);
-  }, [initialFavorite]);
+    const source = isAuth
+      ? wishlist ?? []
+      : getLocalStorage<string[]>("wishlist", []);
+
+    if (Array.isArray(source)) {
+      const shouldBeFavorite = source.includes(productId);
+      if (shouldBeFavorite !== isFavorite) {
+        setIsFavorite(shouldBeFavorite);
+      }
+    }
+  }, [wishlist, productId, isAuth]);
+
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
     const newValue = !isFavorite;
     setIsFavorite(newValue);
     onToggle?.(productId, newValue);
+
+    if (isAuth) {
+      dispatch(toggleWishlist({ productId, isFavorite: newValue }));
+    } else {
+      const stored = getLocalStorage<string[]>("wishlist", []);
+      const updated = newValue
+        ? [...stored, productId]
+        : stored.filter((id) => id !== productId);
+      setLocalStorage("wishlist", updated);
+    }
   };
 
   return (
