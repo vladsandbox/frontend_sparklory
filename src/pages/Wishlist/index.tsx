@@ -26,7 +26,7 @@ export default function WishlistPage() {
     let productIds: string[] = [];
 
     if (isAuth) {
-      productIds = selectWishlistIds;
+      productIds = Array.isArray(selectWishlistIds) ? selectWishlistIds : [];
     } else {
       productIds = getLocalStorage<string[]>("wishlist", []);
     }

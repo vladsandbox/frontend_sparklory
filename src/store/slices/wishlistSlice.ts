@@ -1,5 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { toggleWishlist, fetchWishlist } from "../thunks/wishlistThunk";
+
+import { toggleWishlist, fetchWishlist, deleteWishlistProduct } from "../thunks/wishlistThunk";
+import { setLocalStorage } from "@/utils/localStorage";
 
 interface WishlistState {
     ids: string[];
@@ -21,11 +23,16 @@ const wishlistSlice = createSlice({
         builder
             .addCase(toggleWishlist.fulfilled, (state, action) => {
                 const { productId, isFavorite } = action.payload;
+
                 if (isFavorite) {
-                    if (!state.ids.includes(productId)) state.ids.push(productId);
+                    if (!state.ids.includes(productId)) {
+                        state.ids.push(productId);
+                    }
                 } else {
                     state.ids = state.ids.filter((id) => id !== productId);
                 }
+
+                setLocalStorage("wishlist", state.ids);
             })
             .addCase(fetchWishlist.pending, (state) => {
                 state.loading = true;
@@ -38,6 +45,11 @@ const wishlistSlice = createSlice({
             .addCase(fetchWishlist.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload || "Failed to load wishlist";
+            })
+            .addCase(deleteWishlistProduct.fulfilled, (state, action) => {
+                const productId = action.payload;
+                state.ids = state.ids.filter(id => id !== productId);
+                setLocalStorage("wishlist", state.ids);
             })
     },
 });
