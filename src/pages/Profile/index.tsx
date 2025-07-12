@@ -1,19 +1,27 @@
 import { NavLink, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { clearLocalStorage } from "@/utils/localStorage.ts";
 import { logout } from "@/store/slices/userSlice.ts";
 
 import "./index.scss"
-import type { RootState } from "@/store";
+import {useAuth} from "@/utils/hooks/useAuth.ts";
 
 export default function Profile() {
-    const user = useSelector((state: RootState) => state.user)
-    console.log(user)
+
+    const isAuth = useAuth();
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
+    useEffect(() => {
+        if (!isAuth) {
+            navigate('/');
+        }
+    }, [isAuth, navigate]);
+
     const logoutHandler = () => {
-        dispatch(logout());
         clearLocalStorage('token');
+        dispatch(logout());
         navigate('/');
     }
 
