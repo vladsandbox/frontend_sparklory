@@ -33,7 +33,7 @@ const userSlice = createSlice({
             })
             .addCase(checkAuth.fulfilled, (state, action: PayloadAction<IResponseUser | null>) => {
                 state.user = action.payload;
-                state.isAuth = true;
+                state.isAuth = !!action.payload;
                 state.loading = false;
                 state.error = '';
             })

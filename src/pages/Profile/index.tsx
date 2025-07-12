@@ -1,5 +1,6 @@
 
 import { NavLink, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 import { clearLocalStorage } from "@/utils/localStorage.ts";
 import { useAuth } from "@/utils/hooks/useAuth.ts";
 import { useDispatch } from "react-redux";
@@ -12,9 +13,15 @@ export default function Profile() {
     const isAuth = useAuth();
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    useEffect(() => {
+        if (!isAuth) {
+            navigate('/');
+        }
+    }, [isAuth, navigate]);
+
     const logoutHandler = () => {
-        dispatch(logout());
         clearLocalStorage('token');
+        dispatch(logout());
         navigate('/');
     }
 
@@ -23,7 +30,7 @@ export default function Profile() {
             <div className="wrapper">
                 <h1>Profile Page</h1>
                 <p className="profile_text">Profile description</p>
-                <NavLink className="primary-btn button-text" onClick={logoutHandler} >
+                <NavLink className="primary-btn button-text" onClick={logoutHandler} to={"/"} >
                     Logout
                 </NavLink>
             </div>
