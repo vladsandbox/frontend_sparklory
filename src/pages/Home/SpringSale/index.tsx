@@ -1,12 +1,12 @@
-import { useMemo, useState, useEffect } from "react";
+import { useMemo, useState } from "react";
 import { useKeenSlider } from "keen-slider/react";
 
 import MaterialSelector from "@/components/MaterialSelector/MaterialSelector";
 import FavoriteButton from "@/components/FavoriteButton";
 import type { Product } from "@/types/Products.ts";
 import { silver, gold, whiteGold } from "@/assets";
-import { getLocalStorage, setLocalStorage } from "@/utils/localStorage.ts";
 import { useProductNavigation } from "@/utils/hooks/useProductNavigation.ts";
+import { useFavorites } from "@/utils/hooks/useFavorite";
 
 import "./index.scss";
 
@@ -28,23 +28,7 @@ export default function SpringSale({ products, loading }: Props) {
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedMaterials, setSelectedMaterials] = useState<Record<string, string>>({});
-  const [favoriteIds, setFavoriteIds] = useState<Set<string>>(new Set());
-
-  useEffect(() => {
-    const stored = getLocalStorage<string[]>("favoriteProducts", []);
-    setFavoriteIds(new Set(stored));
-  }, []);
-
-  const handleToggleFavorite = (productId: string, isFavorite: boolean) => {
-    setFavoriteIds((prev) => {
-      const newSet = new Set(prev);
-      if (isFavorite) newSet.add(productId);
-      else newSet.delete(productId);
-
-      setLocalStorage("favoriteProducts", Array.from(newSet));
-      return newSet;
-    });
-  };
+  const { favoriteIds, toggleFavorite } = useFavorites();
 
   const [sliderRef, slider] = useKeenSlider<HTMLDivElement>({
     mode: "snap",
@@ -97,14 +81,14 @@ export default function SpringSale({ products, loading }: Props) {
                     >
                       <div className="buttons-container">
                         <FavoriteButton
-                            productId={product._id}
-                            initialFavorite={isFavorite}
-                            onToggle={handleToggleFavorite}
+                          productId={product._id}
+                          initialFavorite={isFavorite}
+                          onToggle={(productId) => toggleFavorite(productId, !isFavorite)}
                         />
                       </div>
                       <img src={product.image?.[0]} alt={product.name} className="product-image" />
 
-                      <div style={{ padding: '13px 24px 24px 24px' }}>
+                      <div style={{ padding: "13px 24px 24px 24px" }}>
                         <MaterialSelector
                           productId={product._id}
                           selectedMaterial={selected}

@@ -1,18 +1,18 @@
-
 import { NavLink, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { clearLocalStorage } from "@/utils/localStorage.ts";
-import { useAuth } from "@/utils/hooks/useAuth.ts";
-import { useDispatch } from "react-redux";
 import { logout } from "@/store/slices/userSlice.ts";
 
 import "./index.scss"
+import type { RootState } from "@/store";
 
 export default function Profile() {
 
     const isAuth = useAuth();
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
     useEffect(() => {
         if (!isAuth) {
             navigate('/');
@@ -30,7 +30,7 @@ export default function Profile() {
             <div className="wrapper">
                 <h1>Profile Page</h1>
                 <p className="profile_text">Profile description</p>
-                <NavLink className="primary-btn button-text" onClick={logoutHandler} to={"/"} >
+                <NavLink to="/" className="primary-btn button-text" onClick={logoutHandler} >
                     Logout
                 </NavLink>
             </div>

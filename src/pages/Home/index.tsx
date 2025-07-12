@@ -20,7 +20,6 @@ export default function Home() {
     dispatch(fetchProducts());
   }, [dispatch]);
 
-  console.log(products)
   return (
     <div>
       <CatalogSearchBar />

@@ -12,6 +12,7 @@ export interface IResponseUser {
     isLoggedIn: boolean
     isVerifyEmail: boolean
     verifyDeviceCode?: string
+    wishlist: string[]
 }
 
 export interface IResponseUserData {
