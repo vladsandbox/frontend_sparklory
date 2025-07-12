@@ -1,17 +1,24 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { toggleWishlist, fetchWishlist, deleteWishlistProduct } from "../thunks/wishlistThunk";
+import {
+    toggleWishlist,
+    fetchWishlist,
+    deleteWishlistProduct,
+    mergeLocalWishlist,
+} from "../thunks/wishlistThunk";
 import { setLocalStorage } from "@/utils/localStorage";
 
 interface WishlistState {
     ids: string[];
     loading: boolean;
+    merging: boolean;
     error: string;
 }
 
 const initialState: WishlistState = {
     ids: [],
     loading: false,
+    merging: false,
     error: "",
 };
 
@@ -40,7 +47,9 @@ const wishlistSlice = createSlice({
             })
             .addCase(fetchWishlist.fulfilled, (state, action) => {
                 state.loading = false;
-                state.ids = action.payload;
+                const uniqueIds = Array.from(new Set(action.payload));
+                state.ids = uniqueIds;
+                setLocalStorage("wishlist", uniqueIds);
             })
             .addCase(fetchWishlist.rejected, (state, action) => {
                 state.loading = false;
@@ -48,9 +57,18 @@ const wishlistSlice = createSlice({
             })
             .addCase(deleteWishlistProduct.fulfilled, (state, action) => {
                 const productId = action.payload;
-                state.ids = state.ids.filter(id => id !== productId);
+                state.ids = state.ids.filter((id) => id !== productId);
                 setLocalStorage("wishlist", state.ids);
             })
+            .addCase(mergeLocalWishlist.pending, (state) => {
+                state.merging = true;
+            })
+            .addCase(mergeLocalWishlist.fulfilled, (state) => {
+                state.merging = false;
+            })
+            .addCase(mergeLocalWishlist.rejected, (state) => {
+                state.merging = false;
+            });
     },
 });
 

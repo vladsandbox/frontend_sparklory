@@ -7,7 +7,6 @@ import { toast } from "react-toastify";
 import { loginUser } from "../../../store/thunks/userThunk.ts";
 import { setLocalStorage } from "../../../utils/localStorage.ts";
 import type {AppDispatch} from "../../../store";
-import { mergeLocalWishlist } from "@/store/thunks/wishlistThunk.ts";
 
 import { eyeSlash, logoFacebook, logoGoogle } from "../../../assets";
 import "./index.scss"
@@ -34,7 +33,6 @@ export default function Login() {
         if (loginUser.fulfilled.match(result)) {
             setLocalStorage("token", result.payload.accessToken);
             toast.success("Logged in successfully!");
-            await (dispatch as AppDispatch)(mergeLocalWishlist()).unwrap();
             navigate("/");
         } else {
             toast.error(result.payload || "Login failed");

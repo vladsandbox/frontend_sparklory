@@ -3,11 +3,13 @@ import * as Yup from "yup";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { NavLink } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { registration } from "../../../store/thunks/userThunk.ts";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { registration, loginUser } from "../../../store/thunks/userThunk.ts";
+import { setLocalStorage } from "@/utils/localStorage.ts";
 import type { AppDispatch } from "../../../store";
 
-import { eyeSlash, logoFacebook, logoGoogle} from "../../../assets";
+import { eyeSlash, logoFacebook, logoGoogle } from "../../../assets";
 import "./index.scss"
 
 export default function Registration() {
@@ -27,15 +29,24 @@ export default function Registration() {
         confirmPassword: '',
         agreeTerms: false
     };
-
+    const navigate = useNavigate();
     const dispatch: AppDispatch = useDispatch();
-    const handleSubmit = async (
-        values: FormValues
-    ) => {
-        const result = await dispatch(registration(values));
+    const handleSubmit = async (values: FormValues) => {
+        const { name, email, password } = values;
+
+        const result = await dispatch(registration({ name, email, password }));
 
         if (registration.fulfilled.match(result)) {
-            toast.success("Registration successful!");
+            const loginResult = await dispatch(loginUser({ email, password }));
+
+            if (loginUser.fulfilled.match(loginResult)) {
+                setLocalStorage("token", loginResult.payload.accessToken);
+                toast.success("Registration & login successful!");
+                navigate("/");
+            } else {
+                toast.error(loginResult.payload || "Login after registration failed");
+                navigate("/login");
+            }
         } else {
             toast.error(result.payload || "Registration error");
         }
@@ -60,7 +71,7 @@ export default function Registration() {
     return (
         <div className="wrapper">
             <div className="auth-container">
-                <h1 className="h1" style={{marginBottom: 60, textAlign: "center"}}>
+                <h1 className="h1" style={{ marginBottom: 60, textAlign: "center" }}>
                     Sign Up
                 </h1>
                 <Formik
@@ -68,7 +79,7 @@ export default function Registration() {
                     onSubmit={handleSubmit}
                     validationSchema={validationSchema}
                 >
-                    {({values, isSubmitting}) => (
+                    {({ values, isSubmitting }) => (
                         <Form>
                             <div className="form-row auth-menu">
                                 <NavLink className="auth-link" to="/login">Login</NavLink>
@@ -77,28 +88,28 @@ export default function Registration() {
                             <div className="form-row">
                                 <label htmlFor="name">Full Name:</label>
                                 <Field type='text' name='name' className="primary-input input"
-                                       placeholder='Enter your Full Name'/>
-                                <ErrorMessage name='name' className='error' component="span"/>
+                                    placeholder='Enter your Full Name' />
+                                <ErrorMessage name='name' className='error' component="span" />
                             </div>
                             <div className="form-row">
                                 <label htmlFor="email">Email:</label>
                                 <Field type='text' name='email' className="primary-input input"
-                                       placeholder='Enter your E-mail'/>
-                                <ErrorMessage name='email' className='error' component='span'/>
+                                    placeholder='Enter your E-mail' />
+                                <ErrorMessage name='email' className='error' component='span' />
                             </div>
                             <div className="form-row password-row">
                                 <label htmlFor="password">Password:</label>
                                 <Field type='password' name='password' className="primary-input input"
-                                       placeholder='Enter your Password'/>
+                                    placeholder='Enter your Password' />
                                 <img className='eye-slash' src={eyeSlash} alt='eyeSlash' />
-                                <ErrorMessage name='password' className='error' component='span'/>
+                                <ErrorMessage name='password' className='error' component='span' />
                             </div>
                             <div className="form-row password-row">
                                 <label htmlFor="confirmPassword">Confirm password:</label>
                                 <Field type='password' name='confirmPassword' className="primary-input input"
-                                       placeholder='Confirm your Password'/>
+                                    placeholder='Confirm your Password' />
                                 <img className='eye-slash' src={eyeSlash} alt='eyeSlash' />
-                                <ErrorMessage name='confirmPassword' className='error' component='span'/>
+                                <ErrorMessage name='confirmPassword' className='error' component='span' />
                             </div>
                             <div className="agree-terms">
                                 <Field
@@ -108,7 +119,7 @@ export default function Registration() {
                                     checked={values.agreeTerms}
                                 />
                                 <span className="agree-terms-text">Agree to Terms</span>
-                                <ErrorMessage name='agreeTerms' className='error' component='span'/>
+                                <ErrorMessage name='agreeTerms' className='error' component='span' />
                             </div>
                             <div className="terms-description">
                                 <p>
@@ -125,11 +136,11 @@ export default function Registration() {
                                     {isSubmitting ? 'Submitting...' : 'Sign Up'}
                                 </button>
                                 <button className="secondary-btn button-text">
-                                    <img className="fb-img" src={logoFacebook} alt="Facebook"/>
+                                    <img className="fb-img" src={logoFacebook} alt="Facebook" />
                                     <span className="btn-title">Log in with Facebook</span>
                                 </button>
                                 <button className="secondary-btn button-text">
-                                    <img className="g-img" src={logoGoogle} alt="Google"/>
+                                    <img className="g-img" src={logoGoogle} alt="Google" />
                                     <span className="btn-title">Log in with Google</span>
                                 </button>
                             </div>

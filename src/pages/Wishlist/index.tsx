@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
@@ -10,7 +10,7 @@ import CatalogSearchBar from "@/components/CatalogSearchBar";
 import WishlistList from "./WishlistList/WishlistList";
 import type { Product } from "@/types/Products";
 import type { RootState, AppDispatch } from "../../store";
-import { deleteWishlistProduct } from "@/store/thunks/wishlistThunk";
+import { deleteWishlistProduct, mergeLocalWishlist } from "@/store/thunks/wishlistThunk";
 
 export default function WishlistPage() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -22,27 +22,53 @@ export default function WishlistPage() {
 
   const selectWishlistIds = useSelector((state: RootState) => state.wishlist.ids);
 
+  const hasMerged = useRef(false);
+  const [readyToLoad, setReadyToLoad] = useState(false);
+
   useEffect(() => {
-    let productIds: string[] = [];
-
-    if (isAuth) {
-      productIds = Array.isArray(selectWishlistIds) ? selectWishlistIds : [];
-    } else {
-      productIds = getLocalStorage<string[]>("wishlist", []);
+    if (isAuth && !hasMerged.current) {
+      hasMerged.current = true;
+      dispatch(mergeLocalWishlist())
+        .unwrap()
+        .then(() => setReadyToLoad(true))
+        .catch(() => setReadyToLoad(true));
+    } else if (!isAuth) {
+      setReadyToLoad(true);
     }
+  }, [isAuth, dispatch]);
 
-    if (productIds.length === 0) {
-      setProducts([]);
-      setLoading(false);
-      return;
-    }
+  useEffect(() => {
+    if (!readyToLoad) return;
 
-    setLoading(true);
-    Promise.all(productIds.map(fetchProductById))
-      .then(setProducts)
-      .catch(console.error)
-      .finally(() => setLoading(false));
-  }, [isAuth, selectWishlistIds]);
+    const loadWishlistProducts = async () => {
+      let productIds: string[] = [];
+
+      if (isAuth) {
+        productIds = Array.isArray(selectWishlistIds) ? selectWishlistIds : [];
+      } else {
+        productIds = getLocalStorage<string[]>("wishlist", []);
+      }
+
+      if (productIds.length === 0) {
+        setProducts([]);
+        setLoading(false);
+        return;
+      }
+
+      setLoading(true);
+      try {
+        const productsLoaded = await Promise.all(productIds.map(fetchProductById));
+        setProducts(productsLoaded);
+      } catch (err) {
+        console.error(err);
+        toast.error("Failed to load wishlist products");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadWishlistProducts();
+  }, [isAuth, selectWishlistIds, readyToLoad]);
 
   function handleRemove(id: string) {
     setProducts((prev) => prev.filter((p) => p._id !== id));
