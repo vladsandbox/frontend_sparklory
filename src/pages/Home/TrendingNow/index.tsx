@@ -26,7 +26,7 @@ export default function TrendingNow({ products, loading }: Props) {
   const { goToProduct } = useProductNavigation();
   const trendingProducts = useMemo(() => {
     return Array.isArray(products)
-      ? products.filter((product) => product.action?.includes("trendingNow"))
+      ? products.filter((product) => product.action?.includes("Trending now"))
       : [];
   }, [products]);
 
