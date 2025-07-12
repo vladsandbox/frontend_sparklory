@@ -1,15 +1,17 @@
+import axios from "axios";
+import { createAsyncThunk } from "@reduxjs/toolkit";
+
+import { logout } from "../slices/userSlice";
+import { getLocalStorage } from "../../utils/localStorage";
+import {instance} from "../../api/axios.api";
+import { mergeLocalWishlist } from "./wishlistThunk";
+import type { AppDispatch } from "..";
+
 import type {
     ILoginUserData,
     IRegistrationUserData, IResponseUser,
     IResponseUserData,
 } from "../../types/Auth";
-
-import { logout } from "../slices/userSlice";
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import { getLocalStorage } from "../../utils/localStorage";
-import axios from "axios";
-
-import {instance} from "../../api/axios.api";
 
 const apiLoginUrl = import.meta.env.VITE_APP_LOGIN_URL ?? "";
 const apiRegistrationUrl = import.meta.env.VITE_APP_REGISTRATION_URL ?? "";
@@ -67,22 +69,27 @@ export const registration = createAsyncThunk<
 );
 
 export const loginUser = createAsyncThunk<
-    IResponseUserData,
-    ILoginUserData,
-    { rejectValue: string }
+  IResponseUserData,
+  ILoginUserData,
+  { rejectValue: string }
 >(
-    'user/loginUser',
-    async (userData, { rejectWithValue }) => {
-        try {
-            const res = await instance.post(apiLoginUrl, userData);
-            return res.data;
-        } catch (error: unknown) {
-            const message = axios.isAxiosError(error)
-                ? error.response?.data?.message || error.message
-                : error instanceof Error ? error.message : "Unknown error";
+  "user/loginUser",
+  async (userData, { rejectWithValue, dispatch }) => {
+    try {
+      const res = await instance.post(apiLoginUrl, userData);
 
-            return rejectWithValue(message);
-        }
+      await (dispatch as AppDispatch)(mergeLocalWishlist()).unwrap();
+
+      return res.data;
+    } catch (error: unknown) {
+      const message = axios.isAxiosError(error)
+        ? error.response?.data?.message || error.message
+        : error instanceof Error
+        ? error.message
+        : "Unknown error";
+
+      return rejectWithValue(message);
     }
+  }
 );
 

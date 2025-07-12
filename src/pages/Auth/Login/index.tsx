@@ -4,7 +4,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { toast } from "react-toastify";
-import { loginUser } from "../../../store/thunks/userThunk.ts";
+import { checkAuth, loginUser } from "../../../store/thunks/userThunk.ts";
 import { setLocalStorage } from "../../../utils/localStorage.ts";
 import type {AppDispatch} from "../../../store";
 
@@ -33,6 +33,7 @@ export default function Login() {
         if (loginUser.fulfilled.match(result)) {
             setLocalStorage("token", result.payload.accessToken);
             toast.success("Logged in successfully!");
+            await dispatch(checkAuth())
             navigate("/");
         } else {
             toast.error(result.payload || "Login failed");
