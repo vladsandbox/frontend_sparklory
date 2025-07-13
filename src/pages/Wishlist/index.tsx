@@ -9,7 +9,7 @@ import { useAuth } from "@/utils/hooks/useAuth";
 import CatalogSearchBar from "@/components/CatalogSearchBar";
 import WishlistList from "./WishlistList/WishlistList";
 import type { Product } from "@/types/Products";
-import type { RootState, AppDispatch } from "../../store";
+import type { RootState, AppDispatch } from "@/store";
 import { deleteWishlistProduct, mergeLocalWishlist } from "@/store/thunks/wishlistThunk";
 
 export default function WishlistPage() {

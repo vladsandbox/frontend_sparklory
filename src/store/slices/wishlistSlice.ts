@@ -4,21 +4,18 @@ import {
     toggleWishlist,
     fetchWishlist,
     deleteWishlistProduct,
-    mergeLocalWishlist,
-} from "../thunks/wishlistThunk";
+} from "@/store/thunks/wishlistThunk";
 import { setLocalStorage } from "@/utils/localStorage";
 
 interface WishlistState {
     ids: string[];
     loading: boolean;
-    merging: boolean;
     error: string;
 }
 
 const initialState: WishlistState = {
     ids: [],
     loading: false,
-    merging: false,
     error: "",
 };
 
@@ -60,15 +57,6 @@ const wishlistSlice = createSlice({
                 state.ids = state.ids.filter((id) => id !== productId);
                 setLocalStorage("wishlist", state.ids);
             })
-            .addCase(mergeLocalWishlist.pending, (state) => {
-                state.merging = true;
-            })
-            .addCase(mergeLocalWishlist.fulfilled, (state) => {
-                state.merging = false;
-            })
-            .addCase(mergeLocalWishlist.rejected, (state) => {
-                state.merging = false;
-            });
     },
 });
 

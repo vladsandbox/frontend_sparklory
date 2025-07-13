@@ -4,9 +4,9 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { toast } from "react-toastify";
-import { loginUser } from "../../../store/thunks/userThunk.ts";
-import { setLocalStorage } from "../../../utils/localStorage.ts";
-import type {AppDispatch} from "../../../store";
+import { loginUser } from "@/store/thunks/userThunk.ts";
+import { setLocalStorage } from "@/utils/localStorage.ts";
+import type {AppDispatch} from "@/store";
 
 import { eyeSlash, logoFacebook, logoGoogle } from "../../../assets";
 import "./index.scss"
