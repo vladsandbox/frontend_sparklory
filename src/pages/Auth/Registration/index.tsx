@@ -89,27 +89,27 @@ export default function Registration() {
                                 <label htmlFor="name">Full Name:</label>
                                 <Field type='text' name='name' className="primary-input input"
                                     placeholder='Enter your Full Name' />
-                                <ErrorMessage name='name' className='error' component="span" />
+                                <ErrorMessage name='name' className='error-auth' component="span" />
                             </div>
                             <div className="form-row">
                                 <label htmlFor="email">Email:</label>
                                 <Field type='text' name='email' className="primary-input input"
                                     placeholder='Enter your E-mail' />
-                                <ErrorMessage name='email' className='error' component='span' />
+                                <ErrorMessage name='email' className='error-auth' component='span' />
                             </div>
                             <div className="form-row password-row">
                                 <label htmlFor="password">Password:</label>
                                 <Field type='password' name='password' className="primary-input input"
                                     placeholder='Enter your Password' />
                                 <img className='eye-slash' src={eyeSlash} alt='eyeSlash' />
-                                <ErrorMessage name='password' className='error' component='span' />
+                                <ErrorMessage name='password' className='error-auth' component='span' />
                             </div>
                             <div className="form-row password-row">
                                 <label htmlFor="confirmPassword">Confirm password:</label>
                                 <Field type='password' name='confirmPassword' className="primary-input input"
                                     placeholder='Confirm your Password' />
                                 <img className='eye-slash' src={eyeSlash} alt='eyeSlash' />
-                                <ErrorMessage name='confirmPassword' className='error' component='span' />
+                                <ErrorMessage name='confirmPassword' className='error-auth' component='span' />
                             </div>
                             <div className="agree-terms">
                                 <Field
@@ -119,7 +119,7 @@ export default function Registration() {
                                     checked={values.agreeTerms}
                                 />
                                 <span className="agree-terms-text">Agree to Terms</span>
-                                <ErrorMessage name='agreeTerms' className='error' component='span' />
+                                <ErrorMessage name='agreeTerms' className='error-auth' component='span' />
                             </div>
                             <div className="terms-description">
                                 <p>

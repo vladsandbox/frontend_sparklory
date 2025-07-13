@@ -30,8 +30,7 @@ export default function WishlistPage() {
       hasMerged.current = true;
       dispatch(mergeLocalWishlist())
         .unwrap()
-        .then(() => setReadyToLoad(true))
-        .catch(() => setReadyToLoad(true));
+        .finally(() => setReadyToLoad(true));
     } else if (!isAuth) {
       setReadyToLoad(true);
     }

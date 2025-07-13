@@ -69,14 +69,14 @@ export default function Login() {
                                 <label>Email:</label>
                                 <Field type='text' name='email' className="primary-input input"
                                        placeholder='Enter your E-mail'/>
-                                <ErrorMessage name='email' className='error' component='span'/>
+                                <ErrorMessage name='email' className='error-auth' component='span'/>
                             </div>
                             <div className="form-row password-row">
                                 <label>Password:</label>
                                 <Field type='password' name='password' className="primary-input input"
                                        placeholder='Enter your Password'/>
                                 <img className='eye-slash' src={eyeSlash} alt='eyeSlash'/>
-                                <ErrorMessage name='password' className='error' component='span'/>
+                                <ErrorMessage name='password' className='error-auth' component='span'/>
                             </div>
                             <NavLink className="auth-link" to="/reset-password">Forgot your password?</NavLink>
                             <div className="auth-buttons">
