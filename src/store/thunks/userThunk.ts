@@ -14,6 +14,7 @@ import {instance} from "../../api/axios.api";
 const apiLoginUrl = import.meta.env.VITE_APP_LOGIN_URL ?? "";
 const apiRegistrationUrl = import.meta.env.VITE_APP_REGISTRATION_URL ?? "";
 const apiProfileUrl = import.meta.env.VITE_APP_PROFILE_URL ?? "";
+const apiVerifyEmailUrl = import.meta.env.VITE_APP_VERIFY_EMAIL_URL ?? "";
 
 export const checkAuth = createAsyncThunk<
     IResponseUser | null,
@@ -84,5 +85,29 @@ export const loginUser = createAsyncThunk<
             return rejectWithValue(message);
         }
     }
+);
+
+export const verifyEmail = createAsyncThunk<
+  void,
+  { email: string; code: string },
+  { rejectValue: string }
+>(
+  "user/verifyEmail",
+  async ({ email, code }, { rejectWithValue }) => {
+    try {
+      await instance.post(apiVerifyEmailUrl, {
+        email,
+        code
+      });
+    } catch (error: unknown) {
+      const message = axios.isAxiosError(error)
+        ? error.response?.data?.message || error.message
+        : error instanceof Error
+        ? error.message
+        : "Unknown error";
+
+      return rejectWithValue(message);
+    }
+  }
 );
 

@@ -17,6 +17,7 @@ import WishList from "./pages/Wishlist";
 import Catalog from "./pages/Catalog";
 import Login from "./pages/Auth/Login";
 import Registration from "./pages/Auth/Registration";
+import VerifyEmail from "./pages/Auth/VerifyEmail";
 import Profile from "@/pages/Profile";
 
 const router = createBrowserRouter([
@@ -35,6 +36,7 @@ const router = createBrowserRouter([
       { path: "catalog", element: <Catalog /> },
       { path: "login", element: <Login /> },
       { path: "registration", element: <Registration /> },
+      { path: "verify-email", element: <VerifyEmail /> },
       { path: "profile", element: <Profile /> },
       { path: "catalog/:category", element: <Catalog /> },
       { path: "*", element: <Navigate to="/" replace /> },
