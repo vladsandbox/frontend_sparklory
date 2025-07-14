@@ -4,9 +4,9 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { toast } from "react-toastify";
-import { checkAuth, loginUser } from "../../../store/thunks/userThunk.ts";
-import { setLocalStorage } from "../../../utils/localStorage.ts";
-import type {AppDispatch} from "../../../store";
+import { loginUser } from "@/store/thunks/userThunk.ts";
+import { setLocalStorage } from "@/utils/localStorage.ts";
+import type {AppDispatch} from "@/store";
 
 import { eyeSlash, logoFacebook, logoGoogle } from "../../../assets";
 import "./index.scss"
@@ -33,7 +33,6 @@ export default function Login() {
         if (loginUser.fulfilled.match(result)) {
             setLocalStorage("token", result.payload.accessToken);
             toast.success("Logged in successfully!");
-            await dispatch(checkAuth())
             navigate("/");
         } else {
             toast.error(result.payload || "Login failed");
@@ -70,14 +69,14 @@ export default function Login() {
                                 <label>Email:</label>
                                 <Field type='text' name='email' className="primary-input input"
                                        placeholder='Enter your E-mail'/>
-                                <ErrorMessage name='email' className='error' component='span'/>
+                                <ErrorMessage name='email' className='error-auth' component='span'/>
                             </div>
                             <div className="form-row password-row">
                                 <label>Password:</label>
                                 <Field type='password' name='password' className="primary-input input"
                                        placeholder='Enter your Password'/>
                                 <img className='eye-slash' src={eyeSlash} alt='eyeSlash'/>
-                                <ErrorMessage name='password' className='error' component='span'/>
+                                <ErrorMessage name='password' className='error-auth' component='span'/>
                             </div>
                             <NavLink className="auth-link" to="/reset-password">Forgot your password?</NavLink>
                             <div className="auth-buttons">

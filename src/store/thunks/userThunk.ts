@@ -4,8 +4,6 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { logout } from "../slices/userSlice";
 import { getLocalStorage } from "../../utils/localStorage";
 import {instance} from "../../api/axios.api";
-import { mergeLocalWishlist } from "./wishlistThunk";
-import type { AppDispatch } from "..";
 
 import type {
     ILoginUserData,
@@ -74,11 +72,9 @@ export const loginUser = createAsyncThunk<
   { rejectValue: string }
 >(
   "user/loginUser",
-  async (userData, { rejectWithValue, dispatch }) => {
+  async (userData, { rejectWithValue }) => {
     try {
       const res = await instance.post(apiLoginUrl, userData);
-
-      await (dispatch as AppDispatch)(mergeLocalWishlist()).unwrap();
 
       return res.data;
     } catch (error: unknown) {
