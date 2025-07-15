@@ -1,0 +1,23 @@
+@use "../../../styles/loading-spinner" as *;
+
+.verify-email-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 60vh;
+    padding: 2rem;
+}
+
+.verify-email-content {
+    text-align: center;
+    max-width: 500px;
+    padding: 3rem 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e0e0e0;
+
+    h2 {
+        margin-bottom: 1.5rem;
+    }
+
+}

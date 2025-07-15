@@ -14,6 +14,7 @@ import type {
 const apiLoginUrl = import.meta.env.VITE_APP_LOGIN_URL ?? "";
 const apiRegistrationUrl = import.meta.env.VITE_APP_REGISTRATION_URL ?? "";
 const apiProfileUrl = import.meta.env.VITE_APP_PROFILE_URL ?? "";
+const apiVerifyEmailUrl = import.meta.env.VITE_APP_VERIFY_EMAIL_URL ?? "";
 
 export const checkAuth = createAsyncThunk<
     IResponseUser | null,
@@ -85,6 +86,32 @@ export const loginUser = createAsyncThunk<
         : "Unknown error";
 
       return rejectWithValue(message);
+    }
+  }
+);
+
+export const verifyEmail = createAsyncThunk<
+  void,
+  { email: string; code: string },
+  { rejectValue: string }
+>(
+  "user/verifyEmail",
+  async ({ email, code }, { rejectWithValue }) => {
+    try {
+      await instance.post(apiVerifyEmailUrl, {
+        email,
+        code
+      });
+    } catch (error: unknown) {
+        let errorMessage = "Unknown error";
+
+        if (axios.isAxiosError(error) && error.response) {
+            errorMessage = error.response.data.message || error.message;
+        } else if (error instanceof Error) {
+            errorMessage = error.message;
+        }
+
+        return rejectWithValue(errorMessage);
     }
   }
 );
