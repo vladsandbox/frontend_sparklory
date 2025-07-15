@@ -1,5 +1,42 @@
-.material-option {
-    cursor: pointer;
-    display: inline-block;
-    margin-right: 16px;
+@use "@/styles/colors" as colors;
+
+.selector {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 8px;
+
+    .materialOption {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        padding: 4px;
+        box-sizing: border-box;
+        border-radius: 50%;
+        cursor: pointer;
+        border: 2px solid transparent;
+        transition: border-color 0.2s;
+
+        &.selected {
+            border-color: colors.$color-black;
+        }
+
+        .materialInput {
+            display: none;
+        }
+
+        .materialImgWrapper {
+            width: 100%;
+            height: 100%;
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+                display: block;
+                border-radius: 50%;
+            }
+        }
+    }
 }
