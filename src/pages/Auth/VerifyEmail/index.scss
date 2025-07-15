@@ -1,3 +1,5 @@
+@use "../../../styles/loading-spinner" as *;
+
 .verify-email-container {
     display: flex;
     justify-content: center;
@@ -10,51 +12,12 @@
     text-align: center;
     max-width: 500px;
     padding: 3rem 2rem;
-    background: white;
     border-radius: 12px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     border: 1px solid #e0e0e0;
 
     h2 {
-        font-size: 2rem;
-        font-weight: 600;
         margin-bottom: 1.5rem;
-        color: #333;
     }
 
-    .success-message {
-        font-size: 1.1rem;
-        color: #28a745;
-        margin-bottom: 2rem;
-        font-weight: 500;
-    }
-
-    .error-message {
-        font-size: 1.1rem;
-        color: #dc3545;
-        margin-bottom: 2rem;
-        font-weight: 500;
-    }
-
-    .success-icon {
-        font-size: 4rem;
-        color: #28a745;
-        margin: 2rem 0;
-        font-weight: bold;
-    }
-
-    .loading-spinner {
-        width: 40px;
-        height: 40px;
-        border: 4px solid #f3f3f3;
-        border-top: 4px solid #007bff;
-        border-radius: 50%;
-        animation: spin 1s linear infinite;
-        margin: 2rem auto;
-    }
 }
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-} 

@@ -100,13 +100,15 @@ export const verifyEmail = createAsyncThunk<
         code
       });
     } catch (error: unknown) {
-      const message = axios.isAxiosError(error)
-        ? error.response?.data?.message || error.message
-        : error instanceof Error
-        ? error.message
-        : "Unknown error";
+        let errorMessage = "Unknown error";
 
-      return rejectWithValue(message);
+        if (axios.isAxiosError(error) && error.response) {
+            errorMessage = error.response.data.message || error.message;
+        } else if (error instanceof Error) {
+            errorMessage = error.message;
+        }
+
+        return rejectWithValue(errorMessage);
     }
   }
 );
