@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.8.2",
+    "@tippyjs/react": "^4.2.6",
     "axios": "^1.10.0",
     "formik": "^2.4.6",
     "keen-slider": "^6.8.6",

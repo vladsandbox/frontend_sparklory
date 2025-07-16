@@ -1,3 +1,6 @@
+@use './variables' as var;
+@use './colors' as colors;
+
 @mixin absolute-top-right($top: 24px, $right: 24px) {
   position: absolute;
   top: $top;
@@ -10,4 +13,25 @@
   top: $top;
   left: $left;
   z-index: 2;
+}
+
+@mixin btn-base {
+  padding: 8px 24px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-family: var.$font-poppins;
+  font-size: var.$font-button-size;
+  font-weight: var.$font-button-weight;
+  border: none;
+  flex-grow: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+@mixin btn-variant($bg-color, $text-color, $border-style: none) {
+  background-color: $bg-color;
+  color: $text-color;
+  border: $border-style;
 }

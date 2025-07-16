@@ -1,10 +1,9 @@
-import styles from './index.module.scss'
+import { noImg } from "@/assets";
+import type { Material } from "./materials.ts";
+import styles from "./index.module.scss";
 
-type Material = {
-    id: string;
-    label: string;
-    img: string;
-};
+import Tippy from '@tippyjs/react';
+import { roundArrow } from 'tippy.js';
 
 type Props = {
     productId: string;
@@ -15,34 +14,36 @@ type Props = {
 
 export default function MaterialSelector({ productId, selectedMaterial, onChange, materials }: Props) {
     return (
-        <div onClick={(e) => e.stopPropagation()}>
-            {materials.map(({ id, label, img }) => (
-                <label key={id}
-                    className={`${styles["material-option"]} ${selectedMaterial === id ? styles["selected"] : ""}`}
-                >
-                    <input
-                        type="radio"
-                        name={`material-${productId}`}
-                        value={id}
-                        checked={selectedMaterial === id}
-                        onChange={() => onChange(id)}
-                        style={{ display: "none" }}
-                    />
-                    <img
-                        src={img}
-                        alt={label}
-                        style={{
-                            width: 28,
-                            height: 28,
-                            borderRadius: 24,
-                            padding: 4,
-                            border: selectedMaterial === id ? "1px solid rgba(0, 0, 0, 1)" : "none",
-                            boxSizing: "border-box",
-                            transition: "border-color 0.3s",
-                        }}
-                    />
-                </label>
-            ))}
+        <div className={styles.selector} onClick={(e) => e.stopPropagation()}>
+            {materials.map(({ id, label, img }) => {
+                const src = img || noImg;
+
+                return (
+                    <Tippy key={id} content={label} placement="bottom" arrow={roundArrow}>
+                        <label
+                            key={id}
+                            className={`
+                              ${styles.materialOption}
+                              ${selectedMaterial === id ? styles.selected : ""}
+                            `}
+                            tabIndex={0}
+                            aria-label={label}
+                        >
+                            <input
+                                type="radio"
+                                name={`material-${productId}`}
+                                value={id}
+                                checked={selectedMaterial === id}
+                                onChange={() => onChange(id)}
+                                className={styles.materialInput}
+                            />
+                            <div className={styles.materialImgWrapper}>
+                                <img src={src} alt={label} />
+                            </div>
+                        </label>
+                    </Tippy>
+                );
+            })}
         </div>
     );
 }

@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchProducts } from "../../store/thunks/productsThunk";
-import type { RootState, AppDispatch } from "../../store";
+import { fetchProducts } from "@/store/thunks/productsThunk.ts";
+import type { RootState, AppDispatch } from "@/store";
 
 import { HomeSlider } from "./Slider";
 import CategoryHome from "./Category";
@@ -9,7 +9,10 @@ import TrendingNow from "./TrendingNow";
 import Reviews from "./Reviews";
 import SpringSale from "./SpringSale";
 import SubscribeSection from "./SubscribeSection";
-import CatalogSearchBar from "../../components/CatalogSearchBar";
+import CatalogSearchBar from "@/components/CatalogSearchBar";
+
+import 'tippy.js/dist/tippy.css';
+import 'tippy.js/dist/svg-arrow.css';
 
 export default function Home() {
   const dispatch: AppDispatch = useDispatch();
