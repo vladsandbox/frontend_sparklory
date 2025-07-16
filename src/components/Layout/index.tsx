@@ -32,9 +32,9 @@ const Layout = () => {
                                 <NavLink to="/wishlist" className={styles['icon-link']}>
                                     <img src={heart} alt="Heart" />
                                 </NavLink>
-                                <a href="/" className={styles['icon-link']}>
+                                <NavLink to="/cart" className={styles['icon-link']}>
                                     <img src={bag} alt="Shopping Bag" />
-                                </a>
+                                </NavLink>
                             </div>
                             <div className={styles['btn-container']}>
                                 {!isAuth ? (
