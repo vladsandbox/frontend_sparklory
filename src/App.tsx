@@ -19,6 +19,7 @@ import Login from "./pages/Auth/Login";
 import Registration from "./pages/Auth/Registration";
 import VerifyEmail from "./pages/Auth/VerifyEmail";
 import Profile from "@/pages/Profile";
+import ShopCart from "./pages/ShoppingCart/index.tsx";
 
 const router = createBrowserRouter([
   {
@@ -39,6 +40,7 @@ const router = createBrowserRouter([
       { path: "verify-email", element: <VerifyEmail /> },
       { path: "profile", element: <Profile /> },
       { path: "catalog/:category", element: <Catalog /> },
+      { path: "cart", element: <ShopCart /> },
       { path: "*", element: <Navigate to="/" replace /> },
     ],
   },
