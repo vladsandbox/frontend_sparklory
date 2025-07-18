@@ -60,10 +60,12 @@ export const removeCartItem = createAsyncThunk<
   { rejectValue: string }
 >(
   "cart/removeCartItem",
-  async ({ guest = false, ...data }, { rejectWithValue }) => {
+  async ({ guest = false, productId, size, material, insert }, { rejectWithValue }) => {
     try {
       const url = guest ? CART_REMOVE_GUEST_URL : CART_REMOVE_URL;
-      const payload = guest ? { ...data, guestId: getGuestId() } : data;
+      const payload = guest
+        ? { productId, size, material, insert, guestId: getGuestId() }
+        : { productId, size, material, insert };
       const res = await instance.post(url, payload);
       toast.success("Product removed from cart");
       return res.data.items;
@@ -76,14 +78,16 @@ export const removeCartItem = createAsyncThunk<
 
 export const updateCartQuantity = createAsyncThunk<
   CartItem[],
-  { guest?: boolean; productId: string; quantity: number },
+  { guest?: boolean; productId: string; quantity: number; size: string; material: string; insert: string },
   { rejectValue: string }
 >(
   "cart/updateCartQuantity",
-  async ({ guest = false, productId, quantity }, { rejectWithValue }) => {
+  async ({ guest = false, productId, quantity, size, material, insert }, { rejectWithValue }) => {
     try {
       const url = guest ? CART_POST_GUEST_URL : CART_POST_URL;
-      const payload = guest ? { productId, quantity, guestId: getGuestId() } : { productId, quantity };
+      const payload = guest
+        ? { productId, quantity, size, material, insert, guestId: getGuestId() }
+        : { productId, quantity, size, material, insert };
       const res = await instance.post(url, payload);
       toast.success("Cart updated");
       return res.data.items;
