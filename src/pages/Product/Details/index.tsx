@@ -1,33 +1,27 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useKeenSlider } from "keen-slider/react";
 
-import MaterialSelector from "../../../components/MaterialSelector/MaterialSelector";
-import SizeSelector from "../../../components/SizeSelector";
+import MaterialSelector from "@/components/MaterialSelector/MaterialSelector";
+import SizeSelector from "@/components/SizeSelector";
+import AddToCartButton from "@/components/AddToCartButton/AddToCartButton";
 import { useFavorites } from "@/utils/hooks/useFavorite";
-import type { Product } from "../../../types/Products";
+import { MATERIALS } from "@/components/MaterialSelector/materials.ts";
+import { noImg } from "@/assets";
+
+import type { Product, ProductVariant } from "@/types/Products";
+
 import ProductTabs from "./ProductTabs";
-
-import { silver, whiteGold, gold } from "../../../assets";
-
 import styles from "./index.module.scss";
-
-const materials = [
-  { id: "silver", label: "Silver", img: silver },
-  { id: "white-gold", label: "White Gold", img: whiteGold },
-  { id: "gold", label: "Gold", img: gold },
-];
-
-const sizes = ["16.5", "17", "18"];
 
 type Props = {
   product: Product;
 };
 
 export default function ProductDetails({ product }: Props) {
-  const [material, setMaterial] = useState("silver");
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [selectedSize, setSelectedSize] = useState("16.5");
+  const [selectedMaterial, setSelectedMaterial] = useState(product.variants[0]?.material ?? "");
+  const [selectedSize, setSelectedSize] = useState(product.variants[0]?.size ?? "");
   const [quantity, setQuantity] = useState(1);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const { favoriteIds, toggleFavorite } = useFavorites();
   const isFavorite = favoriteIds.has(product._id);
@@ -40,10 +34,29 @@ export default function ProductDetails({ product }: Props) {
     },
   });
 
-  const images =
-    product.image.length >= 3
-      ? product.image
-      : [...product.image, ...Array(3 - product.image.length).fill(product.image[0])];
+  const materials = useMemo(() => {
+    const uniqueMaterials = [...new Set(product.variants.map(v => v.material))];
+    return uniqueMaterials.map((id) => {
+      const found = MATERIALS.find((m) => m.id === id);
+      return found ?? { id, label: id.charAt(0).toUpperCase() + id.slice(1), img: noImg };
+    });
+  }, [product.variants]);
+
+  const sizes = useMemo(() => {
+    return [...new Set(product.variants.filter(v => v.material === selectedMaterial).map(v => v.size))];
+  }, [product.variants, selectedMaterial]);
+
+  const currentVariant: ProductVariant | null = useMemo(() => {
+    return product.variants.find(
+      (v) =>
+        v.material === selectedMaterial &&
+        v.size === selectedSize
+    ) || null;
+  }, [product.variants, selectedMaterial, selectedSize]);
+
+  const images = product.image.length >= 3
+    ? product.image
+    : [...product.image, ...Array(3 - product.image.length).fill(product.image[0])];
 
   return (
     <div className="wrapper">
@@ -79,7 +92,7 @@ export default function ProductDetails({ product }: Props) {
           <div>
             <h2 className="h2">{product.name}</h2>
             <p className="text-xxl" style={{ marginBottom: 52, marginTop: 32 }}>
-              {product.price}₴
+              {currentVariant?.price ?? product.variants[0]?.price ?? 0}₴
             </p>
             <p className={`body ${styles.description}`}>{product.description}</p>
           </div>
@@ -89,13 +102,13 @@ export default function ProductDetails({ product }: Props) {
               <p className="h3">Color</p>
               <MaterialSelector
                 productId={product._id}
-                selectedMaterial={material}
-                onChange={setMaterial}
+                selectedMaterial={selectedMaterial}
+                onChange={setSelectedMaterial}
                 materials={materials}
               />
             </div>
 
-            {product.category === "rings" && (
+            {product.category === "rings" && sizes.length > 0 && (
               <SizeSelector sizes={sizes} selected={selectedSize} onSelect={setSelectedSize} />
             )}
 
@@ -110,7 +123,13 @@ export default function ProductDetails({ product }: Props) {
           </div>
 
           <div className={styles["button-container"]}>
-            <button className="primary-btn big button-text">Add to Cart</button>
+            <AddToCartButton
+              productId={product._id}
+              variant={currentVariant}
+              withIcon
+              className={`big button-text ${currentVariant?.inStock ? "primary-btn" : "secondary-btn"} ${styles.addToCart}`}
+              iconClassName={`${styles.icon} ${!currentVariant?.inStock ? styles.disabledIcon : ""}`}
+            />
             <button className="secondary-btn big button-text" onClick={() => toggleFavorite(product._id, !isFavorite)}>
               <svg
                 width="24"
@@ -134,6 +153,7 @@ export default function ProductDetails({ product }: Props) {
           </div>
         </div>
       </div>
+
       <ProductTabs
         details={product.description}
         shipping={`Standard Shipping: 3–5 business days (Free over $100)
