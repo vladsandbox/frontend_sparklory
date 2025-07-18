@@ -48,8 +48,8 @@ export default function CartItem({ product, onRemove, onQuantityChange }: Props)
           {productData.name}
         </div>
 
-        <div style={{ display: "flex", gap: 85 }}>
-          <div className={`body ${styles.price}`}>{product.price}₴</div>
+        <div style={{ display: "flex", gap: 67 }}>
+          <div className={`body ${styles.price} ${styles.total}`}>{product.price}₴</div>
 
           <div className={styles.quantityWrapper}>
             <button
@@ -69,7 +69,7 @@ export default function CartItem({ product, onRemove, onQuantityChange }: Props)
           </div>
 
           <div className={`body ${styles.total}`}>
-            {(product.price * product.quantity).toFixed(2)}₴
+            {(product.price * product.quantity)}₴
           </div>
         </div>
       </div>
