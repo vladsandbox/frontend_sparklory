@@ -2,12 +2,12 @@ import { useState, useMemo } from 'react';
 import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
 
-import MaterialSelector from '../../../components/MaterialSelector/MaterialSelector';
-import type { Product } from '../../../types/Products';
+import MaterialSelector from '@/components/MaterialSelector/MaterialSelector';
+import type { Product } from '@/types/Products';
 import { MATERIALS } from "@/components/MaterialSelector/materials";
-import { useProductNavigation } from "../../../utils/hooks/useProductNavigation";
+import { useProductNavigation } from "@/utils/hooks/useProductNavigation";
 import AddToCartButton from '@/components/AddToCartButton/AddToCartButton';
-import type { ProductVariant } from '../../../types/Products';
+import type { ProductVariant } from '@/types/Products';
 import { noImg } from "@/assets";
 
 import "./index.scss";
