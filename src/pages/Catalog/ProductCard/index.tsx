@@ -53,7 +53,7 @@ export default function CatalogProductCard({ product }: Props) {
                     </div>
                     <div className="labels">
                         {product.discount > 0 && <DiscountLabel percentage={product.discount} />}
-                        {product.action && <ActionLabel action={product.action[0]} />}
+                        {Array.isArray(product.action) && product.action.length > 0 && <ActionLabel action={product.action[0]} />}
                     </div>
                     {product.image.length ? (
                         <img
