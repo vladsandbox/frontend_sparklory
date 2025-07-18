@@ -10,18 +10,17 @@ import type { RootState, AppDispatch } from "@/store";
 import type { CartItem as CartItemType } from "@/types/Cart";
 
 export default function ShopCart() {
-  const dispatch: AppDispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
 
   const isAuth = useAuth();
-  const cart = useSelector((state: RootState) => state.cart.items);
-  const loading = useSelector((state: RootState) => state.cart.loading);
+  const { items: cart, loading } = useSelector((state: RootState) => state.cart);
 
   useEffect(() => {
     dispatch(fetchCartProducts({ guest: !isAuth }));
   }, [dispatch, isAuth]);
 
-  function handleRemove(item: CartItemType) {
+  const handleRemove = (item: CartItemType) => {
     dispatch(removeCartItem({
       productId: item.product,
       size: item.size,
@@ -29,11 +28,24 @@ export default function ShopCart() {
       insert: item.insert,
       guest: !isAuth,
     }));
-  }
+  };
 
-  function handleQuantityChange(productId: string, quantity: number) {
-    dispatch(updateCartQuantity({ productId, quantity, guest: !isAuth }));
-  }
+  const handleQuantityChange = (
+    productId: string,
+    quantity: number,
+    size: string,
+    material: string,
+    insert: string | null
+  ) => {
+    dispatch(updateCartQuantity({
+      productId,
+      quantity,
+      size,
+      material,
+      insert: insert ?? "",
+      guest: !isAuth,
+    }));
+  };
 
   const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
@@ -81,3 +93,4 @@ export default function ShopCart() {
     </>
   );
 }
+

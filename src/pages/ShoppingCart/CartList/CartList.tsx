@@ -6,7 +6,13 @@ import styles from "./index.module.scss";
 type Props = {
   products: CartItemType[];
   onRemove: (item: CartItemType) => void;
-  onQuantityChange: (id: string, quantity: number) => void;
+  onQuantityChange: (
+    productId: string,
+    quantity: number,
+    size: string,
+    material: string,
+    insert: string | null
+  ) => void;
 };
 
 export default function CartList({ products, onRemove, onQuantityChange }: Props) {
@@ -23,7 +29,7 @@ export default function CartList({ products, onRemove, onQuantityChange }: Props
 
       {products.map((product) => (
         <CartItem
-          key={product.product}
+          key={`${product.product}-${product.size}-${product.material}-${product.insert}`}
           product={product}
           onRemove={onRemove}
           onQuantityChange={onQuantityChange}

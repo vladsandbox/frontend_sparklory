@@ -73,7 +73,25 @@
       }
     }
   }
+
+  &.always-closed {
+    .card-content {
+      transform: none;
+      overflow: hidden;
+      height: 100%;
+    }
+
+    .expanded-information {
+      display: none !important;
+    }
+
+    .default-name,
+    .default-price {
+      display: block !important;
+    }
+  }
 }
+
 
 .card-content {
   display: flex;

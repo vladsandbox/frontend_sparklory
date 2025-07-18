@@ -16,9 +16,10 @@ import "./index.scss";
 type Props = {
     product: Product;
     noHoverExpand?: boolean;
+    alwaysClosed?: boolean;
 };
 
-export default function CatalogProductCard({ product, noHoverExpand = false }: Props) {
+export default function CatalogProductCard({ product, noHoverExpand = false, alwaysClosed = false }: Props) {
     const materials = product.variants.map((variant) => {
         const found = MATERIALS.find((m) => m.id === variant.material);
         return found ?? { id: variant.material, label: variant.material.replace(/\b\w/g, (c) => c.toUpperCase()), img: noImg };
@@ -41,7 +42,7 @@ export default function CatalogProductCard({ product, noHoverExpand = false }: P
     const { goToProduct } = useProductNavigation()
 
     return (
-        <div className={`product-card ${noHoverExpand ? "no-hover-expand" : ""}`}>
+        <div className={`product-card ${noHoverExpand ? "no-hover-expand" : ""} ${alwaysClosed ? "always-closed" : ""}`}>
             <div className="card-content">
                 <div className="image">
                     <div className="buttons">

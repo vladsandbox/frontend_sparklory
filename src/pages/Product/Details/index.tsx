@@ -34,7 +34,6 @@ export default function ProductDetails({ product }: Props) {
     },
   });
 
-  // ✅ Подготовка материалов и размеров
   const materials = useMemo(() => {
     const uniqueMaterials = [...new Set(product.variants.map(v => v.material))];
     return uniqueMaterials.map((id) => {
@@ -47,7 +46,6 @@ export default function ProductDetails({ product }: Props) {
     return [...new Set(product.variants.filter(v => v.material === selectedMaterial).map(v => v.size))];
   }, [product.variants, selectedMaterial]);
 
-  // ✅ Поиск текущего варианта
   const currentVariant: ProductVariant | null = useMemo(() => {
     return product.variants.find(
       (v) =>
@@ -125,8 +123,31 @@ export default function ProductDetails({ product }: Props) {
           </div>
 
           <div className={styles["button-container"]}>
-            <AddToCartButton productId={product._id} variant={currentVariant} />
+            <AddToCartButton
+              productId={product._id}
+              variant={currentVariant}
+              withIcon
+              className={`big button-text ${currentVariant?.inStock ? "primary-btn" : "secondary-btn"} ${styles.addToCart}`}
+              iconClassName={`${styles.icon} ${!currentVariant?.inStock ? styles.disabledIcon : ""}`}
+            />
             <button className="secondary-btn big button-text" onClick={() => toggleFavorite(product._id, !isFavorite)}>
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 32 32"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                style={{ marginRight: 8, verticalAlign: "middle" }}
+              >
+                <path
+                  d="M16.827 27.7466C16.3737 27.9066 15.627 27.9066 15.1737 27.7466C11.307 26.4266 2.66699 20.92 2.66699 11.5866C2.66699 7.46663 5.98699 4.1333 10.0803 4.1333C12.507 4.1333 14.6537 5.30663 16.0003 7.11997C17.347 5.30663 19.507 4.1333 21.9203 4.1333C26.0137 4.1333 29.3337 7.46663 29.3337 11.5866C29.3337 20.92 20.6937 26.4266 16.827 27.7466Z"
+                  stroke="rgba(94, 75, 75, 1)"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  fill={isFavorite ? "rgba(94, 75, 75, 1)" : "none"}
+                />
+              </svg>
               {isFavorite ? "Remove from Wishlist" : "Add to Wishlist"}
             </button>
           </div>
