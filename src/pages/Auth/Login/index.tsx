@@ -1,14 +1,15 @@
 import * as Yup from "yup";
 
+import type { AppDispatch } from "@/store";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { loginUser } from "@/store/thunks/userThunk.ts";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { toast } from "react-toastify";
-import { loginUser } from "@/store/thunks/userThunk.ts";
 import { setLocalStorage } from "@/utils/localStorage.ts";
-import type {AppDispatch} from "@/store";
+import { useOAuthPopupAuth } from "@/utils/hooks/useOAuthPopupAuth.ts";
+import { eyeSlash, logoFacebook, logoGoogle } from "@/assets";
 
-import { eyeSlash, logoFacebook, logoGoogle } from "../../../assets";
 import "./index.scss"
 
 export default function Login() {
@@ -33,7 +34,7 @@ export default function Login() {
         if (loginUser.fulfilled.match(result)) {
             setLocalStorage("token", result.payload.accessToken);
             toast.success("Logged in successfully!");
-            navigate("/");
+            navigate("/profile");
         } else {
             toast.error(result.payload || "Login failed");
         }
@@ -47,6 +48,22 @@ export default function Login() {
             .required('Password is required')
             .min(6, 'Password must be at least 6 characters'),
     })
+
+    const handleGoogleLogin = () => {
+        window.open(
+            'https://sparklory-back.onrender.com/api/v1/auth/google',
+            '_blank',
+            'width=500,height=600'
+        );
+    };
+
+    useOAuthPopupAuth({
+        onAuthSuccess: ({ accessToken, refreshToken }) => {
+            setLocalStorage("token", accessToken);
+            setLocalStorage("refreshToken", refreshToken);
+            navigate('/profile')
+        },
+    });
 
     return (
         <div className="wrapper">
@@ -84,11 +101,18 @@ export default function Login() {
                                         className="primary-btn button-text">
                                     {isSubmitting ? 'Submitting...' : 'Log In'}
                                 </button>
-                                <button className="secondary-btn button-text">
+                                <button
+                                    type='button'
+                                    className="secondary-btn button-text"
+                                >
                                     <img className="fb-img" src={logoFacebook} alt="Facebook"/>
                                     <span className="btn-title">Log in with Facebook</span>
                                 </button>
-                                <button className="secondary-btn button-text">
+                                <button
+                                    type='button'
+                                    onClick={handleGoogleLogin}
+                                    className="secondary-btn button-text"
+                                >
                                     <img className="g-img" src={logoGoogle} alt="Google"/>
                                     <span className="btn-title">Log in with Google</span>
                                 </button>
