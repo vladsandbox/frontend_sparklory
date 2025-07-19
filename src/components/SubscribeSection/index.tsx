@@ -1,8 +1,12 @@
-import { subscribeImg } from '../../../assets/'
+import { subscribeImg } from '@/assets'
 
 import styles from "./index.module.scss";
 
-export default function SubscribeSection() {
+type Props = {
+    imageSrc?: string
+}
+
+export default function SubscribeSection({ imageSrc = subscribeImg }: Props) {
     return (
         <div className={styles.subscribeWrapper}>
             <div className={`wrapper ${styles.inner}`}>
@@ -13,13 +17,12 @@ export default function SubscribeSection() {
                     </p>
                     <p className={`body ${styles.description}`}>Stay in the loop with new arrivals and exclusive offers.</p>
                     <div className={styles.inputContainer}>
-                        <input type="text" className={`primary-input input ${styles.input}`} placeholder="Write your E-mail" />
-                        <button className={`primary-btn big button-text ${styles.button}`}>Subscribe</button>
+                        <input type="text" className="primary-input input" placeholder="Write your E-mail" />
+                        <button className="primary-btn big button-text">Subscribe</button>
                     </div>
                 </div>
-
-                <div className={styles.imageContainer}>
-                    <img src={subscribeImg} alt="subscribeImg" />
+                <div>
+                    <img src={imageSrc} alt="subscribeImg" />
                 </div>
             </div>
         </div>
