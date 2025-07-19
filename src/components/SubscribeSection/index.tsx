@@ -21,8 +21,9 @@ export default function SubscribeSection({ imageSrc = subscribeImg }: Props) {
                         <button className="primary-btn big button-text">Subscribe</button>
                     </div>
                 </div>
-
-                <img src={imageSrc} alt="subscribeImg" />
+                <div>
+                    <img src={imageSrc} alt="subscribeImg" />
+                </div>
             </div>
         </div>
     );
