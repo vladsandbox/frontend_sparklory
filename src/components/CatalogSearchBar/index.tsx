@@ -1,9 +1,9 @@
 import { useState, useMemo } from "react";
 import { useSelector } from "react-redux";
-import type { RootState } from "../../store";
+import type { RootState } from "@/store";
 
-import { useProductNavigation } from "../../utils/hooks/useProductNavigation";
-import { search, catalog } from "../../assets";
+import { useProductNavigation } from "@/utils/hooks/useProductNavigation";
+import { search, catalog } from "@/assets";
 import styles from "./index.module.scss";
 
 export default function CatalogSearchBar() {

@@ -1,0 +1,53 @@
+@use "@/styles/colors" as colors;
+@use "@/styles/variables" as var;
+
+.subcategories-slider-wrapper {
+  position: relative;
+  overflow: visible;
+  margin: 0 auto;
+
+  .subcategories-slider {
+    display: flex;
+    width: 93%;
+
+    &__arrow {
+      position: absolute;
+      z-index: 10;
+      border: 1px solid colors.$color-button;
+      border-radius: 47%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.2s ease;
+      width: 39px;
+      height: 44px;
+      gap: 10px;
+      right: 60px;
+
+      &--left {
+        top: 23%;
+        background: transparent;
+
+        svg {
+          color: colors.$color-button;
+        }
+      }
+
+      &--right {
+        bottom: 23%;
+        background: colors.$color-button;
+
+        svg {
+          color: colors.$color-white;
+        }
+      }
+
+      &:disabled {
+        opacity: 0.3;
+        cursor: not-allowed;
+      }
+    }
+  }
+}
+

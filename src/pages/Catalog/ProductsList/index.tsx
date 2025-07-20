@@ -5,14 +5,11 @@ import "./index.scss";
 
 type Props = {
     products: Product[];
-    loading: boolean;
 };
 
-export default function CatalogProductsList({ products, loading }: Props) {
-    if (loading) return <p className="loading">Loading...</p>;
-
+export default function CatalogProductsList({ products }: Props) {
     return (
-            <div className="catalog-wrapper">
+            <div className="catalog-wrapper wrapper">
                 {products.map((product) => (
                     <CatalogProductCard product={product} key={product._id}/>
                 ))}
