@@ -6,6 +6,7 @@ import type { Product } from "../../../types/Products";
 import { useProductNavigation } from "../../../utils/hooks/useProductNavigation";
 import styles from "./index.module.scss";
 import CatalogProductCard from "@/pages/Catalog/ProductCard";
+import SliderNavButtons from "@/components/SliderNavButtons/SliderNavButtons";
 
 type Props = {
   products: Product[];
@@ -50,12 +51,13 @@ export default function RecommendedProducts({ products, loading }: Props) {
             })}
           </div>
 
-          <div className="nav-buttons" style={{ flexDirection: "column", gap: 24, marginLeft: 20 }}>
-            <button onClick={() => instanceRef.current?.prev()} disabled={index === 0} className="arrow left" />
-            <button
-              onClick={() => instanceRef.current?.next()}
-              disabled={index >= products.length - 3.5}
-              className="arrow right"
+          <div className="nav-buttons" style={{ marginLeft: 20 }}>
+            <SliderNavButtons
+              index={index}
+              maxIndex={products.length - 3}
+              onPrev={() => instanceRef.current?.prev()}
+              onNext={() => instanceRef.current?.next()}
+              direction="vertical"
             />
           </div>
         </div>

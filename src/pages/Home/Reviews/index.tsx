@@ -3,6 +3,7 @@ import { useKeenSlider } from "keen-slider/react";
 import { reviews1, reviews2, reviews3, reviews4, reviews5 } from "../../../assets";
 import ReviewCard from "../../../components/ReviewCard";
 import type { Product } from "../../../types/Products";
+import SliderNavButtons from "@/components/SliderNavButtons/SliderNavButtons";
 
 import "./index.scss";
 
@@ -97,18 +98,12 @@ export default function Reviews({ products, loading }: Props) {
                                     ))}
                                 </div>
                             )}
-                            <div className="nav-buttons">
-                                <button
-                                    onClick={handlePrev}
-                                    className="arrow left"
-                                    disabled={currentIndex === 0}
-                                />
-                                <button
-                                    onClick={handleNext}
-                                    className="arrow right"
-                                    disabled={currentIndex === allReviews.length - 1}
-                                />
-                            </div>
+                            <SliderNavButtons
+                                index={currentIndex}
+                                maxIndex={allReviews.length - 1}
+                                onPrev={handlePrev}
+                                onNext={handleNext}
+                            />
                         </>
                     )}
                 </div>
