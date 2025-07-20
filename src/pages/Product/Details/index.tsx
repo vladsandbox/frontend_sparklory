@@ -54,9 +54,16 @@ export default function ProductDetails({ product }: Props) {
     ) || null;
   }, [product.variants, selectedMaterial, selectedSize]);
 
-  const images = product.image.length >= 3
-    ? product.image
-    : [...product.image, ...Array(3 - product.image.length).fill(product.image[0])];
+  const images = product.image.length > 0
+    ? (product.image.length >= 3
+      ? product.image
+      : [...product.image, ...Array(3 - product.image.length).fill(product.image[0])])
+    : Array(3).fill(noImg);
+
+  const handleImgError = (e: React.SyntheticEvent<HTMLImageElement>) => {
+    e.currentTarget.src = noImg;
+    e.currentTarget.onerror = null;
+  };
 
   return (
     <div className="wrapper">
@@ -65,7 +72,12 @@ export default function ProductDetails({ product }: Props) {
           <div className={`keen-slider ${styles.slider}`} ref={sliderRef}>
             {images.map((src, i) => (
               <div className={`keen-slider__slide ${styles.slide}`} key={i}>
-                <img src={src} alt={`${product.name} ${i}`} className={styles.mainImage} />
+                <img
+                  src={src}
+                  alt={`${product.name} ${i}`}
+                  className={styles.mainImage}
+                  onError={handleImgError}
+                />
               </div>
             ))}
           </div>
@@ -83,6 +95,7 @@ export default function ProductDetails({ product }: Props) {
                 alt={`Thumbnail ${idx}`}
                 className={`${styles.thumbnail} ${currentImageIndex === idx ? styles.active : ""}`}
                 onClick={() => instanceRef.current?.moveToIdx(idx)}
+                onError={handleImgError}
               />
             ))}
           </div>

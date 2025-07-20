@@ -1,0 +1,68 @@
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+
+import styles from "./index.module.scss"
+
+type Props = {
+    firstAmount: number;
+    finalAmount: number;
+    discount: number;
+};
+
+export default function CartTotals({ discount, finalAmount, firstAmount }: Props) {
+    const navigate = useNavigate();
+    const [coupon, setCoupon] = useState("");
+
+    return (
+        <div style={{ marginTop: 60 }}>
+            <p className="h1">Cart Totals </p>
+            <div className={styles.totalContainer} >
+                <div>
+                    <p className="title-m">Order summary</p>
+                </div>
+                <div>
+                    <div className={styles.row} >
+                        <p className="body">Subtotal</p>
+                        <p className="body">{firstAmount} ₴</p>
+                    </div>
+                    <div className={styles.row}>
+                        <p className="body">Discount</p>
+                        <p className="body" style={{color: "rgba(123, 0, 0, 1)"}}>-₴ {discount}</p>
+                    </div>
+                    <div className={styles.row}>
+                        <p className="body">Delivery</p>
+                        <p className="body">0 ₴</p>
+                    </div>
+                    <div className={`${styles.divider} ${styles.row}`}>
+                    </div>
+                    <div className={styles.row}>
+                        <p className="title-m">Total</p>
+                        <p className="title-m">{finalAmount} ₴</p>
+                    </div>
+                </div>
+                <div className={styles.loyaltyContainer}>
+                    <input
+                        className={`${styles.input} input primary-input`}
+                        type="text"
+                        placeholder="Coupon"
+                        value={coupon}
+                        onChange={(e) => setCoupon(e.target.value)}
+                    />
+                    <button
+                        className={`${styles.applyBtn} primary-btn button-text big`}
+                        disabled={!coupon.trim()}
+                    >
+                        Apply
+                    </button>
+                </div>
+                <button
+                    className="primary-btn big button-text"
+                    onClick={() => navigate("/checkout")}
+                >
+                    Go to Checkout
+                </button>
+            </div>
+
+        </div>
+    );
+}

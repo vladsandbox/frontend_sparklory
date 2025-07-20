@@ -8,18 +8,24 @@ import {
   updateCartQuantity,
 } from "../thunks/cartThunk";
 import type { RootState } from "..";
-import type { CartItem } from "@/types/Cart";
+import type { CartItem, CartResponse } from "@/types/Cart";
 
 type CartState = {
   items: CartItem[];
   loading: boolean;
   error: string | null;
+  firstAmount: number;
+  finalAmount: number;
+  totalDiscount: number;
 };
 
 const initialState: CartState = {
   items: [],
   loading: false,
   error: null,
+  firstAmount: 0,
+  finalAmount: 0,
+  totalDiscount: 0,
 };
 
 const cartSlice = createSlice({
@@ -33,22 +39,34 @@ const cartSlice = createSlice({
         state.loading = true;
         state.error = null;
       })
-      .addCase(fetchCartProducts.fulfilled, (state, action: PayloadAction<CartItem[]>) => {
+      .addCase(fetchCartProducts.fulfilled, (state, action: PayloadAction<CartResponse>) => {
         state.loading = false;
-        state.items = action.payload;
+        state.items = action.payload.items;
+        state.firstAmount = action.payload.firstAmount;
+        state.finalAmount = action.payload.finalAmount;
+        state.totalDiscount = action.payload.totalDiscount;
       })
       .addCase(fetchCartProducts.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
       })
-      .addCase(addToCart.fulfilled, (state, action: PayloadAction<CartItem[]>) => {
-        state.items = action.payload;
+      .addCase(addToCart.fulfilled, (state, action: PayloadAction<CartResponse>) => {
+        state.items = action.payload.items;
+        state.firstAmount = action.payload.firstAmount;
+        state.finalAmount = action.payload.finalAmount;
+        state.totalDiscount = action.payload.totalDiscount;
       })
-      .addCase(removeCartItem.fulfilled, (state, action: PayloadAction<CartItem[]>) => {
-        state.items = action.payload;
+      .addCase(removeCartItem.fulfilled, (state, action: PayloadAction<CartResponse>) => {
+        state.items = action.payload.items;
+        state.firstAmount = action.payload.firstAmount;
+        state.finalAmount = action.payload.finalAmount;
+        state.totalDiscount = action.payload.totalDiscount;
       })
-      .addCase(updateCartQuantity.fulfilled, (state, action: PayloadAction<CartItem[]>) => {
-        state.items = action.payload;
+      .addCase(updateCartQuantity.fulfilled, (state, action: PayloadAction<CartResponse>) => {
+        state.items = action.payload.items;
+        state.firstAmount = action.payload.firstAmount;
+        state.finalAmount = action.payload.finalAmount;
+        state.totalDiscount = action.payload.totalDiscount;
       });
   },
 });

@@ -5,6 +5,8 @@ import type { Product, ProductVariant } from "@/types/Products";
 
 import styles from "./index.module.scss";
 
+import { closeBtn, noImg } from "@/assets";
+
 type Props = {
   product: Product;
   onRemove: (id: string) => void;
@@ -24,12 +26,19 @@ export default function WishlistItem({ product, onRemove }: Props) {
   return (
     <>
       <div className={styles.item}>
-        <button className={styles.remove} onClick={handleRemove}>✕</button>
+        <button className={styles.remove} onClick={handleRemove}>
+          <img src={closeBtn} alt="delete" width={18} height={18} />
+        </button>
+
 
         <div className={styles.itemInner}>
-          <img className={styles.image} src={product.image?.[0]} alt={product.name} />
-          <div className={`body ${styles.name}`} onClick={() => goToProduct(product._id)}>{product.name}</div>
-          <div className={`body ${styles.price}`}>{price}₴</div>
+          <img
+            className={`${styles.image} ${product.image?.length ? "" : styles.noBorder}`}
+            src={product.image?.length ? product.image[0] : noImg}
+            alt={product.name}
+          />
+          <div className={`text-filters ${styles.name}`} onClick={() => goToProduct(product._id)}>{product.name}</div>
+          <div className={`body ${styles.price}`}>{price} ₴</div>
           <div className={`body ${styles.stock} ${!inStock ? styles.disabled : ""}`}>
             {inStock ? "In Stock" : "Out of Stock"}
           </div>

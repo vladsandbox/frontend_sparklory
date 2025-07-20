@@ -4,15 +4,19 @@ export type CartItem = {
   size: string;
   material: string;
   insert: string;
-  price: number;
+  firstPrice: number;
+  discount: number;
+  priceWithDiscount: number;
 };
 
 export type CartResponse = {
   items: CartItem[];
   preTotal: number;
   finalTotal: number;
-  appliedCoupon: string;
-  appliedBonus: number;
+  firstAmount: number;
+  totalDiscount: number;
+  amountWithDiscount: number;
+  finalAmount: number;
 };
 
 export type RemoveCartPayload = {

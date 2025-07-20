@@ -4,7 +4,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 24px 0;
+    padding-top: 24px;
+    padding-bottom: 20px;
     padding-right: 34px;
     position: relative;
     color: $color-grey;
@@ -13,16 +14,25 @@
 .itemInner {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    width: 100%;
 }
 
 .remove {
-    background: none;
-    border: none;
-    font-size: 18px;
+    all: unset;
     cursor: pointer;
-    color: $color-grey;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+
+    img {
+        width: 18px;
+        height: 18px;
+    }
+
+    &:hover {
+        opacity: 0.7;
+    }
 }
 
 .image {
@@ -32,23 +42,22 @@
     border-radius: 8px;
     border: 0.5px solid $color-button;
     margin: 0px 60px;
+
+    &.noBorder {
+        border: none;
+    }
 }
 
 .name {
-    width: 408px;
-    color: $color-grey;
+    color: $color-black;
     cursor: pointer;
     transition: color 0.2s;
 
     &:hover {
-        color: $color-black;
         text-decoration: underline;
     }
 }
 
-.price {
-    margin-left: 217px;
-}
 
 .divider {
     grid-column: 1 / -1;
@@ -60,9 +69,8 @@
 }
 
 .total {
-    width: 80px;
+    width: 83px;
     display: flex;
-    justify-content: center;
     align-items: center;
 }
 
@@ -92,6 +100,8 @@
     align-items: center;
     justify-content: space-between;
     gap: 8px;
+    margin-left: 31px;
+    margin-right: 67px;
 }
 
 .quantityBtn {

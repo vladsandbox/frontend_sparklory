@@ -1,0 +1,43 @@
+@use '@/styles/colors' as *;
+
+.totalContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 38px;
+    padding: 20px 24px;
+    border: 1px solid $color-button;
+    max-width: 761px;
+    border-radius: 12px;
+    margin-top: 60px;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.divider {
+    grid-column: 1 / -1;
+    border-bottom: 1px solid $color-button;
+}
+
+.input {
+    width: 512px;
+    height: 55px;
+}
+
+.applyBtn {
+  width: 177px;
+
+  &:disabled {
+    background-color: $color-disabled;
+    color: $color-grey;
+  }
+}
+
+.loyaltyContainer {
+    display: flex;
+    justify-content: space-between;
+}

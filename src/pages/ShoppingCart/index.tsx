@@ -8,13 +8,15 @@ import { fetchCartProducts, updateCartQuantity, removeCartItem } from "@/store/t
 import { useAuth } from "@/utils/hooks/useAuth";
 import type { RootState, AppDispatch } from "@/store";
 import type { CartItem as CartItemType } from "@/types/Cart";
+import CartTotals from "./CartTotals/CartTotals";
 
 export default function ShopCart() {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
 
   const isAuth = useAuth();
-  const { items: cart, loading } = useSelector((state: RootState) => state.cart);
+  const { items: cart, finalAmount, firstAmount, totalDiscount, loading } = useSelector((state: RootState) => state.cart);
+
 
   useEffect(() => {
     dispatch(fetchCartProducts({ guest: !isAuth }));
@@ -47,8 +49,6 @@ export default function ShopCart() {
     }));
   };
 
-  const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-
   return (
     <>
       <CatalogSearchBar />
@@ -77,16 +77,7 @@ export default function ShopCart() {
               onRemove={handleRemove}
               onQuantityChange={handleQuantityChange}
             />
-            <div style={{ marginTop: 40, textAlign: "right" }}>
-              <h2>Total: {total.toFixed(2)}₴</h2>
-              <button
-                className="primary-btn big button-text"
-                style={{ marginTop: 20 }}
-                onClick={() => navigate("/checkout")}
-              >
-                Proceed to Checkout
-              </button>
-            </div>
+            <CartTotals finalAmount={finalAmount} discount={totalDiscount} firstAmount={firstAmount} />
           </>
         )}
       </div>

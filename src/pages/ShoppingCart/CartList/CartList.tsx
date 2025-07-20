@@ -20,9 +20,9 @@ export default function CartList({ products, onRemove, onQuantityChange }: Props
     <div className={styles.container}>
       <div className={styles.header}>
         <span className="title-m">Product</span>
-        <div style={{ display: "flex", gap: 85 }}>
+        <div>
           <span className="title-m">Price</span>
-          <span className="title-m">Quantity</span>
+          <span className={`title-m ${styles.spanMargin}`}>Quantity</span>
           <span className="title-m">Subtotal</span>
         </div>
       </div>
