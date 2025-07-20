@@ -1,0 +1,58 @@
+@use '@/styles/colors' as colors;
+@use '@/styles/variables' as var;
+
+.subscribeWrapper {
+    background-color: colors.$color-background-ratings;
+    margin-bottom: 120px;
+
+    .inner {
+        padding: 40px 60px;
+        display: flex;
+        gap: 24px;
+        justify-content: space-between;
+
+        .textBlock {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+
+            .description {
+                font-weight: 300;
+                color: rgba(46, 46, 46, 1)
+            }
+        }
+
+        img {
+            border-radius: 12px;
+            width: 536px;
+            height: 330px;
+            object-fit: cover;
+        }
+
+        .inputContainer {
+            display: flex;
+            justify-content: space-between;
+
+            input {
+                width: 536px;
+                height: 55px;
+                padding-left: 12px;
+
+                background-color: transparent;
+                border-color: colors.$color-button;
+                font-size: var.$font-button-size;
+                font-weight: var.$font-button-weight;
+                line-height: var.$font-button-line-height;
+
+                &::placeholder {
+                    color: colors.$color-grey;
+                    opacity: 0.5;
+                }
+            }
+
+            button {
+                width: 200px;
+            }
+        }
+    }
+}

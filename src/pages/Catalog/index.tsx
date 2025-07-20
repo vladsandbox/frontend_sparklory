@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useMemo } from "react";
+import subscribeImg from "@/assets/images/subscribe-img-2.png";
 
 import { fetchProductsByCategory } from "@/store/thunks/productsThunk";
 import type { AppDispatch, RootState } from "@/store";
@@ -9,6 +10,7 @@ import CatalogSubcategoriesSlider from "@/pages/Catalog/SubcategoriesSlider";
 import CatalogSearchBar from "@/components/CatalogSearchBar";
 import CatalogProductsList from "./ProductsList";
 import "./index.scss";
+import SubscribeSection from "@/components/SubscribeSection";
 
 export default function Catalog() {
     const { category } = useParams<{ category: string }>();
@@ -38,6 +40,8 @@ export default function Catalog() {
                     <CatalogProductsList products={products} />
                 </>
             }
+        
+            <SubscribeSection imageSrc={subscribeImg}/>
         </div>
     );
 }
