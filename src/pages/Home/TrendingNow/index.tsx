@@ -138,6 +138,9 @@ export default function TrendingNow({ products, loading }: Props) {
                 maxIndex={maxIndex}
                 onPrev={handlePrev}
                 onNext={handleNext}
+                containerClassName="slider-nav"
+                buttonClassNamePrev="arrow"
+                buttonClassNameNext="arrow"
               />
             </div>
           </div>

@@ -146,6 +146,9 @@ export default function SpringSale({ products, loading }: Props) {
               maxIndex={springSaleProducts.length - 4}
               onPrev={handlePrev}
               onNext={handleNext}
+              containerClassName="slider-nav"
+              buttonClassNamePrev="arrow"
+              buttonClassNameNext="arrow"
             />
           </>
         )}

@@ -11,8 +11,9 @@ type Props = {
     onPrev: () => void;
     onNext: () => void;
     direction?: "horizontal" | "vertical";
-    className?: string;
-    whiteArrow?: boolean;
+    containerClassName?: string;
+    buttonClassNamePrev?: string;
+    buttonClassNameNext?: string;
 };
 
 const SliderNavButtons: React.FC<Props> = ({
@@ -21,22 +22,23 @@ const SliderNavButtons: React.FC<Props> = ({
     onPrev,
     onNext,
     direction = "horizontal",
-    className = "",
-    whiteArrow = false,
+    containerClassName = "",
+    buttonClassNamePrev = "",
+    buttonClassNameNext = "",
 }) => {
     return (
-        <div className={clsx("slider-nav", direction, className)}>
+        <div className={clsx(direction, containerClassName)}>
             <button
                 onClick={onPrev}
                 disabled={index === 0}
-                className={clsx("arrow left", { whiteArrow })}
+                className={clsx(buttonClassNamePrev)}
             >
                 <PrevArrow />
             </button>
             <button
                 onClick={onNext}
-                disabled={index === maxIndex}
-                className={clsx("arrow right", { whiteArrow })}
+                disabled={index >= maxIndex}
+                className={clsx(buttonClassNameNext)}
             >
                 <NextArrow />
             </button>

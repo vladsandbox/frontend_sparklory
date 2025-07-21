@@ -86,7 +86,9 @@ export const HomeSlider: React.FC = () => {
                         maxIndex={slides.length - 1}
                         onPrev={handlePrev}
                         onNext={handleNext}
-                        whiteArrow
+                        containerClassName="slider-nav"
+                        buttonClassNamePrev="arrow whiteArrow"
+                        buttonClassNameNext="arrow whiteArrow"
                     />
                 </div>
 

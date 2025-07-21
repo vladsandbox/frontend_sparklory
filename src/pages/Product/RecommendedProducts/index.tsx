@@ -58,6 +58,9 @@ export default function RecommendedProducts({ products, loading }: Props) {
               onPrev={() => instanceRef.current?.prev()}
               onNext={() => instanceRef.current?.next()}
               direction="vertical"
+              containerClassName="slider-nav"
+              buttonClassNamePrev="arrow"
+              buttonClassNameNext="arrow"
             />
           </div>
         </div>

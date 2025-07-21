@@ -6,8 +6,7 @@ import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
 
 import CatalogSubcategoryCard from "@/pages/Catalog/SubcategoryCard";
-import NextArrow from "@/assets/icons/arrow-right.svg?react";
-import PrevArrow from "@/assets/icons/arrow-left.svg?react";
+import SliderNavButtons from "@/components/SliderNavButtons/SliderNavButtons";
 
 import "./index.scss";
 
@@ -49,6 +48,9 @@ export default function CatalogSubcategoriesSlider({ category }: Props) {
 
     const subs = singleCategory.subcategories;
 
+    const totalSlides = slider?.current ? slider.current.track.details.slides.length : 0;
+    const maxIndex = Math.max(0, totalSlides - Math.floor(perView));
+
     return (
         <div className="subcategories-slider-wrapper wrapper">
             <div ref={sliderRef} className="subcategories-slider keen-slider">
@@ -59,20 +61,15 @@ export default function CatalogSubcategoriesSlider({ category }: Props) {
                 ))}
             </div>
 
-            <button
-                className="subcategories-slider__arrow subcategories-slider__arrow--left"
-                onClick={() => slider.current?.prev()}
-                disabled={currentSlide === 0}
-            >
-                <PrevArrow />
-            </button>
-            <button
-                className="subcategories-slider__arrow subcategories-slider__arrow--right"
-                onClick={() => slider.current?.next()}
-                disabled={currentSlide >= subs.length - perView}
-            >
-                <NextArrow />
-            </button>
+            <SliderNavButtons
+                index={currentSlide}
+                maxIndex={maxIndex}
+                onPrev={() => slider.current?.prev()}
+                onNext={() => slider.current?.next()}
+                containerClassName="subcategories-slider"
+                buttonClassNamePrev="subcategories-slider__arrow subcategories-slider__arrow--left"
+                buttonClassNameNext="subcategories-slider__arrow subcategories-slider__arrow--right"
+            />
         </div>
     );
 }
