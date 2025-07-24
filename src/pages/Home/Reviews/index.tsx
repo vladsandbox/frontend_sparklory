@@ -99,13 +99,11 @@ export default function Reviews({ products, loading }: Props) {
                                 </div>
                             )}
                             <SliderNavButtons
-                                index={currentIndex}
-                                maxIndex={allReviews.length - 1}
+                                isDisabledPrev={currentIndex === 0}
+                                isDisabledNext={currentIndex >= allReviews.length - 1}
                                 onPrev={handlePrev}
                                 onNext={handleNext}
-                                containerClassName="slider-nav"
-                                buttonClassNamePrev="arrow"
-                                buttonClassNameNext="arrow"
+                                className="slider-nav"
                             />
                         </>
                     )}

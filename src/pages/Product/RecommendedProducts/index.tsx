@@ -52,16 +52,16 @@ export default function RecommendedProducts({ products, loading }: Props) {
           </div>
 
           <div className="nav-buttons" style={{ marginLeft: 20 }}>
-            <SliderNavButtons
-              index={index}
-              maxIndex={products.length - 3}
-              onPrev={() => instanceRef.current?.prev()}
-              onNext={() => instanceRef.current?.next()}
-              direction="vertical"
-              containerClassName="slider-nav"
-              buttonClassNamePrev="arrow"
-              buttonClassNameNext="arrow"
-            />
+            {products.length > 3 && (
+              <SliderNavButtons
+                isDisabledPrev={index === 0}
+                isDisabledNext={index >= products.length - 3}
+                onPrev={() => instanceRef.current?.prev()}
+                onNext={() => instanceRef.current?.next()}
+                direction="vertical"
+                className="slider-nav"
+              />
+            )}
           </div>
         </div>
       </div>

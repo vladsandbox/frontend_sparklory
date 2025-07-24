@@ -82,13 +82,12 @@ export const HomeSlider: React.FC = () => {
                     </div>
 
                     <SliderNavButtons
-                        index={currentIndex}
-                        maxIndex={slides.length - 1}
+                        isDisabledPrev={currentIndex === 0}
+                        isDisabledNext={currentIndex === slides.length - 1}
                         onPrev={handlePrev}
                         onNext={handleNext}
-                        containerClassName="slider-nav"
-                        buttonClassNamePrev="arrow whiteArrow"
-                        buttonClassNameNext="arrow whiteArrow"
+                        className="slider-nav"
+                        whiteArrow
                     />
                 </div>
 
