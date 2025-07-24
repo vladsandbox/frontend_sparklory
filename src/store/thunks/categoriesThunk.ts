@@ -1,4 +1,4 @@
-import api from "@/api";
+import { instance } from "@/api/axios.api.ts";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import type { Category } from "@/types/Categories";
 
@@ -16,7 +16,7 @@ export const fetchCategories = createAsyncThunk<
     "categories/fetchCategories",
     async (_, { rejectWithValue }) => {
         try {
-            const response = await api.get(apiCategoriesUrl);
+            const response = await instance.get(apiCategoriesUrl);
             return response.data;
         } catch (error) {
             const message = error instanceof Error ? error.message : "Unknown error";
@@ -37,7 +37,7 @@ export const fetchCategory = createAsyncThunk<
     "categories/fetchCategory",
     async (category, { rejectWithValue }) => {
         try {
-            const response = await api.get(`${apiCategoriesUrl}/${category}`);
+            const response = await instance.get(`${apiCategoriesUrl}/${category}`);
             return response.data;
         } catch (error) {
             const message = error instanceof Error ? error.message : "Unknown error";
