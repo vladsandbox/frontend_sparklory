@@ -4,14 +4,11 @@
 .subcategories-slider-wrapper {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   position: relative;
   overflow: visible;
   margin: 0 auto;
   gap: 50px;
-
-  .subcategories-slider {
-    display: flex;
-  }
 
   &__arrows {
     gap: 24px;
