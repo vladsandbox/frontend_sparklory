@@ -6,39 +6,37 @@ import clsx from "clsx";
 import "./SliderNavButtons.scss";
 
 type Props = {
-    index: number;
-    maxIndex: number;
+    isDisabledPrev: boolean;
+    isDisabledNext: boolean;
     onPrev: () => void;
     onNext: () => void;
     direction?: "horizontal" | "vertical";
-    containerClassName?: string;
-    buttonClassNamePrev?: string;
-    buttonClassNameNext?: string;
+    className?: string;
+    whiteArrow?: boolean;
 };
 
 const SliderNavButtons: React.FC<Props> = ({
-    index,
-    maxIndex,
+    isDisabledPrev,
+    isDisabledNext,
     onPrev,
     onNext,
     direction = "horizontal",
-    containerClassName = "",
-    buttonClassNamePrev = "",
-    buttonClassNameNext = "",
+    className = "",
+    whiteArrow = false,
 }) => {
     return (
-        <div className={clsx(direction, containerClassName)}>
+        <div className={clsx("slider-nav", direction, className)}>
             <button
                 onClick={onPrev}
-                disabled={index === 0}
-                className={clsx(buttonClassNamePrev)}
+                disabled={isDisabledPrev}
+                className={clsx("arrow left", { whiteArrow })}
             >
                 <PrevArrow />
             </button>
             <button
                 onClick={onNext}
-                disabled={index >= maxIndex}
-                className={clsx(buttonClassNameNext)}
+                disabled={isDisabledNext}
+                className={clsx("arrow right", { whiteArrow })}
             >
                 <NextArrow />
             </button>
