@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useMemo } from "react";
 import subscribeImg from "@/assets/images/subscribe-img-2.png";
 
-import { fetchProductsByCategory } from "@/store/thunks/productsThunk";
+import { fetchProducts, fetchProductsByCategory } from "@/store/thunks/productsThunk";
 import type { AppDispatch, RootState } from "@/store";
 
 import CatalogProductsList from "./ProductsList";
@@ -11,8 +11,8 @@ import "./index.scss";
 import SubscribeSection from "@/components/SubscribeSection";
 
 export default function Catalog() {
-    const { category } = useParams<{ category: string }>();
-    const dispatch: AppDispatch = useDispatch();
+    const { category } = useParams<{ category: string | undefined }>();
+    const dispatch = useDispatch<AppDispatch>();
     const { products, loading, error } = useSelector((state: RootState) => state.products);
 
     const capitalizedCategory = useMemo(() => {
@@ -20,9 +20,14 @@ export default function Catalog() {
         return category.charAt(0).toUpperCase() + category.slice(1);
     }, [category]);
 
+    const pageTitle = category ? capitalizedCategory : "All Products";
+
     useEffect(() => {
-        if (category)
+        if (category) {
             dispatch(fetchProductsByCategory(category));
+        } else {
+            dispatch(fetchProducts());
+        }
     }, [category, dispatch]);
 
     return (
