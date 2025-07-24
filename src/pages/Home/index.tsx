@@ -8,7 +8,7 @@ import CategoryHome from "./Category";
 import TrendingNow from "./TrendingNow";
 import Reviews from "./Reviews";
 import SpringSale from "./SpringSale";
-import SubscribeSection from "./SubscribeSection";
+import SubscribeSection from "@/components/SubscribeSection";
 import CatalogSearchBar from "@/components/CatalogSearchBar";
 
 import 'tippy.js/dist/tippy.css';

@@ -1,12 +1,14 @@
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useMemo } from "react";
+import subscribeImg from "@/assets/images/subscribe-img-2.png";
 
 import { fetchProducts, fetchProductsByCategory } from "@/store/thunks/productsThunk";
 import type { AppDispatch, RootState } from "@/store";
 
 import CatalogProductsList from "./ProductsList";
 import "./index.scss";
+import SubscribeSection from "@/components/SubscribeSection";
 
 export default function Catalog() {
     const { category } = useParams<{ category: string | undefined }>();
@@ -30,10 +32,13 @@ export default function Catalog() {
 
     return (
         error ? <p className="error"> Category "{capitalizedCategory}" is not found </p> :
-        <div className="wrapper">
-            <title>{pageTitle}</title>
-            <h1 className="catalog-title">{pageTitle}</h1>
-            <CatalogProductsList products={products} loading={loading} />
-        </div>
+       <>
+           <div className="wrapper">
+                <title>{capitalizedCategory}</title>
+                <h1 className="catalog-title">{capitalizedCategory}</h1>
+                <CatalogProductsList products={products} loading={loading} />
+            </div>
+           <SubscribeSection imageSrc={subscribeImg}/>
+        </>
     );
 }
