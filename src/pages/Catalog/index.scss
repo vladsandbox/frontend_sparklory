@@ -8,5 +8,14 @@
   font-style: normal;
   font-weight: var.$font-xxl-weight;
   line-height: var.$font-h2-line-height;
-  margin: 20px 0;
+  padding: 20px 0;
+}
+
+hr {
+  margin: 60px auto;
+  width: 100%;
+  max-width: 1440px;
+  border: none;
+  height: 2px;
+  background-image: linear-gradient(90deg, #F9F7F2 0%, #5C4A3C 51.6%, #F9F7F2 100%);
 }

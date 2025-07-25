@@ -1,0 +1,53 @@
+@use "@/styles/colors" as colors;
+
+.slider-nav {
+    display: flex;
+
+    &.horizontal {
+        gap: 40px;
+        justify-content: center;
+    }
+
+    &.vertical {
+        flex-direction: column;
+        align-items: center;
+        gap: 24px;
+    }
+
+    .arrow {
+        height: 44px;
+        width: 39px;
+        border-radius: 20px;
+        border: none;
+        background-color: colors.$color-button;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+
+        svg {
+            color: colors.$color-white;
+        }
+
+        &:disabled {
+            background-color: transparent;
+            border: 1px solid colors.$color-button;
+            cursor: default;
+
+            svg {
+                color: colors.$color-button;
+            }
+        }
+
+        &.whiteArrow {
+            &:disabled {
+                border: 1px solid colors.$color-white;
+
+                svg {
+                    color: colors.$color-white;
+                }
+            }
+        }
+    }
+}

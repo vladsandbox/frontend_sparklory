@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { slider_1, slider_2, slider_3, slider_4 } from '../../../assets';
+import { slider_1, slider_2, slider_3, slider_4 } from '@/assets';
+import SliderNavButtons from '@/components/SliderNavButtons/SliderNavButtons';
+
 import './index.scss';
 
 const slides = [
@@ -79,18 +81,14 @@ export const HomeSlider: React.FC = () => {
                         </span>
                     </div>
 
-                    <div className="nav-buttons">
-                        <button
-                            className="arrow left"
-                            onClick={handlePrev}
-                            disabled={currentIndex === 0}
-                        />
-                        <button
-                            className="arrow right"
-                            onClick={handleNext}
-                            disabled={currentIndex === slides.length - 1}
-                        />
-                    </div>
+                    <SliderNavButtons
+                        isDisabledPrev={currentIndex === 0}
+                        isDisabledNext={currentIndex === slides.length - 1}
+                        onPrev={handlePrev}
+                        onNext={handleNext}
+                        className="slider-nav"
+                        whiteArrow
+                    />
                 </div>
 
             </div>
