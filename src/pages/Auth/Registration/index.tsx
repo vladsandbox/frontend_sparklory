@@ -1,15 +1,16 @@
 import * as Yup from "yup";
 
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import type { AppDispatch } from "@/store";
 import { NavLink } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { registration, loginUser } from "../../../store/thunks/userThunk.ts";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import { registration, loginUser } from "@/store/thunks/userThunk.ts";
 import { setLocalStorage } from "@/utils/localStorage.ts";
-import type { AppDispatch } from "../../../store";
+import { useOAuthPopupAuth } from "@/utils/hooks/useOAuthPopupAuth.ts";
+import { eyeSlash, logoFacebook, logoGoogle } from "@/assets";
 
-import { eyeSlash, logoFacebook, logoGoogle } from "../../../assets";
 import "./index.scss"
 
 export default function Registration() {
@@ -42,7 +43,7 @@ export default function Registration() {
             if (loginUser.fulfilled.match(loginResult)) {
                 setLocalStorage("token", loginResult.payload.accessToken);
                 toast.success("Registration & login successful!");
-                navigate("/");
+                navigate("/profile");
             } else {
                 toast.error(loginResult.payload || "Login after registration failed");
                 navigate("/login");
@@ -67,6 +68,22 @@ export default function Registration() {
         agreeTerms: Yup.boolean()
             .oneOf([true], 'You must accept the terms')
     })
+
+    const handleGoogleLogin = () => {
+        window.open(
+            'https://sparklory-back.onrender.com/api/v1/auth/google',
+            '_blank',
+            'width=500,height=600'
+        );
+    };
+
+    useOAuthPopupAuth({
+        onAuthSuccess: ({ accessToken, refreshToken }) => {
+            setLocalStorage("token", accessToken);
+            setLocalStorage("refreshToken", refreshToken);
+            navigate('/profile')
+        },
+    });
 
     return (
         <div className="wrapper">
@@ -135,11 +152,15 @@ export default function Registration() {
                                 >
                                     {isSubmitting ? 'Submitting...' : 'Sign Up'}
                                 </button>
-                                <button className="secondary-btn button-text">
+                                <button type='button' className="secondary-btn button-text">
                                     <img className="fb-img" src={logoFacebook} alt="Facebook" />
                                     <span className="btn-title">Log in with Facebook</span>
                                 </button>
-                                <button className="secondary-btn button-text">
+                                <button
+                                    type='button'
+                                    className="secondary-btn button-text"
+                                    onClick={handleGoogleLogin}
+                                >
                                     <img className="g-img" src={logoGoogle} alt="Google" />
                                     <span className="btn-title">Log in with Google</span>
                                 </button>
