@@ -2,9 +2,6 @@ import { useMemo, useState } from "react";
 import { useKeenSlider } from "keen-slider/react";
 
 import type { Product } from "@/types/Products.ts";
-import { silver, gold, whiteGold } from "@/assets";
-import { useProductNavigation } from "@/utils/hooks/useProductNavigation.ts";
-import { useFavorites } from "@/utils/hooks/useFavorite";
 import SliderNavButtons from "@/components/SliderNavButtons/SliderNavButtons";
 
 import "./index.scss";

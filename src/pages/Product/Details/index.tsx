@@ -6,6 +6,7 @@ import SizeSelector from "@/components/SizeSelector";
 import AddToCartButton from "@/components/AddToCartButton/AddToCartButton";
 import { useFavorites } from "@/utils/hooks/useFavorite";
 import { MATERIALS } from "@/components/MaterialSelector/materials.ts";
+import SliderNavButtons from "@/components/SliderNavButtons/SliderNavButtons";
 import { noImg } from "@/assets";
 
 import type { Product, ProductVariant } from "@/types/Products";
@@ -82,10 +83,13 @@ export default function ProductDetails({ product }: Props) {
             ))}
           </div>
 
-          <div className={`nav-buttons ${styles.containerButtons}`}>
-            <button onClick={() => instanceRef.current?.prev()} className="arrow left" disabled={currentImageIndex === 0} />
-            <button onClick={() => instanceRef.current?.next()} className="arrow right" disabled={currentImageIndex === images.length - 1} />
-          </div>
+          <SliderNavButtons
+            isDisabledPrev={currentImageIndex === 0}
+            isDisabledNext={currentImageIndex === images.length - 1}
+            onPrev={() => instanceRef.current?.prev()}
+            onNext={() => instanceRef.current?.next()}
+            className={styles.containerButtons}
+          />
 
           <div className={styles.thumbnails}>
             {images.map((src, idx) => (
