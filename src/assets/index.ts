@@ -36,6 +36,7 @@ import chooseFileBackground from './images/chooseFileBackground.webp'
 import galleryAdd from './icons/gallery-add.svg'
 import profile from './images/profile.png'
 import noImg from './icons/no-image.svg'
+import closeBtn from './icons/close-btn.svg'
 
 export {
   heart,
@@ -75,5 +76,6 @@ export {
   chooseFileBackground,
   galleryAdd,
   profile,
-  noImg
+  noImg,
+  closeBtn,
 };
