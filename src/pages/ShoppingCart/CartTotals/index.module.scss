@@ -29,15 +29,25 @@
 }
 
 .applyBtn {
-  width: 177px;
+    width: 177px;
 
-  &:disabled {
-    background-color: $color-disabled;
-    color: $color-grey;
-  }
+    &:disabled {
+        background-color: $color-disabled;
+        color: $color-grey;
+    }
 }
 
 .loyaltyContainer {
+    position: relative;
     display: flex;
     justify-content: space-between;
+}
+
+.errorCoupon {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    color: red;
+    font-size: 12px;
+    margin-top: 2px
 }

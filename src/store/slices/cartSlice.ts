@@ -6,6 +6,7 @@ import {
   addToCart,
   removeCartItem,
   updateCartQuantity,
+  applyCoupon
 } from "../thunks/cartThunk";
 import type { RootState } from "..";
 import type { CartItem, CartResponse } from "@/types/Cart";
@@ -67,7 +68,13 @@ const cartSlice = createSlice({
         state.firstAmount = action.payload.firstAmount;
         state.finalAmount = action.payload.finalAmount;
         state.totalDiscount = action.payload.totalDiscount;
-      });
+      })
+      .addCase(applyCoupon.fulfilled, (state, action: PayloadAction<CartResponse>) => {
+        state.items = action.payload.items;
+        state.firstAmount = action.payload.firstAmount;
+        state.finalAmount = action.payload.finalAmount;
+        state.totalDiscount = action.payload.totalDiscount;
+      })
   },
 });
 

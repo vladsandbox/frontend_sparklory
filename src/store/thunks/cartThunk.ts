@@ -1,5 +1,4 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { toast } from "react-toastify";
 
 import { instance } from "@/api/axios.api";
 import { getGuestId } from "@/utils/guestId";
@@ -12,6 +11,8 @@ const CART_REMOVE_URL = import.meta.env.VITE_CART_REMOVE_URL;
 const CART_GET_GUEST_URL = import.meta.env.VITE_CART_GET_GUEST_URL;
 const CART_POST_GUEST_URL = import.meta.env.VITE_CART_POST_GUEST_URL;
 const CART_REMOVE_GUEST_URL = import.meta.env.VITE_CART_REMOVE_GUEST_URL;
+const COUPON_POST_URL = import.meta.env.VITE_COUPON_POST_URL;
+const COUPON_POST_GUEST_URL = import.meta.env.VITE_COUPON_POST_GUEST_URL
 
 export const fetchCartProducts = createAsyncThunk<CartResponse, { guest?: boolean }>(
   "cart/fetchCartProducts",
@@ -45,10 +46,8 @@ export const addToCart = createAsyncThunk<
       const url = guest ? CART_POST_GUEST_URL : CART_POST_URL;
       const payload = guest ? { ...data, guestId: getGuestId() } : data;
       const res = await instance.post(url, payload);
-      toast.success("Product added to cart");
       return res.data;
     } catch (err: any) {
-      toast.error(err.response?.data?.message || "Failed to add to cart");
       return rejectWithValue(err.response?.data?.message || "Failed to add to cart");
     }
   }
@@ -67,10 +66,8 @@ export const removeCartItem = createAsyncThunk<
         ? { productId, size, material, insert, guestId: getGuestId() }
         : { productId, size, material, insert };
       const res = await instance.post(url, payload);
-      toast.success("Product removed from cart");
       return res.data;
     } catch (err: any) {
-      toast.error(err.response?.data?.message || "Failed to remove from cart");
       return rejectWithValue(err.response?.data?.message || "Failed to remove from cart");
     }
   }
@@ -89,11 +86,27 @@ export const updateCartQuantity = createAsyncThunk<
         ? { productId, quantity, size, material, insert, guestId: getGuestId() }
         : { productId, quantity, size, material, insert };
       const res = await instance.post(url, payload);
-      toast.success("Cart updated");
       return res.data;
     } catch (err: any) {
-      toast.error(err.response?.data?.message || "Failed to update cart");
       return rejectWithValue(err.response?.data?.message || "Failed to update cart");
+    }
+  }
+);
+
+export const applyCoupon = createAsyncThunk<
+  CartResponse,
+  { code: string; guest?: boolean },
+  { rejectValue: string }
+>(
+  "cart/applyCoupon",
+  async ({ code, guest = false }, { rejectWithValue }) => {
+    try {
+      const url = guest ? COUPON_POST_GUEST_URL : COUPON_POST_URL;
+      const payload = guest ? { code, guestId: getGuestId() } : { code };
+      const res = await instance.post(url, payload);
+      return res.data;
+    } catch (err: any) {
+      return rejectWithValue(err.response?.data?.message || "Failed to apply coupon");
     }
   }
 );
