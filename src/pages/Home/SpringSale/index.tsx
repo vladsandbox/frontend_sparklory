@@ -7,6 +7,7 @@ import type { Product } from "@/types/Products.ts";
 import { silver, gold, whiteGold } from "@/assets";
 import { useProductNavigation } from "@/utils/hooks/useProductNavigation.ts";
 import { useFavorites } from "@/utils/hooks/useFavorite";
+import SliderNavButtons from "@/components/SliderNavButtons/SliderNavButtons";
 
 import "./index.scss";
 
@@ -140,14 +141,13 @@ export default function SpringSale({ products, loading }: Props) {
               })}
             </div>
 
-            <div className="nav-buttons">
-              <button onClick={handlePrev} className="arrow left" disabled={currentIndex === 0} />
-              <button
-                onClick={handleNext}
-                className="arrow right"
-                disabled={currentIndex >= springSaleProducts.length - 4}
-              />
-            </div>
+            <SliderNavButtons
+              isDisabledPrev={currentIndex === 0}
+              isDisabledNext={currentIndex >= springSaleProducts.length - 4}
+              onPrev={handlePrev}
+              onNext={handleNext}
+              className="slider-nav"
+            />
           </>
         )}
       </div>

@@ -6,6 +6,8 @@ import subscribeImg from "@/assets/images/subscribe-img-2.png";
 import { fetchProducts } from "@/store/thunks/productsThunk";
 import type { AppDispatch, RootState } from "@/store";
 
+import CatalogSubcategoriesSlider from "@/pages/Catalog/SubcategoriesSlider";
+import CatalogSearchBar from "@/components/CatalogSearchBar";
 import CatalogProductsList from "./ProductsList";
 import "./index.scss";
 import SubscribeSection from "@/components/SubscribeSection";

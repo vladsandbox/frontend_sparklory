@@ -6,6 +6,7 @@ import MaterialSelector from '../../../components/MaterialSelector/MaterialSelec
 import type { Product } from '../../../types/Products';
 import { gold, whiteGold, silver } from "../../../assets";
 import { useProductNavigation } from "../../../utils/hooks/useProductNavigation";
+import SliderNavButtons from '@/components/SliderNavButtons/SliderNavButtons';
 
 import "./index.scss";
 
@@ -132,10 +133,13 @@ export default function TrendingNow({ products, loading }: Props) {
                 <span className="button-text">{String(TOTAL_SLIDES).padStart(2, '0')}</span>
               </div>
 
-              <div className="nav-buttons" style={{ justifyContent: "center" }}>
-                <button onClick={handlePrev} disabled={index === 0} className="arrow left" />
-                <button onClick={handleNext} disabled={index === maxIndex} className="arrow right" />
-              </div>
+              <SliderNavButtons
+                isDisabledPrev={index === 0}
+                isDisabledNext={index >= maxIndex}
+                onPrev={handlePrev}
+                onNext={handleNext}
+                className="slider-nav"
+              />
             </div>
           </div>
         )}

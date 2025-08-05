@@ -19,6 +19,7 @@ import Login from "./pages/Auth/Login";
 import Registration from "./pages/Auth/Registration";
 import VerifyEmail from "./pages/Auth/VerifyEmail";
 import Profile from "@/pages/Profile";
+import OAuthCallback from "./pages/Auth/OAuth/OAuthCallback.tsx";
 
 const router = createBrowserRouter([
   {
@@ -39,6 +40,7 @@ const router = createBrowserRouter([
       { path: "profile", element: <Profile /> },
       { path: "catalog", element: <Catalog /> },
       { path: "catalog/:category", element: <Catalog /> },
+      { path: "oauth-callback", element: <OAuthCallback /> },
       { path: "*", element: <Navigate to="/" replace /> },
     ],
   },
