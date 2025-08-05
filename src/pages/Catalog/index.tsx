@@ -1,9 +1,9 @@
-import { useParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useCallback } from "react";
 import subscribeImg from "@/assets/images/subscribe-img-2.png";
 
-import { fetchProducts, fetchProductsByCategory } from "@/store/thunks/productsThunk";
+import { fetchProducts } from "@/store/thunks/productsThunk";
 import type { AppDispatch, RootState } from "@/store";
 
 import CatalogProductsList from "./ProductsList";
@@ -11,9 +11,12 @@ import "./index.scss";
 import SubscribeSection from "@/components/SubscribeSection";
 
 export default function Catalog() {
-    const { category } = useParams<{ category: string | undefined }>();
+    const { category } = useParams<{ category?: string }>();
     const dispatch = useDispatch<AppDispatch>();
-    const { products, loading, error } = useSelector((state: RootState) => state.products);
+    const { data, loading, error } = useSelector((state: RootState) => state.products);
+    const [searchParams, setSearchParams] = useSearchParams();
+
+    const currentPage = Number(searchParams.get("page")) || 1;
 
     const capitalizedCategory = useMemo(() => {
         if (!category) return "";
@@ -23,22 +26,54 @@ export default function Catalog() {
     const pageTitle = category ? capitalizedCategory : "All Products";
 
     useEffect(() => {
-        if (category) {
-            dispatch(fetchProductsByCategory(category));
-        } else {
-            dispatch(fetchProducts());
+        if (currentPage < 1) {
+            return;
         }
-    }, [category, dispatch]);
+
+        const params: { page: number; category?: string } = { page: currentPage };
+        if (category) {
+            params.category = category;
+        }
+        dispatch(fetchProducts(params));
+
+    }, [category, currentPage, dispatch]);
+
+    useEffect(() => {
+        if (currentPage < 1) {
+            setSearchParams(prev => {
+                prev.set('page', '1');
+                return prev;
+            }, { replace: true });
+        } else if (data.products.length === 0 && data.total > 0 && currentPage > 1) {
+            setSearchParams(prev => {
+                prev.set('page', String(data.pages));
+                return prev;
+            }, { replace: true });
+        }
+    }, [data, currentPage, setSearchParams]);
+
+    const changePage = useCallback((page: number) => {
+        setSearchParams(prev => {
+            prev.set("page", String(page));
+            return prev;
+        });
+    }, [setSearchParams]);
+
+    if (error) return <p className="error"> Category "{capitalizedCategory}" is not found </p>;
 
     return (
-        error ? <p className="error"> Category "{capitalizedCategory}" is not found </p> :
-       <>
-           <div className="wrapper">
-                <title>{capitalizedCategory}</title>
-                <h1 className="catalog-title">{capitalizedCategory}</h1>
-                <CatalogProductsList products={products} loading={loading} />
-            </div>
-           <SubscribeSection imageSrc={subscribeImg}/>
-        </>
+            <>
+                <div className="wrapper">
+                    <title>{pageTitle}</title>
+                    <h1 className="catalog-title">{pageTitle}</h1>
+                    <CatalogProductsList
+                        data={data}
+                        loading={loading}
+                        changePage={changePage}
+                        currentPage={currentPage}
+                    />
+                </div>
+                <SubscribeSection imageSrc={subscribeImg}/>
+            </>
     );
 }

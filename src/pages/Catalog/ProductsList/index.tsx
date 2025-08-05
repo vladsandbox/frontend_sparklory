@@ -1,5 +1,4 @@
-import { useSearchParams } from "react-router-dom";
-import type { Product } from "@/types/Products";
+import type { PaginatedProductsResponse } from "@/types/Pagination.ts";
 
 import CatalogProductCard from "../ProductCard";
 import CatalogPagination from "../Pagination";
@@ -7,46 +6,42 @@ import CatalogPagination from "../Pagination";
 import "./index.scss";
 
 type Props = {
-    products: Product[];
+    data: PaginatedProductsResponse;
     loading: boolean;
+    changePage: (page: number) => void;
+    currentPage: number;
 };
 
-export default function CatalogProductsList({ products, loading }: Props) {
-    const [searchParams, setSearchParams] = useSearchParams();
+export default function CatalogProductsList({ data, loading, changePage, currentPage }: Props) {
+    if (loading) {
+        return <p className="loading">Loading...</p>;
+    }
 
-    if (loading) return <p className="loading">Loading...</p>;
+    if (!data) {
+        return <p className="error">Failed to load products</p>;
+    }
 
-    const productsPerPage = 16;
-    const totalPages = Math.ceil(products.length / productsPerPage);
+    const { products, pages } = data;
 
-    const changePage = (page: number) => {
-        const newParams = new URLSearchParams(searchParams);
-        newParams.set("page", String(page));
-        setSearchParams(newParams);
-    };
-
-    const currentPage = Number(searchParams.get("page")) || 1;
-
-    const safePage = Math.min(Math.max(currentPage, 1), totalPages);
-    if (safePage !== currentPage) changePage(safePage);
-
-    const startIndex = (safePage - 1) * productsPerPage;
-    const currentProducts = products.slice(startIndex, startIndex + productsPerPage);
+    if (products.length === 0) {
+        return <p className="error">No products found</p>;
+    }
 
     return (
         <>
             <div className="catalog-products-wrapper">
-                {currentProducts.map((product) => (
+                {products.map((product) => (
                     <CatalogProductCard product={product} key={product._id} />
                 ))}
-
             </div>
-
-            <CatalogPagination
-                currentPage={safePage}
-                totalPages={totalPages}
-                onPageChange={changePage}
-            />
+            {
+                pages > 1 &&
+                <CatalogPagination
+                    currentPage={currentPage}
+                    totalPages={pages}
+                    onPageChange={changePage}
+                />
+            }
         </>
-);
+    );
 }

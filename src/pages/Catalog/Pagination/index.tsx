@@ -3,6 +3,7 @@ import NextArrow from "@/assets/icons/pag-arrow-right.svg?react";
 import PrevArrow from "@/assets/icons/pag-arrow-left.svg?react";
 
 import './index.scss';
+import { useEffect } from "react";
 
 type Props = {
     currentPage: number;
@@ -11,6 +12,10 @@ type Props = {
 };
 
 export default function CatalogPagination({ currentPage, totalPages, onPageChange }: Props) {
+    useEffect(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, [currentPage])
+
     return (
         <ReactPaginate
             pageCount={totalPages}
