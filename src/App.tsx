@@ -20,6 +20,7 @@ import Registration from "./pages/Auth/Registration";
 import VerifyEmail from "./pages/Auth/VerifyEmail";
 import Profile from "@/pages/Profile";
 import ShopCart from "./pages/ShoppingCart/index.tsx";
+import OAuthCallback from "./pages/Auth/OAuth/OAuthCallback.tsx";
 
 const router = createBrowserRouter([
   {
@@ -34,13 +35,14 @@ const router = createBrowserRouter([
       { path: "company", element: <Company /> },
       { path: "product/:id", element: <Product /> },
       { path: "wishlist", element: <WishList /> },
-      { path: "catalog", element: <Catalog /> },
       { path: "login", element: <Login /> },
       { path: "registration", element: <Registration /> },
       { path: "verify-email", element: <VerifyEmail /> },
       { path: "profile", element: <Profile /> },
+      { path: "catalog", element: <Catalog /> },
       { path: "catalog/:category", element: <Catalog /> },
       { path: "cart", element: <ShopCart /> },
+      { path: "oauth-callback", element: <OAuthCallback /> },
       { path: "*", element: <Navigate to="/" replace /> },
     ],
   },

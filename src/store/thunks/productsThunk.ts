@@ -1,43 +1,28 @@
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import type { Product, Review } from "@/types/Products";
+import type { PaginatedProductsResponse } from "@/types/Pagination";
+
+const apiProductsUrl = import.meta.env.VITE_PRODUCTS_GET_URL ?? "";
 
 type FetchReviewsResponse = {
     reviews: Review[];
     total: number;
 };
 
-const apiProductsUrl = import.meta.env.VITE_PRODUCTS_GET_URL ?? "";
-
+/**
+ * Fetches a paginated and filtered list of products.
+ * Accepts an object with optional filters, sorting, and pagination.
+ */
 export const fetchProducts = createAsyncThunk<
-    Product[],
-    void,
+    PaginatedProductsResponse,
+    Record<string, unknown> | void,
     { rejectValue: string }
 >(
     "products/fetchProducts",
-    async (_, { rejectWithValue }) => {
+    async (params = {}, { rejectWithValue }) => {
         try {
-            const response = await axios.get(apiProductsUrl);
-            return response.data;
-        } catch (error) {
-            const message = error instanceof Error ? error.message : "Unknown error";
-            return rejectWithValue(message);
-        }
-    }
-);
-
-/**
- * Takes a category string, fetches matching products (Product[]), or rejects with an error message (string)
- */
- export const fetchProductsByCategory = createAsyncThunk<
-    Product[],
-    string,
-    { rejectValue: string }
->(
-    "products/fetchProductsByCategory",
-    async (category, { rejectWithValue }) => {
-        try {
-            const response = await axios.get(`${apiProductsUrl}/category/${category}`);
+            const response = await axios.get<PaginatedProductsResponse>(apiProductsUrl, { params });
             return response.data;
         } catch (error) {
             const message = error instanceof Error ? error.message : "Unknown error";
