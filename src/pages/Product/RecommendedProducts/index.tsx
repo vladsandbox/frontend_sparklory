@@ -45,7 +45,7 @@ export default function RecommendedProducts({ products, loading }: Props) {
                   onClick={() => goToProduct(product._id)}
                   style={{ cursor: "pointer" }}
                 >
-                  <CatalogProductCard product={product} />
+                  <CatalogProductCard product={product} alwaysClosed />
                 </div>
               );
             })}

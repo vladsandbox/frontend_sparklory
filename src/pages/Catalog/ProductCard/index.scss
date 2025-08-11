@@ -31,7 +31,8 @@
       overflow: visible;
     }
 
-    .default-name, .default-price {
+    .default-name,
+    .default-price {
       display: none;
     }
 
@@ -41,7 +42,56 @@
       margin-top: 10px;
     }
   }
+
+  &.no-hover-expand {
+    height: 630px;
+
+    .card-content {
+      position: static;
+      box-shadow: none;
+      transform: none;
+      overflow: visible;
+      height: 100%;
+    }
+
+    .default-name,
+    .default-price {
+      display: none;
+    }
+
+    .expanded-information {
+      display: flex !important;
+      max-height: none;
+      margin-top: 10px;
+    }
+
+    &:hover {
+      .card-content {
+        transform: none;
+        position: static;
+        overflow: visible;
+      }
+    }
+  }
+
+  &.always-closed {
+    .card-content {
+      transform: none;
+      overflow: hidden;
+      height: 100%;
+    }
+
+    .expanded-information {
+      display: none !important;
+    }
+
+    .default-name,
+    .default-price {
+      display: block !important;
+    }
+  }
 }
+
 
 .card-content {
   display: flex;
@@ -108,7 +158,8 @@
   width: 100%;
   flex-grow: 1;
 
-  .name, .price {
+  .name,
+  .price {
     font-family: var.$font-poppins;
     color: colors.$color-black;
     width: 100%;

@@ -5,11 +5,17 @@
 .header {
     background-color: rgba(211, 190, 170, 0.4);
     padding: 10px;
+    padding-right: 15px ;
     padding-left: 225px;
     margin-bottom: 38px;
     border-radius: 12px;
     display: flex;
-    gap: 352px;
-    height: 55px;
+    justify-content: space-between;
     align-items: center;
+    height: 55px;
+}
+
+.spanMargin {
+    margin-left: 77px;
+    margin-right: 94px;
 }

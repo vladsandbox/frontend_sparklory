@@ -16,7 +16,7 @@ import 'tippy.js/dist/svg-arrow.css';
 
 export default function Home() {
   const dispatch: AppDispatch = useDispatch();
-  const products = useSelector((state: RootState) => state.products.products);
+  const products = useSelector((state: RootState) => state.products.data);
   const loading = useSelector((state: RootState) => state.products.loading);
 
   useEffect(() => {
@@ -28,9 +28,9 @@ export default function Home() {
       <CatalogSearchBar />
       <HomeSlider />
       <CategoryHome />
-      <TrendingNow products={products} loading={loading}/>
-      <Reviews products={products} loading={loading} />
-      <SpringSale products={products} loading={loading} />
+      <TrendingNow products={products.products} loading={loading} />
+      <Reviews products={products.products} loading={loading} />
+      <SpringSale products={products.products} loading={loading} />
       <SubscribeSection />
     </div>
   );

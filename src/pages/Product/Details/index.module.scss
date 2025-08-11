@@ -46,15 +46,36 @@
 .button-container {
     display: flex;
     justify-content: space-between;
+    gap: 40px;
+
+    .addToCart {
+        display: flex;
+        gap: 16px;
+        align-items: center;
+        justify-content: center;
+    }
 
     :global(.primary-btn) {
-        width: 312px;
+        width: 384px;
     }
 
     :global(.secondary-btn) {
-        width: 206px;
+        width: 384px;
         border: 1px solid $color-button;
         color: $color-button;
+    }
+
+    .icon {
+        width: 24px;
+        height: 24px;
+        flex-shrink: 0;
+        stroke: white;
+        transition: stroke 0.3s ease;
+    }
+
+
+    .disabledIcon {
+        stroke: rgba(196, 196, 196, 1);
     }
 }
 
@@ -90,8 +111,9 @@
     right: 0;
 
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between !important;
     align-items: center;
+    gap: 0px !important;
 
     transform: translateY(-50%);
     padding: 0 20px;
