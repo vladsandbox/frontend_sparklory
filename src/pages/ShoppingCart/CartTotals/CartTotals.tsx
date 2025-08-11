@@ -45,7 +45,7 @@ export default function CartTotals({ discount, finalAmount, firstAmount }: Props
                     <div className={styles.row}>
                         <p className="body">Discount</p>
                         <p className="body" style={{ color: "rgba(123, 0, 0, 1)" }}>
-                            -₴ {discount}
+                            -{discount} ₴
                         </p>
                     </div>
                     <div className={styles.row}>
@@ -55,7 +55,7 @@ export default function CartTotals({ discount, finalAmount, firstAmount }: Props
                     <div className={`${styles.divider} ${styles.row}`} />
                     <div className={styles.row}>
                         <p className="title-m">Total</p>
-                        <p className="title-m">{finalAmount.toFixed(2)} ₴</p>
+                        <p className="title-m">{finalAmount} ₴</p>
                     </div>
                 </div>
                 <div className={styles.loyaltyContainer}>

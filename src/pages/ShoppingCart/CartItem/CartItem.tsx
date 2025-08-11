@@ -35,6 +35,15 @@ export default function CartItem({ product, onRemove, onQuantityChange }: Props)
     );
   }
 
+  const variant = productData.variants.find(
+    (v) =>
+      v.size === product.size &&
+      v.material === product.material &&
+      (v.insert ?? "") === insertValue
+  );
+
+  const maxQuantity = variant?.inStock ?? 1;
+
   return (
     <>
       <div className={styles.item}>
@@ -71,6 +80,7 @@ export default function CartItem({ product, onRemove, onQuantityChange }: Props)
               <button
                 className={styles.quantityBtn}
                 onClick={() => onQuantityChange(product.product, 1, product.size, product.material, insertValue)}
+                disabled={product.quantity >= maxQuantity}
               >
                 +
               </button>

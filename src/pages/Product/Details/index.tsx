@@ -55,11 +55,16 @@ export default function ProductDetails({ product }: Props) {
     ) || null;
   }, [product.variants, selectedMaterial, selectedSize]);
 
-  const images = product.image.length > 0
-    ? (product.image.length >= 3
-      ? product.image
-      : [...product.image, ...Array(3 - product.image.length).fill(product.image[0])])
-    : Array(3).fill(noImg);
+  let images: string[] = [];
+
+  if (product.image.length === 0) {
+    images = Array(3).fill(noImg);
+  } else if (product.image.length >= 3) {
+    images = product.image;
+  } else {
+    const missingCount = 3 - product.image.length;
+    images = [...product.image, ...Array(missingCount).fill(product.image[0])];
+  }
 
   const handleImgError = (e: React.SyntheticEvent<HTMLImageElement>) => {
     e.currentTarget.src = noImg;
