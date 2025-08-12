@@ -8,7 +8,7 @@ import styles from "./index.module.scss";
 
 export default function CatalogSearchBar() {
     const { goToProduct } = useProductNavigation()
-    const products = useSelector((state: RootState) => state.products.products);
+    const products = useSelector((state: RootState) => state.products.data.products);
     const loading = useSelector((state: RootState) => state.products.loading);
     const [query, setQuery] = useState("");
 
