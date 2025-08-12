@@ -65,9 +65,12 @@ export default function Catalog() {
 
     return (
             <>
+                <CatalogSearchBar />
                 <div className="wrapper">
                     <title>{pageTitle}</title>
                     <h1 className="catalog-title">{pageTitle}</h1>
+                    {category && <CatalogSubcategoriesSlider category={category} />}
+                    <hr />
                     <CatalogProductsList
                         data={data}
                         loading={loading}

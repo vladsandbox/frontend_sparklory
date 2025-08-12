@@ -3,7 +3,7 @@
 
 .pagination {
   position: sticky;
-  bottom: 22px;
+  bottom: 24px;
   left: 0;
   right: 0;
   z-index: 9;
@@ -14,7 +14,7 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   display: flex;
   justify-self: center;
-  margin: 24px 0;
+  margin: 48px 0;
   gap: 8px;
   font-family: var.$font-poppins;
   font-size: var.$font-button-size;
