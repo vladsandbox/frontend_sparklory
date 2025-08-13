@@ -27,7 +27,7 @@ export default function CatalogSubcategoriesSlider({ category }: Props) {
             "(max-width: 1260px)": { slides: { perView: 4.5, spacing: 16 } },
             "(max-width: 1030px)":  { slides: { perView: 3.5, spacing: 12 } },
             "(max-width: 860px)":  { slides: { perView: 2.5, spacing: 8 } },
-            "(max-width: 650px)":  { slides: { perView: 1.5, spacing: 4 } },
+            "(max-width: 640px)":  { slides: { perView: 1.5, spacing: 4 } },
             "(max-width: 470px)":  { slides: { perView: 1 } },
         },
 
