@@ -163,7 +163,20 @@ export default function OrderCheckout() {
                     )}
                     {step === 3 && (
                         <div>
-                            <Payment />
+                            <Payment
+                                isGuestCheckout={!isAuth}
+                                amount={finalAmount}
+                                contactInfo={
+                                    !isAuth
+                                        ? {
+                                            name: deliveryDetails.name,
+                                            email: deliveryDetails.email,
+                                            phone: deliveryDetails.phone,
+                                            address: deliveryDetails.address,
+                                        }
+                                        : undefined
+                                }
+                            />
                         </div>
                     )}
                 </div>
