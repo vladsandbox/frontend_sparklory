@@ -22,6 +22,8 @@ import Profile from "@/pages/Profile";
 import ShopCart from "./pages/ShoppingCart/index.tsx";
 import OAuthCallback from "./pages/Auth/OAuth/OAuthCallback.tsx";
 import OrderCheckout from "./pages/OrderCheckout/index.tsx";
+import PrivateRoute from "./components/PrivateRoute/PrivateRoute.tsx";
+import PrivateOrderCheckout from "./components/PrivateRoute/PrivateOrderCheckout.tsx";
 
 const router = createBrowserRouter([
   {
@@ -39,12 +41,24 @@ const router = createBrowserRouter([
       { path: "login", element: <Login /> },
       { path: "registration", element: <Registration /> },
       { path: "verify-email", element: <VerifyEmail /> },
-      { path: "profile", element: <Profile /> },
+      {
+        path: "profile", element: (
+          <PrivateRoute>
+            <Profile />
+          </PrivateRoute>
+        )
+      },
       { path: "catalog", element: <Catalog /> },
       { path: "catalog/:category", element: <Catalog /> },
       { path: "cart", element: <ShopCart /> },
       { path: "oauth-callback", element: <OAuthCallback /> },
-      { path: "order-checkout", element: <OrderCheckout /> },
+      {
+        path: "order-checkout", element: (
+          <PrivateOrderCheckout>
+            <OrderCheckout />
+          </PrivateOrderCheckout>
+        )
+      },
       { path: "*", element: <Navigate to="/" replace /> },
     ],
   },
