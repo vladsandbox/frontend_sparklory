@@ -1,0 +1,109 @@
+@use "@/styles/colors" as colors;
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    gap: 135px;
+    margin-top: 70px;
+    margin-bottom: 104px;
+}
+
+.contactInfoCointainer {
+    width: 648px;
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+}
+
+.formBlock {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+
+    label {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        position: relative;
+    }
+}
+
+.detailsView {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.methodInner {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding: 23px 24px;
+    border: 1px solid colors.$color-disabled;
+    border-radius: 12px;
+    margin-bottom: 38px;
+}
+
+.inputContainer {
+    display: flex;
+    gap: 24px;
+
+    input[type="radio"] {
+        appearance: none;
+        width: 20px;
+        height: 20px;
+        border: 1.5px solid rgba(41, 45, 50, 1);
+        border-radius: 50%;
+        display: inline-block;
+        position: relative;
+        cursor: pointer;
+        background-color: transparent;
+        transition: border-color 0.2s ease;
+
+        &:checked {
+            border-color: rgba(41, 45, 50, 1);
+        }
+
+        &:checked::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 12px;
+            height: 12px;
+            background-color: rgba(41, 45, 50, 1);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+        }
+    }
+}
+
+.methodInnerHeader {
+    display: flex;
+    justify-content: space-between;
+}
+
+.finalStep {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+
+    img {
+        display: block;
+        width: 24px;
+        height: 24px;
+    }
+}
+
+.error {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin-top: 2px;
+    color: rgba(221, 16, 16, 1);
+}
+
+.deliveryMethods {
+    position: relative;
+}

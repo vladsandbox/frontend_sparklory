@@ -18,6 +18,7 @@ type CartState = {
   firstAmount: number;
   finalAmount: number;
   totalDiscount: number;
+  appliedCoupon: string | null
 };
 
 const initialState: CartState = {
@@ -27,6 +28,7 @@ const initialState: CartState = {
   firstAmount: 0,
   finalAmount: 0,
   totalDiscount: 0,
+  appliedCoupon: null
 };
 
 const cartSlice = createSlice({
@@ -46,6 +48,7 @@ const cartSlice = createSlice({
         state.firstAmount = action.payload.firstAmount;
         state.finalAmount = action.payload.finalAmount;
         state.totalDiscount = action.payload.totalDiscount;
+        state.appliedCoupon = action.payload.appliedCoupon || null;
       })
       .addCase(fetchCartProducts.rejected, (state, action) => {
         state.loading = false;
@@ -56,24 +59,28 @@ const cartSlice = createSlice({
         state.firstAmount = action.payload.firstAmount;
         state.finalAmount = action.payload.finalAmount;
         state.totalDiscount = action.payload.totalDiscount;
+        state.appliedCoupon = action.payload.appliedCoupon || null;
       })
       .addCase(removeCartItem.fulfilled, (state, action: PayloadAction<CartResponse>) => {
         state.items = action.payload.items;
         state.firstAmount = action.payload.firstAmount;
         state.finalAmount = action.payload.finalAmount;
         state.totalDiscount = action.payload.totalDiscount;
+        state.appliedCoupon = action.payload.appliedCoupon || null;
       })
       .addCase(updateCartQuantity.fulfilled, (state, action: PayloadAction<CartResponse>) => {
         state.items = action.payload.items;
         state.firstAmount = action.payload.firstAmount;
         state.finalAmount = action.payload.finalAmount;
         state.totalDiscount = action.payload.totalDiscount;
+        state.appliedCoupon = action.payload.appliedCoupon || null;
       })
       .addCase(applyCoupon.fulfilled, (state, action: PayloadAction<CartResponse>) => {
         state.items = action.payload.items;
         state.firstAmount = action.payload.firstAmount;
         state.finalAmount = action.payload.finalAmount;
         state.totalDiscount = action.payload.totalDiscount;
+        state.appliedCoupon = action.payload.appliedCoupon || null;
       })
   },
 });

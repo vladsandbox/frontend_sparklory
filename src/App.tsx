@@ -21,6 +21,7 @@ import VerifyEmail from "./pages/Auth/VerifyEmail";
 import Profile from "@/pages/Profile";
 import ShopCart from "./pages/ShoppingCart/index.tsx";
 import OAuthCallback from "./pages/Auth/OAuth/OAuthCallback.tsx";
+import OrderCheckout from "./pages/OrderCheckout/index.tsx";
 
 const router = createBrowserRouter([
   {
@@ -43,6 +44,7 @@ const router = createBrowserRouter([
       { path: "catalog/:category", element: <Catalog /> },
       { path: "cart", element: <ShopCart /> },
       { path: "oauth-callback", element: <OAuthCallback /> },
+      { path: "order-checkout", element: <OrderCheckout /> },
       { path: "*", element: <Navigate to="/" replace /> },
     ],
   },
@@ -51,9 +53,9 @@ const router = createBrowserRouter([
 export default function App() {
   const dispatch: AppDispatch = useDispatch();
 
-    useEffect(() => {
-        dispatch(checkAuth());
-    }, [dispatch]);
+  useEffect(() => {
+    dispatch(checkAuth());
+  }, [dispatch]);
 
   return <RouterProvider router={router} />;
 }
