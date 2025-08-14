@@ -8,12 +8,12 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import { toast } from "react-toastify";
 import { setLocalStorage } from "@/utils/localStorage.ts";
 import { useOAuthPopupAuth } from "@/utils/hooks/useOAuthPopupAuth.ts";
+import { openOAuthPopup } from "@/utils/oauth.ts";
 import { eyeSlash, logoFacebook, logoGoogle } from "@/assets";
 
 import "./index.scss"
 
 export default function Login() {
-    const navigate = useNavigate();
 
     interface FormValues {
         email: string
@@ -26,6 +26,8 @@ export default function Login() {
     };
 
     const dispatch: AppDispatch = useDispatch();
+    const navigate = useNavigate();
+    const handleOAuthLogin = openOAuthPopup;
     const handleSubmit = async (
         values: FormValues
     ) => {
@@ -48,14 +50,6 @@ export default function Login() {
             .required('Password is required')
             .min(6, 'Password must be at least 6 characters'),
     })
-
-    const handleGoogleLogin = () => {
-        window.open(
-            'https://sparklory-back.onrender.com/api/v1/auth/google',
-            '_blank',
-            'width=500,height=600'
-        );
-    };
 
     useOAuthPopupAuth({
         onAuthSuccess: ({ accessToken, refreshToken }) => {
@@ -104,14 +98,15 @@ export default function Login() {
                                 <button
                                     type='button'
                                     className="secondary-btn button-text"
+                                    onClick={() => handleOAuthLogin('facebook')}
                                 >
                                     <img className="fb-img" src={logoFacebook} alt="Facebook"/>
                                     <span className="btn-title">Log in with Facebook</span>
                                 </button>
                                 <button
                                     type='button'
-                                    onClick={handleGoogleLogin}
                                     className="secondary-btn button-text"
+                                    onClick={() => handleOAuthLogin('google')}
                                 >
                                     <img className="g-img" src={logoGoogle} alt="Google"/>
                                     <span className="btn-title">Log in with Google</span>
