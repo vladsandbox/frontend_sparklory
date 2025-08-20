@@ -1,7 +1,7 @@
 export type DeliveryMethod = {
     id: string;
     title: string;
-    price: string;
+    price: number | string;
     desc: string;
 };
 
@@ -9,13 +9,13 @@ export const deliveryMethods: DeliveryMethod[] = [
     {
         id: "standard",
         title: "Standard Delivery",
-        price: "$ 10",
+        price: 400,
         desc: "Delivery takes 5–7 business days. This is an economical option for those who are not in a hurry. Your order will be securely packed and delivered to your address.",
     },
     {
         id: "express",
         title: "Express Delivery",
-        price: "$ 18",
+        price: 720,
         desc: "Fast delivery within 1–2 business days. Suitable if you need your order urgently. The cost is higher than standard shipping, but the delivery is prioritized and tracked.",
     },
     {

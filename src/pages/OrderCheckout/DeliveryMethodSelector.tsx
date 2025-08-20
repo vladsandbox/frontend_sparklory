@@ -1,3 +1,4 @@
+import { formatPrice } from "@/utils/formatPrice";
 import { deliveryMethods } from "./deliveryMethods";
 
 import styles from "./index.module.scss";
@@ -24,12 +25,14 @@ export default function DeliveryMethodSelector({ selected, error, onSelect }: Pr
                             />
                             <h4 className="title-m">{method.title}</h4>
                         </label>
-                        <p className="h3">{method.price}</p>
+                        <p className="h3">
+                            {formatPrice(method.price)}
+                        </p>
                     </div>
                     <p className="text-filters" style={{ lineHeight: "33px" }}>{method.desc}</p>
                 </div>
             ))}
-            {error && <span className={`${styles.error} text-s`} style={{ display: "block", marginTop: 4 }}>{error}</span>}
+            {error && <span className={`${styles.errorMethod} ${styles.error} text-s`}>{error}</span>}
         </div>
     );
 }

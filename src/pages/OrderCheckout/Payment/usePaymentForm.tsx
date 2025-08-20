@@ -14,7 +14,9 @@ type Props = {
 };
 
 const validationSchema = Yup.object({
-    cardName: Yup.string().required("Card Name is required"),
+    cardName: Yup.string()
+        .required("Card Name is required")
+        .matches(/^\d{4} \d{4} \d{4} \d{4}$/, "Card number must be 16 digits"),
     expiryDate: Yup.string()
         .required("Expiry date is required")
         .test("valid-expiry", "Invalid expiry date (MM/YY)", (value) => {

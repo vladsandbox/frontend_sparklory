@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 
 import type { RootState, AppDispatch } from "@/store";
 import { fetchCartProducts } from "@/store/thunks/cartThunk";
@@ -11,7 +13,6 @@ import { deliveryMethods, type DeliveryMethod } from "./deliveryMethods";
 import Payment from "./Payment";
 
 import styles from "./index.module.scss";
-
 import { deliveryCar } from "@/assets";
 
 export default function OrderCheckout() {
@@ -20,49 +21,52 @@ export default function OrderCheckout() {
     const dispatch = useDispatch<AppDispatch>();
 
     const [step, setStep] = useState<1 | 2 | 3>(1);
-    const [deliveryDetails, setDeliveryDetails] = useState({ name: "", address: "", phone: "", email: "" });
-    const [errors, setErrors] = useState<{ name?: string; address?: string; phone?: string; deliveryMethod?: string; email?: string }>({});
     const [deliveryMethod, setDeliveryMethod] = useState<string>("");
-
-    const selectedMethod: DeliveryMethod | undefined =
-        deliveryMethods.find((m) => m.id === deliveryMethod);
+    const selectedMethod: DeliveryMethod | undefined = deliveryMethods.find((m) => m.id === deliveryMethod);
+    const [deliveryError, setDeliveryError] = useState<string | undefined>();
 
     useEffect(() => {
         dispatch(fetchCartProducts({ guest: !isAuth }));
     }, [dispatch, isAuth]);
 
-    const handleContinue = () => {
+    const formik = useFormik({
+        initialValues: {
+            name: "",
+            address: "",
+            phone: "",
+            email: "",
+        },
+        validationSchema: Yup.object({
+            name: Yup.string().required("Full Name is required"),
+            address: Yup.string().required("Delivery Address is required"),
+            phone: Yup.string()
+                .matches(/^\+?[0-9]{10,15}$/, "Invalid phone number")
+                .required("Phone Number is required"),
+            email: isAuth
+                ? Yup.string().notRequired()
+                : Yup.string().email("Invalid email address").required("Email is required"),
+        }),
+        onSubmit: () => { },
+    });
+
+    const handleContinue = async () => {
         if (step === 1) {
-            const newErrors: typeof errors = {};
-            if (!deliveryDetails.name.trim()) newErrors.name = "Full Name is required";
-            if (!deliveryDetails.address.trim()) newErrors.address = "Delivery Address is required";
+            const errors = await formik.validateForm();
+            formik.setTouched({
+                name: true,
+                address: true,
+                phone: true,
+                email: true,
+            });
 
-            const phoneRegex = /^\+?[0-9]{10,15}$/;
-            if (!deliveryDetails.phone.trim()) {
-                newErrors.phone = "Phone Number is required";
-            } else if (!phoneRegex.test(deliveryDetails.phone.trim())) {
-                newErrors.phone = "Invalid phone number";
-            }
-
-            if (!isAuth) {
-                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                if (!deliveryDetails.email.trim()) {
-                    newErrors.email = "Email is required";
-                } else if (!emailRegex.test(deliveryDetails.email.trim())) {
-                    newErrors.email = "Invalid email address";
-                }
-            }
-
-            setErrors(newErrors);
-            if (Object.keys(newErrors).length > 0) return;
-
+            if (Object.keys(errors).length > 0) return;
             setStep(2);
         } else if (step === 2) {
             if (!deliveryMethod) {
-                setErrors({ deliveryMethod: "Please select a delivery method" });
+                setDeliveryError("Please select a delivery method");
                 return;
             }
-            setErrors({});
+            setDeliveryError(undefined);
             setStep(3);
         }
     };
@@ -77,45 +81,36 @@ export default function OrderCheckout() {
                         <div className={styles.formBlock}>
                             <CheckoutInputField
                                 label="Full Name"
-                                value={deliveryDetails.name}
-                                error={errors.name}
-                                onChange={(val) => {
-                                    setDeliveryDetails({ ...deliveryDetails, name: val });
-                                    setErrors(prev => ({ ...prev, name: undefined }));
-                                }}
+                                value={formik.values.name}
+                                error={formik.touched.name ? formik.errors.name : undefined}
+                                onChange={(val) => formik.setFieldValue("name", val)}
                             />
                             <CheckoutInputField
                                 label="Delivery Address"
-                                value={deliveryDetails.address}
-                                error={errors.address}
-                                onChange={(val) => {
-                                    setDeliveryDetails({ ...deliveryDetails, address: val });
-                                    setErrors(prev => ({ ...prev, address: undefined }));
-                                }}
+                                value={formik.values.address}
+                                error={formik.touched.address ? formik.errors.address : undefined}
+                                onChange={(val) => formik.setFieldValue("address", val)}
                             />
                             <CheckoutInputField
                                 label="Phone Number"
                                 type="tel"
-                                value={deliveryDetails.phone}
-                                error={errors.phone}
-                                onChange={(val) => {
-                                    setDeliveryDetails({ ...deliveryDetails, phone: val });
-                                    setErrors(prev => ({ ...prev, phone: undefined }));
-                                }}
+                                value={formik.values.phone}
+                                error={formik.touched.phone ? formik.errors.phone : undefined}
+                                onChange={(val) => formik.setFieldValue("phone", val)}
                             />
                             {!isAuth && (
                                 <CheckoutInputField
                                     label="Email Address"
                                     type="email"
-                                    value={deliveryDetails.email}
-                                    error={errors.email}
-                                    onChange={(val) => {
-                                        setDeliveryDetails({ ...deliveryDetails, email: val });
-                                        setErrors(prev => ({ ...prev, email: undefined }));
-                                    }}
+                                    value={formik.values.email}
+                                    error={formik.touched.email ? formik.errors.email : undefined}
+                                    onChange={(val) => formik.setFieldValue("email", val)}
                                 />
                             )}
-                            <button style={{ marginTop: 16 }} className="primary-btn big button-text" onClick={handleContinue}>
+                            <button
+                                className={`${styles.btnContinue} primary-btn big button-text`}
+                                onClick={handleContinue}
+                            >
                                 Continue
                             </button>
                         </div>
@@ -123,10 +118,10 @@ export default function OrderCheckout() {
 
                     {(step === 2 || step === 3) && (
                         <div className={styles.detailsView}>
-                            <p className="title-m">{deliveryDetails.name}</p>
-                            <p className="title-m">{deliveryDetails.address}</p>
-                            <p className="title-m">{deliveryDetails.phone}</p>
-                            <p className="title-m">{deliveryDetails.email}</p>
+                            <p className="title-m">{formik.values.name}</p>
+                            <p className="title-m">{formik.values.address}</p>
+                            <p className="title-m">{formik.values.phone}</p>
+                            <p className="title-m">{formik.values.email}</p>
                         </div>
                     )}
 
@@ -135,15 +130,14 @@ export default function OrderCheckout() {
                             <p className="h1">Delivery Method</p>
                             <DeliveryMethodSelector
                                 selected={deliveryMethod}
-                                error={errors.deliveryMethod}
+                                error={deliveryError}
                                 onSelect={(id) => {
                                     setDeliveryMethod(id);
-                                    if (errors.deliveryMethod) setErrors(prev => ({ ...prev, deliveryMethod: undefined }));
+                                    if (deliveryError) setDeliveryError(undefined);
                                 }}
                             />
                             <button
-                                className="primary-btn big button-text"
-                                style={{ width: "100%", marginTop: 16 }}
+                                className={`${styles.btnContinue} primary-btn big button-text`}
                                 onClick={handleContinue}
                             >
                                 Continue
@@ -161,6 +155,7 @@ export default function OrderCheckout() {
                             <p className="text-filters" style={{ lineHeight: "25px" }}>{selectedMethod.desc}</p>
                         </div>
                     )}
+
                     {step === 3 && (
                         <div>
                             <Payment
@@ -169,10 +164,10 @@ export default function OrderCheckout() {
                                 contactInfo={
                                     !isAuth
                                         ? {
-                                            name: deliveryDetails.name,
-                                            email: deliveryDetails.email,
-                                            phone: deliveryDetails.phone,
-                                            address: deliveryDetails.address,
+                                            name: formik.values.name,
+                                            email: formik.values.email,
+                                            phone: formik.values.phone,
+                                            address: formik.values.address,
                                         }
                                         : undefined
                                 }
@@ -188,6 +183,7 @@ export default function OrderCheckout() {
                         discount={totalDiscount}
                         appliedCoupon={appliedCoupon}
                         showHeader={false}
+                        deliveryPrice={selectedMethod?.price}
                     />
                 </div>
             </div>

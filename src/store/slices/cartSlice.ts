@@ -88,5 +88,6 @@ const cartSlice = createSlice({
 export const selectCartItems = (state: RootState) => state.cart.items;
 export const selectCartLoading = (state: RootState) => state.cart.loading;
 export const selectCartError = (state: RootState) => state.cart.error;
+export const selectCartCount = (state: RootState) => state.cart.items.reduce((acc, item) => acc + item.quantity, 0);
 
 export default cartSlice.reducer;

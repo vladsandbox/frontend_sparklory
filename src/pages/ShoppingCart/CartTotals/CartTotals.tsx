@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import type { AppDispatch } from "@/store";
 import { applyCoupon } from "@/store/thunks/cartThunk";
 import { useAuth } from "@/utils/hooks/useAuth";
+import { formatPrice } from "@/utils/formatPrice";
 
 import styles from "./index.module.scss";
 
@@ -14,14 +15,16 @@ type Props = {
     discount: number;
     appliedCoupon?: string | null;
     showHeader?: boolean;
+    deliveryPrice?: number | string;
 };
 
-export default function CartTotals({ discount, finalAmount, firstAmount, appliedCoupon, showHeader = true }: Props) {
+export default function CartTotals({ discount, finalAmount, firstAmount, appliedCoupon, showHeader = true, deliveryPrice }: Props) {
     const navigate = useNavigate();
     const [coupon, setCoupon] = useState("");
     const [error, setError] = useState("");
     const dispatch = useDispatch<AppDispatch>();
     const isAuth = useAuth();
+    const totalWithDelivery = typeof deliveryPrice === "number" ? finalAmount + deliveryPrice : finalAmount;
 
     useEffect(() => {
         if (appliedCoupon) {
@@ -58,12 +61,12 @@ export default function CartTotals({ discount, finalAmount, firstAmount, applied
                     </div>
                     <div className={styles.row}>
                         <p className="body">Delivery</p>
-                        <p className="body">0 ₴</p>
+                        <p className="body">{formatPrice(deliveryPrice)}</p>
                     </div>
                     <div className={`${styles.divider} ${styles.row}`} />
                     <div className={styles.row}>
                         <p className="title-m">Total</p>
-                        <p className="title-m">{finalAmount} ₴</p>
+                        <p className="title-m">{formatPrice(totalWithDelivery)}</p>
                     </div>
                 </div>
                 <div className={styles.loyaltyContainer}>

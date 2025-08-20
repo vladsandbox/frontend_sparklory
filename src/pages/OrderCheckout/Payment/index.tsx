@@ -4,6 +4,7 @@ import { usePaymentForm } from "./usePaymentForm";
 import type { RootState } from "@/store";
 import type { PaymentContactInfo } from "@/types/Payment";
 import LiqPayCheckout from "./LiqPayCheckout";
+import { formatCardNumber, formatExpiryDate } from "./formatters";
 
 import styles from "./index.module.scss";
 import { cardPos } from "@/assets";
@@ -18,6 +19,13 @@ export default function Payment({ isGuestCheckout, amount, contactInfo }: Props)
     const { loading, error } = useSelector((state: RootState) => state.payment);
     const { formik, liqpayData, liqpaySignature } = usePaymentForm({ isGuestCheckout, amount, contactInfo });
 
+    const handleExpiryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        formik.setFieldValue("expiryDate", formatExpiryDate(e.target.value));
+    };
+
+    const handleCardNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        formik.setFieldValue("cardName", formatCardNumber(e.target.value));
+    };
 
     return (
         <>
@@ -40,19 +48,21 @@ export default function Payment({ isGuestCheckout, amount, contactInfo }: Props)
                             {...formik.getFieldProps("cardName")}
                             className="input primary-input"
                             placeholder="Card Name"
+                            onChange={handleCardNameChange}
                         />
                         {formik.touched.cardName && formik.errors.cardName && (
                             <span className={`${styles.error} text-s`}>{formik.errors.cardName}</span>
                         )}
                     </label>
 
-                    <div style={{ display: "flex", justifyContent: "space-between", gap: "22px" }}>
+                    <div className={styles.expiryContainer}>
                         <label className={styles.label}>
                             Expiry date
                             <input
                                 {...formik.getFieldProps("expiryDate")}
                                 className="input primary-input"
                                 placeholder="MM/YY"
+                                onChange={handleExpiryChange}
                             />
                             {formik.touched.expiryDate && formik.errors.expiryDate && (
                                 <span className={`${styles.error} text-s`}>{formik.errors.expiryDate}</span>
