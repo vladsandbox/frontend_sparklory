@@ -14,17 +14,31 @@ type Props = {
 };
 
 const validationSchema = Yup.object({
-    cardName: Yup.string()
-        .required("Card Name is required")
+    cardNumber: Yup.string()
+        .required("Card Number is required")
         .matches(/^\d{4} \d{4} \d{4} \d{4}$/, "Card number must be 16 digits"),
     expiryDate: Yup.string()
         .required("Expiry date is required")
-        .test("valid-expiry", "Invalid expiry date (MM/YY)", (value) => {
+        .test("valid-expiry", "Card has expired or date is invalid", (value) => {
             if (!value) return false;
+
             const [month, year] = value.split("/");
             const m = parseInt(month, 10);
             const y = parseInt(year, 10);
-            return m >= 1 && m <= 12 && y >= 0 && y <= 99;
+
+            if (isNaN(m) || isNaN(y)) return false;
+            if (m < 1 || m > 12) return false;
+
+            const fullYear = 2000 + y;
+
+            const now = new Date();
+            const currentMonth = now.getMonth() + 1;
+            const currentYear = now.getFullYear();
+
+            if (fullYear < currentYear) return false;
+            if (fullYear === currentYear && m < currentMonth) return false;
+
+            return true;
         }),
     cvv: Yup.string()
         .matches(/^\d{3}$/, "CVV must be 3 digits")
@@ -39,7 +53,7 @@ export function usePaymentForm({ isGuestCheckout, amount, contactInfo }: Props) 
 
     const formik = useFormik({
         initialValues: {
-            cardName: "",
+            cardNumber: "",
             expiryDate: "",
             cvv: "",
             nameOnCard: "",

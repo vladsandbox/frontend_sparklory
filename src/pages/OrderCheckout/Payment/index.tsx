@@ -23,8 +23,8 @@ export default function Payment({ isGuestCheckout, amount, contactInfo }: Props)
         formik.setFieldValue("expiryDate", formatExpiryDate(e.target.value));
     };
 
-    const handleCardNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        formik.setFieldValue("cardName", formatCardNumber(e.target.value));
+    const handleCardNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        formik.setFieldValue("cardNumber", formatCardNumber(e.target.value));
     };
 
     return (
@@ -43,15 +43,15 @@ export default function Payment({ isGuestCheckout, amount, contactInfo }: Props)
             ) : (
                 <form onSubmit={formik.handleSubmit} noValidate className={styles.form}>
                     <label className={styles.label}>
-                        Card Name
+                        Card Number
                         <input
-                            {...formik.getFieldProps("cardName")}
+                            {...formik.getFieldProps("cardNumber")}
                             className="input primary-input"
-                            placeholder="Card Name"
-                            onChange={handleCardNameChange}
+                            placeholder="Card Number"
+                            onChange={handleCardNumberChange}
                         />
-                        {formik.touched.cardName && formik.errors.cardName && (
-                            <span className={`${styles.error} text-s`}>{formik.errors.cardName}</span>
+                        {formik.touched.cardNumber && formik.errors.cardNumber && (
+                            <span className={`${styles.error} text-s`}>{formik.errors.cardNumber}</span>
                         )}
                     </label>
 
