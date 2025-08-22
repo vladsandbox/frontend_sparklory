@@ -37,8 +37,13 @@ export default function OrderCheckout() {
             email: "",
         },
         validationSchema: Yup.object({
-            name: Yup.string().required("Full Name is required"),
-            address: Yup.string().required("Delivery Address is required"),
+            name: Yup.string()
+                .min(2, "Name must be at least 2 characters")
+                .matches(/^[a-zA-Zа-яА-ЯёЁіІїЇєЄ'’\- ]+$/, "Name contains invalid characters")
+                .required("Full Name is required"),
+            address: Yup.string()
+                .min(4, "Address must be at least 10 characters")
+                .required("Delivery Address is required"),
             phone: Yup.string()
                 .matches(/^\+?[0-9]{10,15}$/, "Invalid phone number")
                 .required("Phone Number is required"),
@@ -96,7 +101,18 @@ export default function OrderCheckout() {
                                 type="tel"
                                 value={formik.values.phone}
                                 error={formik.touched.phone ? formik.errors.phone : undefined}
-                                onChange={(val) => formik.setFieldValue("phone", val)}
+                                onChange={(val) => {
+                                    let sanitized = val.replace(/[^0-9+]/g, "");
+
+                                    if (sanitized.includes("+")) {
+                                        sanitized =
+                                            "+" + sanitized.replace(/\+/g, "").replace(/^0+/, "");
+                                    }
+
+                                    sanitized = sanitized.slice(0, 15);
+
+                                    formik.setFieldValue("phone", sanitized);
+                                }}
                             />
                             {!isAuth && (
                                 <CheckoutInputField
@@ -108,7 +124,7 @@ export default function OrderCheckout() {
                                 />
                             )}
                             <button
-                                className={`${styles.btnContinue} primary-btn big button-text`}
+                                className={`${styles.btnContinue} ${styles.btnContinueFirstStep} primary-btn big button-text`}
                                 onClick={handleContinue}
                             >
                                 Continue
@@ -135,13 +151,8 @@ export default function OrderCheckout() {
                                     setDeliveryMethod(id);
                                     if (deliveryError) setDeliveryError(undefined);
                                 }}
+                                onContinue={handleContinue}
                             />
-                            <button
-                                className={`${styles.btnContinue} primary-btn big button-text`}
-                                onClick={handleContinue}
-                            >
-                                Continue
-                            </button>
                         </>
                     )}
 

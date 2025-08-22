@@ -41,7 +41,6 @@
     padding: 23px 24px;
     border: 1px solid colors.$color-disabled;
     border-radius: 12px;
-    margin-bottom: 38px;
 }
 
 .inputContainer {
@@ -50,8 +49,8 @@
 
     input[type="radio"] {
         appearance: none;
-        width: 20px;
-        height: 20px;
+        width: 24px;
+        height: 24px;
         border: 1.5px solid rgba(41, 45, 50, 1);
         border-radius: 50%;
         display: inline-block;
@@ -111,9 +110,15 @@
 
 .deliveryMethods {
     position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 38px;
 }
 
 .btnContinue {
-    margin-top: 16px;
     width: 100%;
+
+    &FirstStep {
+        margin-top: 16px;
+    }
 }

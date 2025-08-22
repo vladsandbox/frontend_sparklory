@@ -7,9 +7,10 @@ type Props = {
     selected: string;
     error?: string;
     onSelect: (id: string) => void;
+    onContinue: () => void;
 };
 
-export default function DeliveryMethodSelector({ selected, error, onSelect }: Props) {
+export default function DeliveryMethodSelector({ selected, error, onSelect, onContinue }: Props) {
     return (
         <div className={styles.deliveryMethods}>
             {deliveryMethods.map((method) => (
@@ -33,6 +34,12 @@ export default function DeliveryMethodSelector({ selected, error, onSelect }: Pr
                 </div>
             ))}
             {error && <span className={`${styles.errorMethod} ${styles.error} text-s`}>{error}</span>}
+            <button
+                className={`${styles.btnContinue} primary-btn big button-text`}
+                onClick={onContinue}
+            >
+                Continue
+            </button>
         </div>
     );
 }
