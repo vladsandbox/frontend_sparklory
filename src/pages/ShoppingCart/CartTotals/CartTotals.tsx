@@ -7,6 +7,7 @@ import { applyCoupon } from "@/store/thunks/cartThunk";
 import { useAuth } from "@/utils/hooks/useAuth";
 
 import styles from "./index.module.scss";
+import Button from "@/components/Button.tsx";
 
 type Props = {
     firstAmount: number;
@@ -69,25 +70,28 @@ export default function CartTotals({ discount, finalAmount, firstAmount }: Props
                             setError("");
                         }}
                     />
-                    <button
-                        className={`${styles.applyBtn} primary-btn button-text big`}
+                    <Button
+                        variant="primary"
+                        size="big"
                         disabled={!coupon.trim()}
                         onClick={handleApplyCoupon}
+                        className={styles.applyBtn}
                     >
                         Apply
-                    </button>
+                    </Button>
                     {error && (
                         <span className={styles.errorCoupon}>
                             {error}
                         </span>
                     )}
                 </div>
-                <button
-                    className="primary-btn big button-text"
+                <Button
+                    variant="primary"
+                    size="big"
                     onClick={() => navigate("/checkout")}
                 >
                     Go to Checkout
-                </button>
+                </Button>
             </div>
         </div>
     );

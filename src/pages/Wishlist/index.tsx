@@ -1,16 +1,20 @@
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
-import { getLocalStorage, setLocalStorage } from "@/utils/localStorage";
-import { fetchProductById } from "@/utils/api";
-import { useAuth } from "@/utils/hooks/useAuth";
 import CatalogSearchBar from "@/components/CatalogSearchBar";
 import WishlistList from "./WishlistList/WishlistList";
-import type { Product } from "@/types/Products";
-import type { RootState, AppDispatch } from "@/store";
+import Button from "@/components/Button.tsx";
+
 import { deleteWishlistProduct, mergeLocalWishlist } from "@/store/thunks/wishlistThunk";
+import type { RootState, AppDispatch } from "@/store";
+
+import { getLocalStorage, setLocalStorage } from "@/utils/localStorage";
+import { useAuth } from "@/utils/hooks/useAuth";
+import { fetchProductById } from "@/utils/api";
+
+import type { Product } from "@/types/Products";
 
 export default function WishlistPage() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -40,7 +44,7 @@ export default function WishlistPage() {
     if (!readyToLoad) return;
 
     const loadWishlistProducts = async () => {
-      let productIds: string[] = [];
+      let productIds: string[];
 
       if (isAuth) {
         productIds = Array.isArray(selectWishlistIds) ? selectWishlistIds : [];
@@ -98,13 +102,9 @@ export default function WishlistPage() {
             <p className="body" style={{ color: "rgba(104, 104, 104, 1)", marginBottom: 38 }}>
               Unfortunately, there’s nothing in your wishlist. Go back to shop to add some product you’d like to buy.
             </p>
-            <button
-              className="primary-btn big button-text"
-              style={{ width: 424 }}
-              onClick={() => navigate("/catalog")}
-            >
+            <Button variant="primary" onClick={() => navigate("/catalog")} size="big" style={{ width: 424 }}>
               Go to Shop
-            </button>
+            </Button>
           </div>
         ) : (
           <WishlistList products={products} onRemove={handleRemove} />

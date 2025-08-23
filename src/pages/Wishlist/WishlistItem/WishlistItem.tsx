@@ -1,5 +1,5 @@
 import { useProductNavigation } from "@/utils/hooks/useProductNavigation";
-import AddToCartButton from "@/components/AddToCartButton/AddToCartButton";
+import AddToCartButton from "@/components/AddToCartButton.tsx";
 
 import type { Product, ProductVariant } from "@/types/Products";
 

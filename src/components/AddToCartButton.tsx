@@ -1,9 +1,11 @@
+import React from "react";
 import { useDispatch } from "react-redux";
-import { addToCart } from "@/store/thunks/cartThunk";
-import { useAuth } from "@/utils/hooks/useAuth";
-import CartIcon from "@/components/Icons/CartIcon";
-import type { ProductVariant } from "@/types/Products";
+import { addToCart } from "@/store/thunks/cartThunk.ts";
+import { useAuth } from "@/utils/hooks/useAuth.ts";
+import CartIcon from "@/components/Icons/CartIcon.tsx";
+import type { ProductVariant } from "@/types/Products.ts";
 import type { AppDispatch } from "@/store";
+import Button from "@/components/Button.tsx";
 
 type Props = {
   productId: string;
@@ -23,7 +25,7 @@ export default function AddToCartButton({
   const dispatch = useDispatch<AppDispatch>();
   const isAuth = useAuth();
 
-  const handleClick = (e: React.MouseEvent) => {
+  const handleClick: React.MouseEventHandler<HTMLButtonElement> = (e) => {
     e.stopPropagation();
     if (!variant) return;
 
@@ -42,17 +44,18 @@ export default function AddToCartButton({
   const disabled = !variant || variant.inStock === 0;
 
   return (
-    <button
+    <Button
       className={className ?? "primary-btn button-text"}
       onClick={handleClick}
       disabled={disabled}
-    >
-      {withIcon && (
-        <CartIcon
-          className={`${iconClassName} ${disabled ? "stroke-disabled" : "stroke-white"}`}
-        />
+      size="normal"
+      iconLeft= {withIcon && (
+          <CartIcon
+              className={`${iconClassName} ${disabled ? "stroke-disabled" : "stroke-white"}`}
+          />
       )}
+    >
       {disabled ? "Unavailable" : "Add to cart"}
-    </button>
+    </Button>
   );
 }

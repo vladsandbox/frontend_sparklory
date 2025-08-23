@@ -1,18 +1,18 @@
-import { useState, useMemo } from 'react';
-import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
+import { useProductNavigation } from "@/utils/hooks/useProductNavigation";
+import { useKeenSlider } from "keen-slider/react";
+import { useState, useMemo } from 'react';
 
 import MaterialSelector from '@/components/MaterialSelector/MaterialSelector';
-import type { Product } from '@/types/Products';
-import { MATERIALS } from "@/components/MaterialSelector/materials";
-import { useProductNavigation } from "@/utils/hooks/useProductNavigation";
-import AddToCartButton from '@/components/AddToCartButton/AddToCartButton';
-import type { ProductVariant } from '../../../types/Products';
 import SliderNavButtons from '@/components/SliderNavButtons/SliderNavButtons';
+import { MATERIALS } from "@/components/MaterialSelector/materials";
+import AddToCartButton from '@/components/AddToCartButton.tsx';
 
-import "./index.scss";
+import type { Product, ProductVariant } from '@/types/Products.ts';
 
 import { noImg } from "@/assets";
+import "./index.scss";
+
 
 const VISIBLE_SLIDES = 3;
 

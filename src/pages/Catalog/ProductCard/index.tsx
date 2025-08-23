@@ -7,11 +7,12 @@ import ComparisonButton from "@/components/ComparisonButton";
 import MaterialSelector from "@/components/MaterialSelector/MaterialSelector";
 import { MATERIALS } from "@/components/MaterialSelector/materials.ts";
 import type { Product, ProductVariant } from "@/types/Products";
-import AddToCartButton from "@/components/AddToCartButton/AddToCartButton";
+import AddToCartButton from "@/components/AddToCartButton.tsx";
 import { useProductNavigation } from "@/utils/hooks/useProductNavigation";
 import { noImg } from "@/assets";
 
 import "./index.scss";
+import Button from "@/components/Button.tsx";
 
 type Props = {
     product: Product;
@@ -130,7 +131,7 @@ export default function CatalogProductCard({ product, noHoverExpand = false, alw
                         {currentVariant && (
                             <div className="card-buttons">
                                 <AddToCartButton productId={product._id} variant={currentVariant} />
-                                <button onClick={() => goToProduct(product._id)} className="view-btn">View</button>
+                                <Button onClick={() => goToProduct(product._id)} variant="secondary">View</Button>
                             </div>
                         )}
                     </div>
