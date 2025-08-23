@@ -56,13 +56,15 @@ export default function SpringSale({ products, loading }: Props) {
               ))}
             </div>
 
-            <SliderNavButtons
-              isDisabledPrev={currentIndex === 0}
-              isDisabledNext={currentIndex >= springSaleProducts.length - 4}
-              onPrev={handlePrev}
-              onNext={handleNext}
-              className="slider-nav"
-            />
+            {springSaleProducts.length > 4 && (
+              <SliderNavButtons
+                isDisabledPrev={currentIndex === 0}
+                isDisabledNext={currentIndex >= springSaleProducts.length - 4}
+                onPrev={handlePrev}
+                onNext={handleNext}
+                className="slider-nav"
+              />
+            )}
           </>
         )}
       </div>
