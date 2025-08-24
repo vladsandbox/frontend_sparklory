@@ -1,10 +1,11 @@
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 
 import type { AppDispatch } from "@/store";
 import { applyCoupon } from "@/store/thunks/cartThunk";
 import { useAuth } from "@/utils/hooks/useAuth";
+import { formatPrice } from "@/utils/formatPrice";
 
 import styles from "./index.module.scss";
 import Button from "@/components/Button.tsx";
@@ -13,14 +14,24 @@ type Props = {
     firstAmount: number;
     finalAmount: number;
     discount: number;
+    appliedCoupon?: string | null;
+    showHeader?: boolean;
+    deliveryPrice?: number;
 };
 
-export default function CartTotals({ discount, finalAmount, firstAmount }: Props) {
+export default function CartTotals({ discount, finalAmount, firstAmount, appliedCoupon, showHeader = true, deliveryPrice }: Props) {
     const navigate = useNavigate();
     const [coupon, setCoupon] = useState("");
     const [error, setError] = useState("");
     const dispatch = useDispatch<AppDispatch>();
     const isAuth = useAuth();
+    const totalWithDelivery = typeof deliveryPrice === "number" ? finalAmount + deliveryPrice : finalAmount;
+
+    useEffect(() => {
+        if (appliedCoupon) {
+            setCoupon(appliedCoupon);
+        }
+    }, [appliedCoupon]);
 
     const handleApplyCoupon = async () => {
         try {
@@ -32,9 +43,9 @@ export default function CartTotals({ discount, finalAmount, firstAmount }: Props
     };
 
     return (
-        <div style={{ marginTop: 60 }}>
-            <p className="h1">Cart Totals </p>
-            <div className={styles.totalContainer}>
+        <div style={{ marginTop: showHeader ? 60 : 0 }}>
+            {showHeader && <p className="h1">Cart Totals</p>}
+            <div className={`${styles.totalContainer} ${!showHeader ? styles.compact : ""}`}>
                 <div>
                     <p className="title-m">Order summary</p>
                 </div>
@@ -51,17 +62,17 @@ export default function CartTotals({ discount, finalAmount, firstAmount }: Props
                     </div>
                     <div className={styles.row}>
                         <p className="body">Delivery</p>
-                        <p className="body">0 ₴</p>
+                        <p className="body">{formatPrice(deliveryPrice)}</p>
                     </div>
                     <div className={`${styles.divider} ${styles.row}`} />
                     <div className={styles.row}>
                         <p className="title-m">Total</p>
-                        <p className="title-m">{finalAmount} ₴</p>
+                        <p className="title-m">{formatPrice(totalWithDelivery)}</p>
                     </div>
                 </div>
                 <div className={styles.loyaltyContainer}>
                     <input
-                        className={`${styles.input} input primary-input`}
+                        className={`${styles.input} ${!showHeader ? styles.compact : ""} input primary-input`}
                         type="text"
                         placeholder="Coupon"
                         value={coupon}
@@ -69,11 +80,12 @@ export default function CartTotals({ discount, finalAmount, firstAmount }: Props
                             setCoupon(e.target.value);
                             setError("");
                         }}
+                        disabled={!!appliedCoupon}
                     />
                     <Button
                         variant="primary"
                         size="big"
-                        disabled={!coupon.trim()}
+                        disabled={!!appliedCoupon || !coupon.trim()}
                         onClick={handleApplyCoupon}
                         className={styles.applyBtn}
                     >
@@ -85,13 +97,15 @@ export default function CartTotals({ discount, finalAmount, firstAmount }: Props
                         </span>
                     )}
                 </div>
-                <Button
-                    variant="primary"
-                    size="big"
-                    onClick={() => navigate("/checkout")}
-                >
-                    Go to Checkout
-                </Button>
+                {showHeader && (
+                    <Button
+                        variant="primary"
+                        size="big"
+                        onClick={() => navigate("/order-checkout")}
+                    >
+                        Go to Checkout
+                    </Button>
+                )}
             </div>
         </div>
     );

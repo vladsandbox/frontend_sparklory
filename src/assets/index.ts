@@ -37,6 +37,8 @@ import galleryAdd from './icons/gallery-add.svg'
 import profile from './images/profile.png'
 import noImg from './icons/no-image.svg'
 import closeBtn from './icons/close-btn.svg'
+import deliveryCar from './icons/deliveryCar.svg'
+import cardPos from './icons/card-pos.svg'
 
 export {
   heart,
@@ -78,4 +80,6 @@ export {
   profile,
   noImg,
   closeBtn,
+  deliveryCar,
+  cardPos,
 };

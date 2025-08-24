@@ -17,6 +17,7 @@ export type CartResponse = {
   totalDiscount: number;
   amountWithDiscount: number;
   finalAmount: number;
+  appliedCoupon: string | null;
 };
 
 export type RemoveCartPayload = {
