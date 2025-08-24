@@ -11,6 +11,7 @@ import CheckoutInputField from "./CheckoutInputField";
 import DeliveryMethodSelector from "./DeliveryMethodSelector";
 import { deliveryMethods, type DeliveryMethod } from "./deliveryMethods";
 import Payment from "./Payment";
+import { normalizePrice } from "@/utils/formatPrice";
 
 import styles from "./index.module.scss";
 import { deliveryCar } from "@/assets";
@@ -171,7 +172,9 @@ export default function OrderCheckout() {
                         <div>
                             <Payment
                                 isGuestCheckout={!isAuth}
-                                amount={finalAmount}
+                                amount={normalizePrice(
+                                    finalAmount + Number(selectedMethod?.price || 0)
+                                )}
                                 contactInfo={
                                     !isAuth
                                         ? {

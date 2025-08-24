@@ -1,17 +1,12 @@
-export const formatPrice = (price: number | string | undefined): string => {
-  if (typeof price === "number") {
-    const rounded = Number(price.toFixed(2));
-    return `${Number.isInteger(rounded) ? rounded : rounded.toFixed(2)} ₴`;
-  }
+export const formatPrice = (price: number | undefined) => {
+  if (price === undefined) return "0 ₴";
+  if (price === 0) return "Free";
 
-  if (typeof price === "string") {
-    const num = Number(price);
-    if (!isNaN(num)) {
-      const rounded = Number(num.toFixed(2));
-      return `${Number.isInteger(rounded) ? rounded : rounded.toFixed(2)} ₴`;
-    }
-    return price;
-  }
+  return Number.isInteger(price)
+    ? `${price} ₴`
+    : `${price.toFixed(2)} ₴`;
+};
 
-  return "0 ₴";
+export const normalizePrice = (price: number): number => {
+  return Math.round((price + Number.EPSILON) * 100) / 100;
 };

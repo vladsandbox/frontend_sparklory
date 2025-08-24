@@ -15,7 +15,7 @@ type Props = {
     discount: number;
     appliedCoupon?: string | null;
     showHeader?: boolean;
-    deliveryPrice?: number | string;
+    deliveryPrice?: number;
 };
 
 export default function CartTotals({ discount, finalAmount, firstAmount, appliedCoupon, showHeader = true, deliveryPrice }: Props) {

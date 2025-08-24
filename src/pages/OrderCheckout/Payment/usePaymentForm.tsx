@@ -43,7 +43,12 @@ const validationSchema = Yup.object({
     cvv: Yup.string()
         .matches(/^\d{3}$/, "CVV must be 3 digits")
         .required("CVV is required"),
-    nameOnCard: Yup.string().required("Name on Card is required"),
+    nameOnCard: Yup.string()
+        .trim()
+        .required("Name on Card is required")
+        .min(2, "Name on Card must be at least 2 characters")
+        .max(26, "Name on Card must be at most 26 characters")
+        .matches(/^[a-zA-Z\s'-]+$/, "Invalid input format")
 });
 
 export function usePaymentForm({ isGuestCheckout, amount, contactInfo }: Props) {

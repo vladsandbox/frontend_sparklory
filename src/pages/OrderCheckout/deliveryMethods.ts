@@ -1,7 +1,7 @@
 export type DeliveryMethod = {
     id: string;
     title: string;
-    price: number | string;
+    price: number;
     desc: string;
 };
 
@@ -21,7 +21,7 @@ export const deliveryMethods: DeliveryMethod[] = [
     {
         id: "pickup",
         title: "Pickup Point",
-        price: "Free",
+        price: 0,
         desc: "You pick up your order yourself from a convenient pickup location. You will be notified when your order is ready. Saves time and delivery costs.",
     },
 ] as const;
