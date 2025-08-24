@@ -15,7 +15,7 @@ export default function ShopCart() {
   const navigate = useNavigate();
 
   const isAuth = useAuth();
-  const { items: cart, finalAmount, firstAmount, totalDiscount, loading } = useSelector((state: RootState) => state.cart);
+  const { items: cart, finalAmount, firstAmount, totalDiscount, loading, appliedCoupon } = useSelector((state: RootState) => state.cart);
 
 
   useEffect(() => {
@@ -77,7 +77,7 @@ export default function ShopCart() {
               onRemove={handleRemove}
               onQuantityChange={handleQuantityChange}
             />
-            <CartTotals finalAmount={finalAmount} discount={totalDiscount} firstAmount={firstAmount} />
+            <CartTotals finalAmount={finalAmount} discount={totalDiscount} firstAmount={firstAmount} appliedCoupon={appliedCoupon} />
           </>
         )}
       </div>

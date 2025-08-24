@@ -1,5 +1,11 @@
-import {Outlet, NavLink } from 'react-router-dom';
-import { useAuth } from "../../utils/hooks/useAuth";
+import { Outlet, NavLink } from 'react-router-dom';
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from 'react';
+
+import { useAuth } from "@/utils/hooks/useAuth";
+import { selectCartCount } from "@/store/slices/cartSlice";
+import { fetchCartProducts } from '@/store/thunks/cartThunk';
+import type { AppDispatch } from '@/store';
 
 import { heart, bag, logo, logoFooter, instagram, youtube, facebook, profile } from '@/assets';
 
@@ -8,6 +14,12 @@ import styles from './index.module.scss';
 
 const Layout = () => {
     const isAuth = useAuth();
+    const cartCount = useSelector(selectCartCount);
+    const dispatch: AppDispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(fetchCartProducts({ guest: !isAuth }));
+    }, [dispatch, isAuth]);
 
     return (
         <>
@@ -32,20 +44,25 @@ const Layout = () => {
                                 <NavLink to="/wishlist" className={styles['icon-link']}>
                                     <img src={heart} alt="Heart" />
                                 </NavLink>
-                                <NavLink to="/cart" className={styles['icon-link']}>
+                                <NavLink to="/cart" className={styles['icon-link']} style={{ position: "relative" }}>
                                     <img src={bag} alt="Shopping Bag" />
+                                    {cartCount > 0 && (
+                                        <span className={`${styles.cartBadge} text-s`}>
+                                            {cartCount}
+                                        </span>
+                                    )}
                                 </NavLink>
                             </div>
                             <div className={styles['btn-container']}>
                                 {!isAuth ? (
-                                <>
-                                    <NavLink to="/login">
-                                        <button className="primary-btn button-text">Log in</button>
-                                    </NavLink>
-                                    <NavLink to="/registration">
-                                        <button className="secondary-btn button-text">Sign up</button>
-                                    </NavLink>
-                                </>
+                                    <>
+                                        <NavLink to="/login">
+                                            <button className="primary-btn button-text">Log in</button>
+                                        </NavLink>
+                                        <NavLink to="/registration">
+                                            <button className="secondary-btn button-text">Sign up</button>
+                                        </NavLink>
+                                    </>
                                 ) : (
                                     <NavLink to="/profile" className={styles['icon-link']}>
                                         <img src={profile} alt="profile" />

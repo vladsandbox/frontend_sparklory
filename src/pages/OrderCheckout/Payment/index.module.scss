@@ -1,0 +1,62 @@
+@use "@/styles/colors" as colors;
+
+.cardLabel {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+
+    img {
+        display: block;
+        width: 24px;
+        height: 24px;
+    }
+}
+
+.formNote {
+    color: colors.$color-grey;
+    margin-bottom: 24px;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    position: relative;
+    width: 760px;
+}
+
+.label {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+}
+
+.checkoutDisclaimer {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 1.2%;
+    color: colors.$color-grey;
+}
+
+.error {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin-top: 2px;
+    color: rgba(221, 16, 16, 1);
+}
+
+.expiryContainer {
+    display: flex;
+    justify-content: space-between;
+    gap: 22px;
+
+    label {
+        flex: none;
+        width: 369px;
+    }
+}
