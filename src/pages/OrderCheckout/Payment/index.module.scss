@@ -23,6 +23,7 @@
     flex-direction: column;
     gap: 24px;
     position: relative;
+    width: 760px;
 }
 
 .label {
@@ -30,6 +31,7 @@
     display: flex;
     flex-direction: column;
     gap: 12px;
+    width: 100%;
 }
 
 .checkoutDisclaimer {
@@ -52,4 +54,9 @@
     display: flex;
     justify-content: space-between;
     gap: 22px;
+
+    label {
+        flex: none;
+        width: 369px;
+    }
 }
