@@ -2,25 +2,30 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { addToCart } from "@/store/thunks/cartThunk.ts";
 import { useAuth } from "@/utils/hooks/useAuth.ts";
-import CartIcon from "@/components/Icons/CartIcon.tsx";
+import type { Button as ButtonProps } from "@/types/BasicComponents.ts";
 import type { ProductVariant } from "@/types/Products.ts";
 import type { AppDispatch } from "@/store";
+import CartIcon from "@/components/Icons/CartIcon.tsx";
 import Button from "@/components/Button.tsx";
 
 type Props = {
-  productId: string;
-  variant: ProductVariant | null;
-  className?: string;
-  withIcon?: boolean;
-  iconClassName?: string;
+    productId: string;
+    variant: ProductVariant | null;
+    buttonSize?: ButtonProps["size"];
+    buttonVariant?: ButtonProps["variant"];
+    className?: string;
+    withIcon?: boolean;
+    iconClassName?: string;
 };
 
 export default function AddToCartButton({
-  productId,
-  variant,
-  className,
-  withIcon = false,
-  iconClassName = "",
+    productId,
+    className,
+    variant,
+    buttonSize = "normal",
+    buttonVariant = "primary",
+    withIcon = false,
+    iconClassName = "",
 }: Props) {
   const dispatch = useDispatch<AppDispatch>();
   const isAuth = useAuth();
@@ -45,10 +50,11 @@ export default function AddToCartButton({
 
   return (
     <Button
-      className={className ?? "primary-btn button-text"}
+      className={className}
+      variant={buttonVariant}
       onClick={handleClick}
       disabled={disabled}
-      size="normal"
+      size={buttonSize}
       iconLeft= {withIcon && (
           <CartIcon
               className={`${iconClassName} ${disabled ? "stroke-disabled" : "stroke-white"}`}

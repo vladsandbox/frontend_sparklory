@@ -152,7 +152,9 @@ export default function ProductDetails({ product }: Props) {
               productId={product._id}
               variant={currentVariant}
               withIcon
-              className={`big button-text ${currentVariant?.inStock ? "primary-btn" : "secondary-btn"} ${styles.addToCart}`}
+              buttonVariant={`${currentVariant?.inStock ? "primary" : "secondary"}`}
+              buttonSize="big"
+              className={styles.addToCart}
               iconClassName={`${styles.icon} ${!currentVariant?.inStock ? styles.disabledIcon : ""}`}
             />
             <Button variant="secondary" iconLeft={<Heart />} onClick={() => toggleFavorite(product._id, !isFavorite)}>

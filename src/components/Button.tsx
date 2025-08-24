@@ -1,19 +1,5 @@
-import React from "react";
+import type { Button as ButtonProps } from "@/types/BasicComponents.ts";
 import clsx from "clsx";
-
-class ButtonProps {
-    children?: React.ReactNode;
-    variant?: "primary" | "secondary" | "secondary-white";
-    size?: "normal" | "big";
-    iconLeft?: React.ReactNode;
-    iconRight?: React.ReactNode;
-    isLoading?: boolean;
-    disabled?: boolean;
-    type?: "button" | "submit" | "reset";
-    onClick?: (() => void) | React.MouseEventHandler<HTMLButtonElement>;
-    className?: string;
-    style?: React.CSSProperties;
-}
 
 export default function Button({
     children,

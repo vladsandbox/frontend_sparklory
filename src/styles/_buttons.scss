@@ -5,7 +5,7 @@
     cursor: pointer;
     border-radius: 12px;
     padding: 8px 24px;
-    transition: opacity 300ms ease-out, background-color 300ms ease-out, border-color 300ms ease-out, box-shadow 300ms ease-out;
+    transition: opacity 300ms ease-out, background-color 300ms ease-out, border-color 300ms ease-out, box-shadow 150ms ease-out;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -35,7 +35,7 @@
 
     &:active {
         background-color: $color-button-hover;
-        box-shadow: 0 4px 4px rgba(0, 0, 0, 0.05);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.35);
     }
 
     &:disabled {
@@ -58,7 +58,7 @@
         color: $color-button-hover;
         border-color: $color-button-hover;
         background-color: rgba(255, 255, 255, 0.4);
-        box-shadow: 0 4px 4px rgba(0, 0, 0, 0.05);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.35);
     }
 
     &:disabled {
