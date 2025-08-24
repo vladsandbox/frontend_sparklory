@@ -1,5 +1,6 @@
 import { subscribeImg } from '@/assets'
 
+import Button from "@/components/Button.tsx";
 import styles from "./index.module.scss";
 
 type Props = {
@@ -18,7 +19,7 @@ export default function SubscribeSection({ imageSrc = subscribeImg }: Props) {
                     <p className={`body ${styles.description}`}>Stay in the loop with new arrivals and exclusive offers.</p>
                     <div className={styles.inputContainer}>
                         <input type="text" className="primary-input input" placeholder="Write your E-mail" />
-                        <button className="primary-btn big button-text">Subscribe</button>
+                        <Button variant="primary" size="big" className="button-text">Subscribe</Button>
                     </div>
                 </div>
                 <div>

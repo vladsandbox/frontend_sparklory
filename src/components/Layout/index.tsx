@@ -9,8 +9,10 @@ import type { AppDispatch } from '@/store';
 
 import { heart, bag, logo, logoFooter, instagram, youtube, facebook, profile } from '@/assets';
 
-import '../../styles/index.scss';
+import Button from "@/components/Button.tsx";
+
 import styles from './index.module.scss';
+import '@/styles/index.scss';
 
 const Layout = () => {
     const isAuth = useAuth();
@@ -57,10 +59,10 @@ const Layout = () => {
                                 {!isAuth ? (
                                     <>
                                         <NavLink to="/login">
-                                            <button className="primary-btn button-text">Log in</button>
+                                            <Button variant="primary">Log in</Button>
                                         </NavLink>
                                         <NavLink to="/registration">
-                                            <button className="secondary-btn button-text">Sign up</button>
+                                            <Button variant="secondary">Sign up</Button>
                                         </NavLink>
                                     </>
                                 ) : (
@@ -121,7 +123,7 @@ const Layout = () => {
                                     <p className="h3" style={{ marginBottom: 32 }}>Get our updates</p>
                                     <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
                                         <input type="text" className="primary-input input" placeholder="Write your E-mail" />
-                                        <button className="primary-btn button-text">Subscribe</button>
+                                        <Button variant="primary" size="big">Subscribe</Button>
                                     </div>
                                 </div>
                             </div>

@@ -1,83 +1,95 @@
 @use 'colors' as *;
 
-//PRIMARY SIZE: NORMAL
-
-.primary-btn {
-    background-color: $color-button;
-    border-radius: 12px;
-    padding: 8px 24px;
+.btn {
     border: none;
     cursor: pointer;
-    transition: background-color 300ms ease-out, box-shadow 300ms ease-out;
+    border-radius: 12px;
+    padding: 8px 24px;
+    transition: opacity 300ms ease-out, background-color 300ms ease-out, border-color 300ms ease-out, box-shadow 150ms ease-out;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
 
-    &:hover {
-        background-color: $color-button-hover;
+    &:disabled {
+        cursor: not-allowed;
+        opacity: 0.6;
     }
+
+    &__icon {
+        display: inline-flex;
+        line-height: 0;
+    }
+    &__label {
+        white-space: nowrap;
+    }
+}
+
+/* VARIANTS */
+
+.btn--primary {
+    background-color: $color-button;
+    color: $color-white;
+
+    &:hover { background-color: $color-button-hover; }
 
     &:active {
         background-color: $color-button-hover;
-        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.35);
     }
 
     &:disabled {
         background-color: $color-disabled;
-        cursor: not-allowed;
     }
 }
 
-//SECONDARY SIZE: NORMAL
-
-.secondary-btn {
+.btn--secondary {
+    background-color: transparent;
     color: $color-button;
     border: 1px solid $color-button;
-    background-color: transparent;
-    padding: 8px 24px;
-    cursor: pointer;
-    border-radius: 12px;
-    transition:
-        background-color 300ms ease-out,
-        border-color 300ms ease-out,
-        box-shadow 300ms ease-out;
 
     &:hover {
         color: $color-button-hover;
         background-color: rgba(255, 255, 255, 0.02);
-        border: 1px solid $color-button-hover;
+        border-color: $color-button-hover;
     }
 
     &:active {
         color: $color-button-hover;
         border-color: $color-button-hover;
         background-color: rgba(255, 255, 255, 0.4);
-        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    }
-
-    &:disabled {
-        border-color: $color-disabled;
-        background-color: rgba(255, 255, 255, 0.3);
-        cursor: not-allowed;
-        opacity: 0.6;
-    }
-}
-
-////PRIMARY SIZE: BIG
-.primary-btn.big {
-    height: 55px;
-}
-
-.secondary-btn.big {
-    height: 55px;
-    border: 1px solid $color-white;
-    color: $color-white;
-
-    &:active {
-        color: $color-button-hover;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.35);
     }
 
     &:disabled {
         color: $color-disabled;
-        border: 1px solid $color-disabled;
-        cursor: not-allowed;
-        opacity: 0.6;
+        border-color: $color-disabled;
+        background-color: rgba(255, 255, 255, 0.3);
+    }
+
+    &-white {
+        color: $color-white;
+        border: 1px solid $color-white;
+        background-color: transparent;
+
+        &:hover {
+            opacity: 0.7;
+        }
     }
 }
+
+/* SIZES */
+
+.btn--normal {
+    height: 40px;
+}
+
+.btn--big {
+    height: 55px;
+}
+
+/* ALIASES */
+
+.primary-btn { @extend .btn; @extend .btn--primary; }
+.secondary-btn { @extend .btn; @extend .btn--secondary; }
+.secondary-white-btn { @extend .btn; @extend .btn--secondary-white; }

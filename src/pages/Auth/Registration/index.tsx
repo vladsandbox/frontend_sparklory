@@ -9,9 +9,12 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import { registration, loginUser } from "@/store/thunks/userThunk.ts";
 import { setLocalStorage } from "@/utils/localStorage.ts";
 import { useOAuthPopupAuth } from "@/utils/hooks/useOAuthPopupAuth.ts";
-import { eyeSlash, logoFacebook, logoGoogle } from "@/assets";
+import { eyeSlash } from "@/assets";
 import { openOAuthPopup } from "@/utils/oauth.ts";
 
+import Facebook from "@/assets/icons/logo-facebook.svg?react"
+import Google from "@/assets/icons/logo-google.svg?react"
+import Button from "@/components/Button.tsx";
 import "./index.scss"
 
 export default function Registration() {
@@ -140,29 +143,25 @@ export default function Registration() {
                                 </p>
                             </div>
                             <div className="auth-buttons">
-                                <button
-                                    type='submit'
-                                    className="primary-btn button-text"
-                                    disabled={isSubmitting}
-                                >
+                                <Button type="submit" variant="primary" disabled={isSubmitting}>
                                     {isSubmitting ? 'Submitting...' : 'Sign Up'}
-                                </button>
-                                <button
-                                    type='button'
-                                    className="secondary-btn button-text"
+                                </Button>
+                                <Button
+                                    variant="secondary"
                                     onClick={() => handleOAuthLogin('facebook')}
+                                    iconLeft={<Facebook />}
+                                    className="auth-button"
                                 >
-                                    <img className="fb-img" src={logoFacebook} alt="Facebook" />
-                                    <span className="btn-title">Log in with Facebook</span>
-                                </button>
-                                <button
-                                    type='button'
-                                    className="secondary-btn button-text"
+                                    Log in with Facebook
+                                </Button>
+                                <Button
+                                    variant="secondary"
                                     onClick={() => handleOAuthLogin('google')}
+                                    iconLeft={<Google />}
+                                    className="auth-button"
                                 >
-                                    <img className="g-img" src={logoGoogle} alt="Google" />
-                                    <span className="btn-title">Log in with Google</span>
-                                </button>
+                                    Log in with Google
+                                </Button>
                             </div>
                         </Form>
                     )}

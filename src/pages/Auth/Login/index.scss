@@ -1,4 +1,4 @@
-@use "../../../styles/colors" as *;
+@use "@/styles/colors" as *;
 
 .auth-container {
   width: 424px;
@@ -8,10 +8,6 @@
 
   .secondary-btn {
     display: flex;
-  }
-
-  .btn-title {
-    margin-left:80px;
   }
 
   label {
@@ -29,6 +25,12 @@
   flex-direction: column;
   gap:8px;
   margin-top: 23px;
+
+  .auth-button {
+    display: flex;
+    justify-content: start;
+    gap: 100px;
+  }
 }
 
 .auth-description {

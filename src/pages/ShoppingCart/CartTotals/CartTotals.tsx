@@ -8,6 +8,7 @@ import { useAuth } from "@/utils/hooks/useAuth";
 import { formatPrice } from "@/utils/formatPrice";
 
 import styles from "./index.module.scss";
+import Button from "@/components/Button.tsx";
 
 type Props = {
     firstAmount: number;
@@ -81,13 +82,15 @@ export default function CartTotals({ discount, finalAmount, firstAmount, applied
                         }}
                         disabled={!!appliedCoupon}
                     />
-                    <button
-                        className={`${styles.applyBtn} primary-btn button-text big`}
+                    <Button
+                        variant="primary"
+                        size="big"
                         disabled={!!appliedCoupon || !coupon.trim()}
                         onClick={handleApplyCoupon}
+                        className={styles.applyBtn}
                     >
                         Apply
-                    </button>
+                    </Button>
                     {error && (
                         <span className={styles.errorCoupon}>
                             {error}
@@ -95,12 +98,13 @@ export default function CartTotals({ discount, finalAmount, firstAmount, applied
                     )}
                 </div>
                 {showHeader && (
-                    <button
-                        className="primary-btn big button-text"
+                    <Button
+                        variant="primary"
+                        size="big"
                         onClick={() => navigate("/order-checkout")}
                     >
                         Go to Checkout
-                    </button>
+                    </Button>
                 )}
             </div>
         </div>

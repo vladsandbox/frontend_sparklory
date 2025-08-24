@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { slider_1, slider_2, slider_3, slider_4 } from '@/assets';
 import SliderNavButtons from '@/components/SliderNavButtons/SliderNavButtons';
 
+import Button from "@/components/Button.tsx";
 import './index.scss';
 
 const slides = [
@@ -60,8 +61,8 @@ export const HomeSlider: React.FC = () => {
                         <p className="slider-text">{currentSlide.text}</p>
                     </div>
                     <div className="buttons">
-                        <button className="primary-btn big button-text" style={{ width: 272 }}>View Collections</button>
-                        <button className="secondary-btn big button-text" style={{ width: 272 }}>Create your own</button>
+                        <Button variant="primary" size="big" style={{ width: 272 }}>View Collections</Button>
+                        <Button variant="secondary-white" size="big" style={{ width: 272 }}>Create your own</Button>
                     </div>
                 </div>
 

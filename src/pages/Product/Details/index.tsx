@@ -1,17 +1,20 @@
 import { useState, useMemo } from "react";
 import { useKeenSlider } from "keen-slider/react";
-
-import MaterialSelector from "@/components/MaterialSelector/MaterialSelector";
-import SizeSelector from "@/components/SizeSelector";
-import AddToCartButton from "@/components/AddToCartButton/AddToCartButton";
 import { useFavorites } from "@/utils/hooks/useFavorite";
-import { MATERIALS } from "@/components/MaterialSelector/materials.ts";
+
 import SliderNavButtons from "@/components/SliderNavButtons/SliderNavButtons";
+import MaterialSelector from "@/components/MaterialSelector/MaterialSelector";
+import { MATERIALS } from "@/components/MaterialSelector/materials.ts";
+import AddToCartButton from "@/components/AddToCartButton.tsx";
+import SizeSelector from "@/components/SizeSelector";
+import Button from "@/components/Button.tsx";
+import ProductTabs from "./ProductTabs";
+
+import Heart from "@/assets/icons/heart.svg?react";
 import { noImg } from "@/assets";
 
 import type { Product, ProductVariant } from "@/types/Products";
 
-import ProductTabs from "./ProductTabs";
 import styles from "./index.module.scss";
 
 type Props = {
@@ -55,7 +58,7 @@ export default function ProductDetails({ product }: Props) {
     ) || null;
   }, [product.variants, selectedMaterial, selectedSize]);
 
-  let images: string[] = [];
+  let images: string[];
 
   if (product.image.length === 0) {
     images = Array(3).fill(noImg);
@@ -149,29 +152,14 @@ export default function ProductDetails({ product }: Props) {
               productId={product._id}
               variant={currentVariant}
               withIcon
-              className={`big button-text ${currentVariant?.inStock ? "primary-btn" : "secondary-btn"} ${styles.addToCart}`}
+              buttonVariant={`${currentVariant?.inStock ? "primary" : "secondary"}`}
+              buttonSize="big"
+              className={styles.addToCart}
               iconClassName={`${styles.icon} ${!currentVariant?.inStock ? styles.disabledIcon : ""}`}
             />
-            <button className="secondary-btn big button-text" onClick={() => toggleFavorite(product._id, !isFavorite)}>
-              <svg
-                width="24"
-                height="24"
-                viewBox="0 0 32 32"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                style={{ marginRight: 8, verticalAlign: "middle" }}
-              >
-                <path
-                  d="M16.827 27.7466C16.3737 27.9066 15.627 27.9066 15.1737 27.7466C11.307 26.4266 2.66699 20.92 2.66699 11.5866C2.66699 7.46663 5.98699 4.1333 10.0803 4.1333C12.507 4.1333 14.6537 5.30663 16.0003 7.11997C17.347 5.30663 19.507 4.1333 21.9203 4.1333C26.0137 4.1333 29.3337 7.46663 29.3337 11.5866C29.3337 20.92 20.6937 26.4266 16.827 27.7466Z"
-                  stroke="rgba(94, 75, 75, 1)"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  fill={isFavorite ? "rgba(94, 75, 75, 1)" : "none"}
-                />
-              </svg>
+            <Button variant="secondary" iconLeft={<Heart />} onClick={() => toggleFavorite(product._id, !isFavorite)}>
               {isFavorite ? "Remove from Wishlist" : "Add to Wishlist"}
-            </button>
+            </Button>
           </div>
         </div>
       </div>

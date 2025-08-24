@@ -3,8 +3,10 @@ import { useSelector } from "react-redux";
 import type { RootState } from "@/store";
 
 import { useProductNavigation } from "@/utils/hooks/useProductNavigation";
-import { search, catalog } from "@/assets";
+import { search } from "@/assets";
+import Catalog from "@/assets/icons/catalog.svg?react"
 import styles from "./index.module.scss";
+import Button from "@/components/Button.tsx";
 
 export default function CatalogSearchBar() {
     const { goToProduct } = useProductNavigation()
@@ -26,10 +28,9 @@ export default function CatalogSearchBar() {
 
     return (
         <div className={`wrapper ${styles.bar}`}>
-            <button className={`primary-btn big button-text ${styles.button}`}>
-                <img src={catalog} alt="catalog" />
-                <span>Catalog</span>
-            </button>
+            <Button iconLeft={<Catalog />} className={`primary-btn btn--big ${styles.button}`}>
+                Catalog
+            </Button>
 
             <div className={styles.inputWrapper}>
                 <img src={search} alt="search" className={styles.icon} />
