@@ -12,6 +12,8 @@ import DeliveryMethodSelector from "./DeliveryMethodSelector";
 import { deliveryMethods, type DeliveryMethod } from "./deliveryMethods";
 import Payment from "./Payment";
 import { normalizePrice } from "@/utils/formatPrice";
+import Button from "@/components/Button";
+import CatalogSearchBar from "@/components/CatalogSearchBar";
 
 import styles from "./index.module.scss";
 import { deliveryCar } from "@/assets";
@@ -66,6 +68,8 @@ export default function OrderCheckout() {
             });
 
             if (Object.keys(errors).length > 0) return;
+            sessionStorage.setItem("customer_name", formik.values.name);
+
             setStep(2);
         } else if (step === 2) {
             if (!deliveryMethod) {
@@ -78,6 +82,8 @@ export default function OrderCheckout() {
     };
 
     return (
+        <>
+        <CatalogSearchBar />
         <div className="wrapper">
             <div className={styles.container}>
                 <div className={styles.contactInfoCointainer}>
@@ -124,12 +130,13 @@ export default function OrderCheckout() {
                                     onChange={(val) => formik.setFieldValue("email", val)}
                                 />
                             )}
-                            <button
-                                className={`${styles.btnContinue} ${styles.btnContinueFirstStep} primary-btn big button-text`}
+                            <Button
+                                size="big"
+                                className={`${styles.btnContinue} ${styles.btnContinueFirstStep}`}
                                 onClick={handleContinue}
                             >
                                 Continue
-                            </button>
+                            </Button>
                         </div>
                     )}
 
@@ -202,5 +209,6 @@ export default function OrderCheckout() {
                 </div>
             </div>
         </div>
+        </>
     );
 }
