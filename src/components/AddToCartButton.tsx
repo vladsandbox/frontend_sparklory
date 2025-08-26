@@ -92,12 +92,12 @@ export default function AddToCartButton({
   return (
     <>
       <Button
-        className={clsx(className, isOutOfStock && "disabled")}
+        className={clsx(className, isOutOfStock && "get-notified")}
         variant={buttonVariant}
         onClick={handleClick}
         size={buttonSize}
         iconLeft={iconLeft}
-        disabled={loading}
+        isLoading={loading}
       >
         {loading ? "Processing..." : isOutOfStock ? "Get Notified" : "Add to cart"}
       </Button>

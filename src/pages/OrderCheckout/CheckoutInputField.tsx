@@ -1,5 +1,3 @@
-import styles from "./index.module.scss";
-
 type Props = {
     label: string;
     value: string;
@@ -19,7 +17,7 @@ export default function CheckoutInputField({ label, value, type = "text", error,
                 onChange={(e) => onChange(e.target.value)}
                 className="input primary-input"
             />
-            {error && <span className={`${styles.error} text-s`}>{error}</span>}
+            {error && <span className="input-error">{error}</span>}
         </label>
     );
 }

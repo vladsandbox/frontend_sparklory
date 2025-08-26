@@ -33,7 +33,7 @@ export default function DeliveryMethodSelector({ selected, error, onSelect, onCo
                     <p className="text-filters" style={{ lineHeight: "33px" }}>{method.desc}</p>
                 </div>
             ))}
-            {error && <span className={`${styles.errorMethod} ${styles.error} text-s`}>{error}</span>}
+            {error && <span className={`input-error ${styles.errorMethod}`}>{error}</span>}
             <button
                 className={`${styles.btnContinue} primary-btn big button-text`}
                 onClick={onContinue}

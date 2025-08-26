@@ -5,9 +5,11 @@ import { createPortal } from "react-dom";
 import type { AppDispatch } from "@/store";
 import { postProductSubscribe } from "@/store/thunks/productsThunk";
 import Button from "../Button";
+import { isValidEmail } from "@/utils/validation";
 
 import styles from "./index.module.scss";
-import { closeBtn } from "@/assets";
+
+import CloseBtn from "@/assets/icons/closeBtnSubscribe.svg?react"
 
 type Props = {
     productId: string;
@@ -18,9 +20,6 @@ export default function SubscribePopup({ productId, onClose }: Props) {
     const dispatch: AppDispatch = useDispatch();
     const [email, setEmail] = useState("");
     const [touched, setTouched] = useState(false);
-
-    const isValidEmail = (val: string) =>
-        /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
@@ -35,9 +34,13 @@ export default function SubscribePopup({ productId, onClose }: Props) {
     return createPortal(
         <div className={styles.popup}>
             <div className={styles.popupContent}>
-                <button onClick={onClose} className={styles.popupClose}>
-                    <img src={closeBtn} alt="Close" />
-                </button>
+                <Button
+                    onClick={onClose}
+                    className={styles.popupClose}
+                    variant="secondary"
+                    size="normal"
+                    iconLeft={<CloseBtn />}
+                />
 
                 <div>
                     <h3 className="h3">Join the Sparklory community</h3>
@@ -47,26 +50,26 @@ export default function SubscribePopup({ productId, onClose }: Props) {
                 </div>
 
                 <form onSubmit={handleSubmit}>
-                    <input
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        onBlur={() => setTouched(true)}
-                        placeholder="Enter your email"
-                        required
-                        className={`primary-input input ${isInvalid ? styles.error : ""}`}
-                    />
-
-                    {isInvalid && (
-                        <p className={`${styles.errorText} text-s`}>Please enter a valid email</p>
-                    )}
-
-                    <input type="text" placeholder="Name" className="primary-input input" />
+                    <div className={styles.inputWrapper}>
+                        <input
+                            type="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            onBlur={() => setTouched(true)}
+                            placeholder="Enter your email"
+                            required
+                            className={`primary-input input ${isInvalid ? styles.error : ""}`}
+                            style={{ width: "100%" }}
+                        />
+                        {isInvalid && (
+                            <p className="input-error">Please enter a valid email</p>
+                        )}
+                    </div>
 
                     <Button
                         type="submit"
                         variant="primary"
-                        style={{ width: "100%", marginTop: 12 }}
+                        className={styles.submitBtn}
                         disabled={!isValidEmail(email)}
                     >
                         Subscribe

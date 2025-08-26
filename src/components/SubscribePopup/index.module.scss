@@ -22,12 +22,11 @@
     border-top: 1px solid rgba(100, 98, 99, 0.3);
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
     gap: 24px;
     position: relative;
 
-    div,
-    form {
+    div {
         display: flex;
         flex-direction: column;
         gap: 12px;
@@ -42,16 +41,14 @@
     background-color: transparent;
     width: 40px;
     height: 40px;
-
-    img {
-        cursor: pointer;
-    }
 }
 
-.errorText {
-    position: absolute;
-    bottom: 75px;
-    left: 56px;
-    margin-top: 5px;
-    color: rgba(221, 16, 16, 1);
+.submitBtn {
+    width: 100%;
+    margin-top: 24px;
+}
+
+.inputWrapper {
+    position: relative;
+    width: 100%;
 }
