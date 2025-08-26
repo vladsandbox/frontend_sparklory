@@ -117,7 +117,7 @@ export default function TrendingNow({ products, loading }: Props) {
                           materials={materials}
                         />
 
-                        <div className="product-actions">
+                        <div className="product-actions" onClick={(e) => e.stopPropagation()}>
                           <AddToCartButton
                             productId={product._id}
                             variant={currentVariant && currentVariant.inStock > 0 ? currentVariant : null}

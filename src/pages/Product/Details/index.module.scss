@@ -53,16 +53,15 @@
         gap: 16px;
         align-items: center;
         justify-content: center;
+
+        :disabled {
+            background-color: $color-disabled;
+            color: black;
+        }
     }
 
     :global(.primary-btn) {
         width: 384px;
-    }
-
-    :global(.secondary-btn) {
-        width: 384px;
-        border: 1px solid $color-button;
-        color: $color-button;
     }
 
     .icon {

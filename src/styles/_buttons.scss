@@ -20,6 +20,7 @@
         display: inline-flex;
         line-height: 0;
     }
+    
     &__label {
         white-space: nowrap;
     }
@@ -90,6 +91,22 @@
 
 /* ALIASES */
 
-.primary-btn { @extend .btn; @extend .btn--primary; }
+.primary-btn {
+    @extend .btn;
+    @extend .btn--primary;
+
+    &.disabled {
+        background-color: $color-disabled;
+        color: $color-grey;
+        opacity: 1;
+
+        &:hover,
+        &:active {
+            background-color: $color-disabled;
+            box-shadow: none;
+        }
+    }
+}
+
 .secondary-btn { @extend .btn; @extend .btn--secondary; }
 .secondary-white-btn { @extend .btn; @extend .btn--secondary-white; }
