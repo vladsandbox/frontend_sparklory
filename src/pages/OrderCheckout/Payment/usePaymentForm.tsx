@@ -69,12 +69,21 @@ export function usePaymentForm({ isGuestCheckout, amount, contactInfo }: Props) 
                 ? { amount, guest: true, contactInfo }
                 : { amount };
 
-            const result = await dispatch(createPayment(payload)).unwrap();
+            try {
+                const res = await dispatch(createPayment(payload)).unwrap();
 
-            if (result?.data && result?.signature) {
-                setLiqpayData(result.data);
-                setLiqpaySignature(result.signature);
+                if (res?.order_id) {
+                    sessionStorage.setItem("order_id", res.order_id);
+                }
+
+                if (res?.data && res?.signature) {
+                    setLiqpayData(res.data);
+                    setLiqpaySignature(res.signature);
+                }
+            } catch (error) {
+                console.error("Payment creation failed:", error);
             }
+
         },
     });
 

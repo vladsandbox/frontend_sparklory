@@ -1,0 +1,38 @@
+.container {
+    display: flex;
+    justify-content: space-between;
+    padding: 120px 0;
+}
+
+.confirmation {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+}
+
+.confirmationText {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+
+    p {
+        line-height: 36px;
+    }
+}
+
+.mainImg {
+    border-radius: 20px;
+    width: 601px;
+    height: 529px;
+    object-fit: cover;
+}
+
+.textSpan {
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 100%;
+    text-align: center;
+}
