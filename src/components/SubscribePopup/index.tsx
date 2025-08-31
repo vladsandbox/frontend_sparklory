@@ -43,8 +43,8 @@ export default function SubscribePopup({ productId, onClose }: Props) {
                 />
 
                 <div>
-                    <h3 className="h3">Join the Sparklory community</h3>
-                    <p className="text-s">
+                    <h3 className={`h3 ${styles.headingDark}`}>Join the Sparklory community</h3>
+                    <p className={`text-s ${styles.textGray}`}>
                         Be the first to know about all the news and updates
                     </p>
                 </div>
@@ -56,13 +56,13 @@ export default function SubscribePopup({ productId, onClose }: Props) {
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             onBlur={() => setTouched(true)}
-                            placeholder="Enter your email"
+                            placeholder="E-mail"
                             required
-                            className={`primary-input input ${isInvalid ? styles.error : ""}`}
+                            className={`primary-input input ${isInvalid ? "error-state" : ""}`}
                             style={{ width: "100%" }}
                         />
                         {isInvalid && (
-                            <p className="input-error">Please enter a valid email</p>
+                            <p className={`input-error ${styles.inputError}`}>Please enter a valid email</p>
                         )}
                     </div>
 

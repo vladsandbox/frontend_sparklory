@@ -14,7 +14,6 @@
 
 .popupContent {
     width: 480px;
-    height: 324px;
     background-color: #fff;
     border-radius: 12px;
     padding: 32px;
@@ -22,14 +21,13 @@
     border-top: 1px solid rgba(100, 98, 99, 0.3);
     display: flex;
     flex-direction: column;
-    justify-content: center;
     gap: 24px;
     position: relative;
 
-    div {
+    >div:first-of-type {
         display: flex;
         flex-direction: column;
-        gap: 12px;
+        gap: 8px;
     }
 }
 
@@ -51,4 +49,19 @@
 .inputWrapper {
     position: relative;
     width: 100%;
+}
+
+.headingDark {
+    color: #101828;
+    line-height: 150%;
+}
+
+.textGray {
+    color: #4A5565;
+    line-height: 20px;
+}
+
+.inputError {
+    position: initial !important;
+    line-height: 21px;
 }
