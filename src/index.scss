@@ -35,7 +35,7 @@ body {
 }
 
 .input-error {
-  color: rgba(221, 16, 16, 1);
+  color: $color-red;
   font-weight: $font-text-s-weight;
   font-size: $font-text-s-size;
   position: absolute;

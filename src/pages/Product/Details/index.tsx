@@ -154,7 +154,7 @@ export default function ProductDetails({ product }: Props) {
               productId={product._id}
               variant={currentVariant}
               withIcon
-              buttonVariant={"primary"}
+              buttonVariant="primary"
               buttonSize="big"
               className={styles.addToCart}
               iconClassName={`${styles.icon} ${!currentVariant?.inStock ? styles.disabledIcon : ""}`}

@@ -23,7 +23,6 @@
 
   &.error-state {
     border: 1px solid rgba(123, 0, 0, 1);
-    color: $color-red;
 
     &::placeholder {
       color: $color-red;
