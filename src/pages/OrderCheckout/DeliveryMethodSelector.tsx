@@ -2,6 +2,7 @@ import { formatPrice } from "@/utils/formatPrice";
 import { deliveryMethods } from "./deliveryMethods";
 
 import styles from "./index.module.scss";
+import Button from "@/components/Button";
 
 type Props = {
     selected: string;
@@ -33,13 +34,14 @@ export default function DeliveryMethodSelector({ selected, error, onSelect, onCo
                     <p className="text-filters" style={{ lineHeight: "33px" }}>{method.desc}</p>
                 </div>
             ))}
-            {error && <span className={`input-error ${styles.errorMethod}`}>{error}</span>}
-            <button
-                className={`${styles.btnContinue} primary-btn big button-text`}
-                onClick={onContinue}
-            >
+            {error && <span className={`${styles.errorMethod} ${styles.error} text-s`}>{error}</span>}
+            <Button
+                size="big"
+                className={styles.btnContinue}
+                onClick={onContinue}>
+
                 Continue
-            </button>
+            </Button>
         </div>
     );
 }

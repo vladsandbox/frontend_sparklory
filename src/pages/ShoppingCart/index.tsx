@@ -9,6 +9,7 @@ import { useAuth } from "@/utils/hooks/useAuth";
 import type { RootState, AppDispatch } from "@/store";
 import type { CartItem as CartItemType } from "@/types/Cart";
 import CartTotals from "./CartTotals/CartTotals";
+import Button from "@/components/Button";
 
 export default function ShopCart() {
   const dispatch = useDispatch<AppDispatch>();
@@ -62,13 +63,9 @@ export default function ShopCart() {
             <p className="body" style={{ color: "rgba(104, 104, 104, 1)", marginBottom: 38 }}>
               There’s nothing in your shopping cart. Go to shop and add some products you’d like to buy
             </p>
-            <button
-              className="primary-btn big button-text"
-              style={{ width: 424 }}
-              onClick={() => navigate("/catalog")}
-            >
+            <Button variant="primary" onClick={() => navigate("/catalog")} size="big" style={{ width: 424 }}>
               Go to Shop
-            </button>
+            </Button>
           </div>
         ) : (
           <>

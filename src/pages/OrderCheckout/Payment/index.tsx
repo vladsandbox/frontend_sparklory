@@ -5,6 +5,7 @@ import type { RootState } from "@/store";
 import type { PaymentContactInfo } from "@/types/Payment";
 import LiqPayCheckout from "./LiqPayCheckout";
 import { formatCardNumber, formatExpiryDate } from "./formatters";
+import Button from "@/components/Button";
 
 import styles from "./index.module.scss";
 import { cardPos } from "@/assets";
@@ -100,13 +101,13 @@ export default function Payment({ isGuestCheckout, amount, contactInfo }: Props)
                         Read more about SPARKLORY'S use of personal data in our Privacy Policy
                     </p>
 
-                    <button
+                    <Button
                         type="submit"
-                        className="primary-btn big button-text"
+                        size="big"
                         disabled={loading}
                     >
                         {loading ? "Processing..." : "Confirm"}
-                    </button>
+                    </Button>
 
                     {error && <span className={`${styles.error} text-s`}>{error}</span>}
                 </form>

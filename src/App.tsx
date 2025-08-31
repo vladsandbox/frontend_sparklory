@@ -24,6 +24,7 @@ import OAuthCallback from "./pages/Auth/OAuth/OAuthCallback.tsx";
 import OrderCheckout from "./pages/OrderCheckout/index.tsx";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute.tsx";
 import PrivateOrderCheckout from "./components/PrivateRoute/PrivateOrderCheckout.tsx";
+import OrderConfirmation from "./pages/OrderCheckout/OrderConfirmation/index.tsx";
 
 const router = createBrowserRouter([
   {
@@ -58,6 +59,11 @@ const router = createBrowserRouter([
             <OrderCheckout />
           </PrivateOrderCheckout>
         )
+      },
+      {
+        path: "order-confirm", element: (
+          <OrderConfirmation />
+       )
       },
       { path: "*", element: <Navigate to="/" replace /> },
     ],
