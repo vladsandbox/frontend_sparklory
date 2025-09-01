@@ -39,6 +39,7 @@ export default function DeliveryMethodSelector({ selected, error, onSelect, onCo
                 size="big"
                 className={styles.btnContinue}
                 onClick={onContinue}>
+
                 Continue
             </Button>
         </div>

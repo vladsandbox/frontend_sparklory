@@ -48,7 +48,7 @@ export default function WishlistItem({ product, onRemove }: Props) {
           productId={product._id}
           variant={firstVariant ?? null}
           withIcon
-          className={`big button-text ${inStock ? "primary-btn" : "secondary-btn"} ${styles.button}`}
+          className={styles.button}
           iconClassName={`${styles.icon} ${!inStock ? styles.disabledIcon : ""}`}
         />
       </div>

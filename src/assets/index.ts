@@ -39,6 +39,8 @@ import noImg from './icons/no-image.svg'
 import closeBtn from './icons/close-btn.svg'
 import deliveryCar from './icons/deliveryCar.svg'
 import cardPos from './icons/card-pos.svg'
+import getNotified from './icons/getNotified.svg'
+import closeBtnSubscribe from './icons/closeBtnSubscribe.svg'
 import orderConfirm from './images/orderConfirm.webp'
 
 export {
@@ -83,5 +85,7 @@ export {
   closeBtn,
   deliveryCar,
   cardPos,
+  getNotified,
+  closeBtnSubscribe,
   orderConfirm
 };

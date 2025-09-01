@@ -51,11 +51,13 @@ export default function ProductDetails({ product }: Props) {
   }, [product.variants, selectedMaterial]);
 
   const currentVariant: ProductVariant | null = useMemo(() => {
-    return product.variants.find(
-      (v) =>
-        v.material === selectedMaterial &&
-        v.size === selectedSize
-    ) || null;
+    return (
+      product.variants.find(
+        (v) =>
+          v.material === selectedMaterial &&
+          (v.size ? v.size === selectedSize : true)
+      ) || null
+    );
   }, [product.variants, selectedMaterial, selectedSize]);
 
   let images: string[];
@@ -152,7 +154,7 @@ export default function ProductDetails({ product }: Props) {
               productId={product._id}
               variant={currentVariant}
               withIcon
-              buttonVariant={`${currentVariant?.inStock ? "primary" : "secondary"}`}
+              buttonVariant="primary"
               buttonSize="big"
               className={styles.addToCart}
               iconClassName={`${styles.icon} ${!currentVariant?.inStock ? styles.disabledIcon : ""}`}

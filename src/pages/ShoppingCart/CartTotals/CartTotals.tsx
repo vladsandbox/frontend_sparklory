@@ -92,7 +92,7 @@ export default function CartTotals({ discount, finalAmount, firstAmount, applied
                         Apply
                     </Button>
                     {error && (
-                        <span className={styles.errorCoupon}>
+                        <span className="input-error">
                             {error}
                         </span>
                     )}

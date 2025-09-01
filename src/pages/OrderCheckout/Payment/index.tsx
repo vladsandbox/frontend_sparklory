@@ -52,7 +52,7 @@ export default function Payment({ isGuestCheckout, amount, contactInfo }: Props)
                             onChange={handleCardNumberChange}
                         />
                         {formik.touched.cardNumber && formik.errors.cardNumber && (
-                            <span className={`${styles.error} text-s`}>{formik.errors.cardNumber}</span>
+                            <span className="input-error">{formik.errors.cardNumber}</span>
                         )}
                     </label>
 
@@ -66,7 +66,7 @@ export default function Payment({ isGuestCheckout, amount, contactInfo }: Props)
                                 onChange={handleExpiryChange}
                             />
                             {formik.touched.expiryDate && formik.errors.expiryDate && (
-                                <span className={`${styles.error} text-s`}>{formik.errors.expiryDate}</span>
+                                <span className="input-error">{formik.errors.expiryDate}</span>
                             )}
                         </label>
 
@@ -79,7 +79,7 @@ export default function Payment({ isGuestCheckout, amount, contactInfo }: Props)
                                 maxLength={3}
                             />
                             {formik.touched.cvv && formik.errors.cvv && (
-                                <span className={`${styles.error} text-s`}>{formik.errors.cvv}</span>
+                                <span className="input-error">{formik.errors.cvv}</span>
                             )}
                         </label>
                     </div>
@@ -92,7 +92,7 @@ export default function Payment({ isGuestCheckout, amount, contactInfo }: Props)
                             placeholder="Name on Card"
                         />
                         {formik.touched.nameOnCard && formik.errors.nameOnCard && (
-                            <span className={`${styles.error} text-s`}>{formik.errors.nameOnCard}</span>
+                            <span className="input-error">{formik.errors.nameOnCard}</span>
                         )}
                     </label>
 

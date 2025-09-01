@@ -95,17 +95,10 @@
     }
 }
 
-.error {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    margin-top: 2px;
-    color: rgba(221, 16, 16, 1);
+.errorMethod {
+    display: block;
+    margin-top: 4px !important;
 
-    &Method {
-        display: block;
-        margin-top: 4px;
-    }
 }
 
 .deliveryMethods {

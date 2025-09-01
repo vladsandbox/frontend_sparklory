@@ -48,7 +48,7 @@
 }
 
 .name {
-    width: 408px;
+    width: 465px;
     color: $color-black;
     cursor: pointer;
     transition: color 0.2s;
@@ -59,8 +59,7 @@
 }
 
 .price {
-    margin-left: 38px;
-    margin-right: 143px;
+    width: 200px;
 }
 
 .divider {
@@ -74,7 +73,8 @@
 
 
 .button {
-    width: 230px;
+    width: 200px;
+    height: 55px;
     display: flex;
     align-items: center;
     gap: 16px;

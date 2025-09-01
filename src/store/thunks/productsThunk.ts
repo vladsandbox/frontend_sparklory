@@ -2,6 +2,7 @@ import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import type { Product, Review } from "@/types/Products";
 import type { PaginatedProductsResponse } from "@/types/Pagination";
+import { instance } from "@/api/axios.api";
 
 const apiProductsUrl = import.meta.env.VITE_PRODUCTS_GET_URL ?? "";
 
@@ -88,6 +89,32 @@ export const postProductReview = createAsyncThunk<
             return res.data;
         } catch (error) {
             const message = error instanceof Error ? error.message : "Unknown error";
+            return rejectWithValue(message);
+        }
+    }
+);
+
+export const postProductSubscribe = createAsyncThunk<
+    { message: string },
+    { productId: string; email?: string },
+    { rejectValue: string }
+>(
+    "products/postProductSubscribe",
+    async ({ productId, email }, { rejectWithValue }) => {
+        try {
+            const url = email
+                ? "/products/subscribe"
+                : "/products/subscribe/auth";
+
+            const payload = email
+                ? { productId, email }
+                : { productId };
+
+            const res = await instance.post(url, payload);
+            return res.data;
+        } catch (error) {
+            const message =
+                error instanceof Error ? error.message : "Unknown error";
             return rejectWithValue(message);
         }
     }
