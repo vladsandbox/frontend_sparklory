@@ -1,4 +1,4 @@
-@import '../assets/fonts/fonts.scss';
+@use '../assets/fonts/fonts.scss' as *;
 
 // fonts
 $font-poppins: 'Poppins', sans-serif;
@@ -61,7 +61,7 @@ $font-text-xs-letter-spacing: 0%;
 
 // Button
 $font-button-size: 16px;
-$font-button-weight: 400;
+$font-button-weight: 300;
 $font-button-line-height: 24px;
 $font-button-letter-spacing: 1.2%;
 

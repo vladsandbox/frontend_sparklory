@@ -1,0 +1,17 @@
+.subcategory-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  width: 200px;
+  height: 210px;
+  border-radius: 12px;
+
+  img.is-fallback {
+    width: 160px;
+    height: 160px;
+    overflow: hidden;
+    object-fit: contain;
+  }
+}

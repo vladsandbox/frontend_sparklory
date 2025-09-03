@@ -1,11 +1,28 @@
 import { Outlet, NavLink } from 'react-router-dom';
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from 'react';
 
-import { heart,bag, logo, logoFooter, instagram, youtube, facebook } from '../../assets';
+import { useAuth } from "@/utils/hooks/useAuth";
+import { selectCartCount } from "@/store/slices/cartSlice";
+import { fetchCartProducts } from '@/store/thunks/cartThunk';
+import type { AppDispatch } from '@/store';
 
-import '../../styles/index.scss';
+import { heart, bag, logo, logoFooter, instagram, youtube, facebook, profile } from '@/assets';
+
+import Button from "@/components/Button.tsx";
+
 import styles from './index.module.scss';
+import '@/styles/index.scss';
 
 const Layout = () => {
+    const isAuth = useAuth();
+    const cartCount = useSelector(selectCartCount);
+    const dispatch: AppDispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(fetchCartProducts({ guest: !isAuth }));
+    }, [dispatch, isAuth]);
+
     return (
         <>
             <header className={styles['header-container']}>
@@ -26,23 +43,40 @@ const Layout = () => {
 
                         <div className={styles['actions']}>
                             <div className={styles['icons-container']}>
-                                <a href="/" className={styles['icon-link']}>
+                                <NavLink to="/wishlist" className={styles['icon-link']}>
                                     <img src={heart} alt="Heart" />
-                                </a>
-                                <a href="/" className={styles['icon-link']}>
+                                </NavLink>
+                                <NavLink to="/cart" className={styles['icon-link']} style={{ position: "relative" }}>
                                     <img src={bag} alt="Shopping Bag" />
-                                </a>
+                                    {cartCount > 0 && (
+                                        <span className={`${styles.cartBadge} text-s`}>
+                                            {cartCount}
+                                        </span>
+                                    )}
+                                </NavLink>
                             </div>
                             <div className={styles['btn-container']}>
-                                <button className="primary-btn button-text">Log in</button>
-                                <button className="secondary-btn button-text">Sign up</button>
+                                {!isAuth ? (
+                                    <>
+                                        <NavLink to="/login">
+                                            <Button variant="primary">Log in</Button>
+                                        </NavLink>
+                                        <NavLink to="/registration">
+                                            <Button variant="secondary">Sign up</Button>
+                                        </NavLink>
+                                    </>
+                                ) : (
+                                    <NavLink to="/profile" className={styles['icon-link']}>
+                                        <img src={profile} alt="profile" />
+                                    </NavLink>
+                                )}
                             </div>
                         </div>
                     </div>
                 </div>
             </header>
 
-            <main style={{paddingTop: 24}}>
+            <main style={{ paddingTop: 24 }}>
                 <Outlet />
             </main>
 
@@ -88,15 +122,15 @@ const Layout = () => {
                                 <div className={styles['newsletter']}>
                                     <p className="h3" style={{ marginBottom: 32 }}>Get our updates</p>
                                     <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
-                                        <input type="text" className="primary-input input" placeholder="Write your E-mail"/>
-                                        <button className="primary-btn button-text">Subscribe</button>
+                                        <input type="text" className="primary-input input" placeholder="Write your E-mail" />
+                                        <Button variant="primary" size="big">Subscribe</Button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div style={{ paddingTop: 40, display: "flex", justifyContent: "space-between" }}>
                             <p>Copyright © 2024 | Privacy Policy</p>
-                            <div style={{display: "flex", gap: 24}}>
+                            <div style={{ display: "flex", gap: 24 }}>
                                 <a href="/" className={styles['icon-link']}>
                                     <img src={instagram} alt="Instagram" />
                                 </a>

@@ -1,0 +1,83 @@
+@use '@/styles/variables' as var;
+@use '@/styles/colors' as colors;
+
+.pagination {
+  position: sticky;
+  bottom: 24px;
+  left: 0;
+  right: 0;
+  z-index: 9;
+  padding: 20px 0;
+  background-color: colors.$color-background;
+  max-width: 800px;
+  border-radius: 22px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-self: center;
+  margin: 48px 0;
+  gap: 8px;
+  font-family: var.$font-poppins;
+  font-size: var.$font-button-size;
+  font-weight: var.$font-button-weight;
+  line-height: var.$font-button-line-height;
+
+  &__item {
+    cursor: pointer;
+    user-select: none;
+
+    &--active {
+      .pagination__link {
+        font-weight: bold;
+        color: colors.$color-white;
+        background: colors.$color-button;
+        border-radius: 50%;
+      }
+    }
+
+    &--disabled {
+      .pagination__link {
+        opacity: 0.4;
+        cursor: not-allowed;
+      }
+    }
+
+    .pagination__link {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 40px;
+      height: 40px;
+      padding: 6px 12px;
+      border-radius: 50%;
+      text-decoration: none;
+      transition: background-color 0.5s ease, color 0.5s ease, font-weight 0.5s ease;
+
+      &:hover {
+        background-color: colors.$color-button-hover;
+        color: colors.$color-white;
+      }
+
+      &--disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  .btn-prev,
+  .btn-next {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    height: 40px;
+    margin: 0 10px;
+    transition: opacity 0.5s ease;
+  }
+
+  .break-label {
+    align-self: end;
+    padding-bottom: 5px;
+    margin: 0 8px;
+  }
+}

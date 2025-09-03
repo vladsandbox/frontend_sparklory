@@ -1,4 +1,4 @@
-@import "../../../styles/colors";
+@use "../../../styles/colors" as *;
 
 .product-container {
     display: flex;
@@ -46,15 +46,35 @@
 .button-container {
     display: flex;
     justify-content: space-between;
+    gap: 40px;
 
-    :global(.primary-btn) {
-        width: 312px;
+    .addToCart {
+        display: flex;
+        gap: 16px;
+        align-items: center;
+        justify-content: center;
+
+        :disabled {
+            background-color: $color-disabled;
+            color: black;
+        }
     }
 
-    :global(.secondary-btn) {
-        width: 206px;
-        border: 1px solid $color-button;
-        color: $color-button;
+    :global(.primary-btn) {
+        width: 384px;
+    }
+
+    .icon {
+        width: 24px;
+        height: 24px;
+        flex-shrink: 0;
+        stroke: white;
+        transition: stroke 0.3s ease;
+    }
+
+
+    .disabledIcon {
+        stroke: rgba(196, 196, 196, 1);
     }
 }
 
@@ -90,8 +110,9 @@
     right: 0;
 
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between !important;
     align-items: center;
+    gap: 0px !important;
 
     transform: translateY(-50%);
     padding: 0 20px;
@@ -127,25 +148,6 @@
     border-radius: 12px;
     border-width: 1px;
     border: 1px solid $color-black;
-}
-
-.sizeWrapper {
-    display: flex;
-    gap: 12px;
-    margin-top: 8px;
-}
-
-.sizeBtn {
-    padding: 4px 18px;
-    border: 1px solid $color-black;
-    border-radius: 12px;
-    background: transparent;
-    cursor: pointer;
-
-
-    &.active {
-        border: 2px solid;
-    }
 }
 
 .tabsContainer {

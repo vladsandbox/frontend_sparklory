@@ -2,12 +2,12 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
-import { fetchProductReviews, fetchAllProductReviews } from "../../../store/thunks/productsThunk";
-import { RootState, AppDispatch } from "../../../store";
+import { fetchProductReviews, fetchAllProductReviews } from "@/store/thunks/productsThunk.ts";
+import type { RootState, AppDispatch } from "@/store";
 import ReviewForm from "../ReviewForm";
 import ReviewCard from "../../../components/ReviewCard";
 import CustomersExperience from "../CustomersExperience";
-import { Review } from "../../../types/Products";
+import type { Review } from "@/types/Products.ts";
 
 import styles from "./index.module.scss";
 

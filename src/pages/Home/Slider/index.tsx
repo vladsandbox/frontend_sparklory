@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
-import { slider_1, slider_2, slider_3, slider_4 } from '../../../assets';
+import { slider_1, slider_2, slider_3, slider_4 } from '@/assets';
+import SliderNavButtons from '@/components/SliderNavButtons/SliderNavButtons';
+
+import Button from "@/components/Button.tsx";
 import './index.scss';
 
 const slides = [
@@ -58,8 +61,8 @@ export const HomeSlider: React.FC = () => {
                         <p className="slider-text">{currentSlide.text}</p>
                     </div>
                     <div className="buttons">
-                        <button className="primary-btn big button-text" style={{ width: 272 }}>View Collections</button>
-                        <button className="secondary-btn big button-text" style={{ width: 272 }}>Create your own</button>
+                        <Button variant="primary" size="big" style={{ width: 272 }}>View Collections</Button>
+                        <Button variant="secondary-white" size="big" style={{ width: 272 }}>Create your own</Button>
                     </div>
                 </div>
 
@@ -79,18 +82,14 @@ export const HomeSlider: React.FC = () => {
                         </span>
                     </div>
 
-                    <div className="nav-buttons">
-                        <button
-                            className="arrow left"
-                            onClick={handlePrev}
-                            disabled={currentIndex === 0}
-                        />
-                        <button
-                            className="arrow right"
-                            onClick={handleNext}
-                            disabled={currentIndex === slides.length - 1}
-                        />
-                    </div>
+                    <SliderNavButtons
+                        isDisabledPrev={currentIndex === 0}
+                        isDisabledNext={currentIndex === slides.length - 1}
+                        onPrev={handlePrev}
+                        onNext={handleNext}
+                        className="slider-nav"
+                        whiteArrow
+                    />
                 </div>
 
             </div>

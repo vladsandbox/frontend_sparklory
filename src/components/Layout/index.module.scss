@@ -1,4 +1,4 @@
-@import "../../styles/colors";
+@use "../../styles/colors" as *;
 
 .header-container {
     width: 100%;
@@ -73,4 +73,19 @@
     display: flex;
     flex-direction: column;
 
+}
+
+.cartBadge {
+    position: absolute;
+    top: -3px;
+    right: -7px;
+    background: $color-button;
+    color: $color-white !important;
+    border-radius: 50%;
+    padding: 2px 6px;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

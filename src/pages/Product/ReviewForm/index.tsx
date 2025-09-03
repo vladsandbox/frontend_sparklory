@@ -3,10 +3,11 @@ import { useDispatch } from "react-redux";
 import * as Yup from "yup";
 
 import { chooseFileBackground, galleryAdd } from "../../../assets";
-import { AppDispatch } from "../../../store";
-import { postProductReview } from "../../../store/thunks/productsThunk";
+import type { AppDispatch } from "@/store";
+import { postProductReview } from "@/store/thunks/productsThunk.ts";
 
 import styles from "./index.module.scss";
+import Button from "@/components/Button.tsx";
 
 const stars = [1, 2, 3, 4, 5];
 
@@ -23,7 +24,7 @@ export default function ReviewForm({ productId }: Props) {
 
         try {
             await fetch(
-                `${process.env.REACT_APP_PRODUCTS_GET_URL}/${productId}/reviews/${reviewId}/upload`,
+                `${import.meta.env.VITE_PRODUCTS_GET_URL}/${productId}/reviews/${reviewId}/upload`,
                 {
                     method: "POST",
                     body: formData,
@@ -146,9 +147,9 @@ export default function ReviewForm({ productId }: Props) {
                             style={{ marginBottom: 32, height: 139 }}
                         />
 
-                        <button type="submit" className="primary-btn button-text" style={{ width: 223 }}>
+                        <Button variant="primary" type="submit" style={{ width: 223 }}>
                             Send
-                        </button>
+                        </Button>
                     </div>
                 </div>
             </form>

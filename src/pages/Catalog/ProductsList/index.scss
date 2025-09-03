@@ -1,0 +1,25 @@
+@use "@/styles/colors" as colors;
+@use "@/styles/variables" as var;
+
+.catalog-products-wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(312px, 1fr));
+  gap: 24px;
+  margin-bottom: 60px;
+}
+
+.catalog-filter-section {
+  display: flex;
+  justify-content: space-between;
+
+  margin-bottom: 27px;
+
+  .catalog-products-count {
+    color: colors.$color-grey;
+    font-size: var.$font-title-m-size;
+    font-weight: 300;
+  }
+
+  .catalog-filter-interactive {
+  }
+}

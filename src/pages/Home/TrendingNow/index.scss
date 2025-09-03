@@ -1,4 +1,4 @@
-@import '../../../styles/colors';
+@use '../../../styles/colors' as *;
 
 .multi-slider-container {
     width: 100%;
@@ -37,14 +37,6 @@
 
 .trending-now {
     margin-bottom: 120px;
-
-    .arrow:disabled {
-        filter: invert(22%) sepia(14%) saturate(600%) hue-rotate(325deg) brightness(95%) contrast(90%);
-    }
-
-    .button-text {
-        color: $color-button
-    }
 }
 
 .keen-slider {
@@ -77,10 +69,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-
-    .button-text {
-        color: $color-white
-    }
 }
 
 .slide-border {
@@ -116,4 +104,10 @@
     position: relative;
     z-index: 2;
     transition: transform 0.3s ease;
+}
+
+.button-trending {
+    height: 40px;
+    width: 312px;
+    margin-top: 27px
 }

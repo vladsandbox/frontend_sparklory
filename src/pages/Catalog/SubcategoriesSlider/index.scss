@@ -1,0 +1,18 @@
+@use "@/styles/colors" as colors;
+@use "@/styles/variables" as var;
+
+.subcategories-slider-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  overflow: visible;
+  margin: 0 auto;
+  padding: 0 !important;
+  gap: 50px;
+
+  &__arrows {
+    gap: 24px;
+  }
+}
+

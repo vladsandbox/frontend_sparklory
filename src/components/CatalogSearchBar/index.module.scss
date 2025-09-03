@@ -1,16 +1,15 @@
 .bar {
-    display: flex;
-    align-items: center;
-    gap: 24px;
-    position: relative;
-    margin-bottom: 40px !important;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  position: relative;
+  margin-bottom: 40px !important;
 }
 
 .button {
-    width: 312px;
-    display: flex;
-    align-items: center;
-    gap: 16px;
+  width: 312px;
+  justify-content: start;
+  gap: 16px;
 }
 
 .inputWrapper {
@@ -39,14 +38,14 @@
 }
 
 .icon {
-    position: absolute;
-    left: 24px;
-    width: 24px;
-    height: 24px;
+  position: absolute;
+  left: 24px;
+  width: 24px;
+  height: 24px;
 }
 
 .input {
-    padding-left: 56px;
-    height: 55px;
-    width: 100%;
+  padding-left: 56px;
+  height: 55px;
+  width: 100%;
 }

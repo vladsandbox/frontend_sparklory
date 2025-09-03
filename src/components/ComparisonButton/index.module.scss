@@ -1,0 +1,14 @@
+.comparisonButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+
+  svg {
+    transition: fill 0.3s;
+  }
+}

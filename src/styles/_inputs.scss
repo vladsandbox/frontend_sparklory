@@ -1,4 +1,4 @@
-@import 'colors';
+@use 'colors' as *;
 
 // PRIMARY INPUT STYLE
 .primary-input {
@@ -19,5 +19,13 @@
   &:focus {
     outline: none;
     border-color: $color-grey;
+  }
+
+  &.error-state {
+    border: 1px solid rgba(123, 0, 0, 1);
+
+    &::placeholder {
+      color: $color-red;
+    }
   }
 }

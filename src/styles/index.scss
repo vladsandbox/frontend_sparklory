@@ -1,5 +1,5 @@
-@import './_typography.scss';
-@import './_buttons.scss';
-@import './_inputs.scss';
-@import './colors';
-@import './slider-controls'
+@use './_typography.scss' as *;
+@use './_buttons.scss' as *;
+@use './_inputs.scss' as *;
+@use './colors' as *;
+@use './loading-spinner' as *;

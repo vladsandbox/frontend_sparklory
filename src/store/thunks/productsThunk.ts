@@ -1,23 +1,29 @@
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { Product, Review } from "../../types/Products";
+import type { Product, Review } from "@/types/Products";
+import type { PaginatedProductsResponse } from "@/types/Pagination";
+import { instance } from "@/api/axios.api";
+
+const apiProductsUrl = import.meta.env.VITE_PRODUCTS_GET_URL ?? "";
 
 type FetchReviewsResponse = {
     reviews: Review[];
     total: number;
 };
 
-const apiProductsUrl = process.env.REACT_APP_PRODUCTS_GET_URL ?? "";
-
+/**
+ * Fetches a paginated and filtered list of products.
+ * Accepts an object with optional filters, sorting, and pagination.
+ */
 export const fetchProducts = createAsyncThunk<
-    Product[],
-    void,
+    PaginatedProductsResponse,
+    Record<string, unknown> | void,
     { rejectValue: string }
 >(
     "products/fetchProducts",
-    async (_, { rejectWithValue }) => {
+    async (params = {}, { rejectWithValue }) => {
         try {
-            const response = await axios.get(apiProductsUrl);
+            const response = await axios.get<PaginatedProductsResponse>(apiProductsUrl, { params });
             return response.data;
         } catch (error) {
             const message = error instanceof Error ? error.message : "Unknown error";
@@ -34,7 +40,7 @@ export const getProductById = createAsyncThunk<
     "products/getProductById",
     async (id, { rejectWithValue }) => {
         try {
-            const response = await axios.get(`${process.env.REACT_APP_PRODUCTS_GET_URL}/${id}`);
+            const response = await axios.get(`${apiProductsUrl}/${id}`);
             return response.data;
         } catch (error) {
             const message = error instanceof Error ? error.message : "Unknown error";
@@ -83,6 +89,32 @@ export const postProductReview = createAsyncThunk<
             return res.data;
         } catch (error) {
             const message = error instanceof Error ? error.message : "Unknown error";
+            return rejectWithValue(message);
+        }
+    }
+);
+
+export const postProductSubscribe = createAsyncThunk<
+    { message: string },
+    { productId: string; email?: string },
+    { rejectValue: string }
+>(
+    "products/postProductSubscribe",
+    async ({ productId, email }, { rejectWithValue }) => {
+        try {
+            const url = email
+                ? "/products/subscribe"
+                : "/products/subscribe/auth";
+
+            const payload = email
+                ? { productId, email }
+                : { productId };
+
+            const res = await instance.post(url, payload);
+            return res.data;
+        } catch (error) {
+            const message =
+                error instanceof Error ? error.message : "Unknown error";
             return rejectWithValue(message);
         }
     }

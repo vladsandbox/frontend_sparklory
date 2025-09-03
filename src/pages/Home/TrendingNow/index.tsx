@@ -1,19 +1,18 @@
-import { useState, useMemo } from 'react';
-import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
+import { useProductNavigation } from "@/utils/hooks/useProductNavigation";
+import { useKeenSlider } from "keen-slider/react";
+import { useState, useMemo } from 'react';
 
-import MaterialSelector from '../../../components/MaterialSelector/MaterialSelector';
-import { Product } from '../../../types/Products';
-import { gold, whiteGold, silver } from "../../../assets";
-import { useProductNavigation } from "../../../utils/hooks/useProductNavigation";
+import MaterialSelector from '@/components/MaterialSelector/MaterialSelector';
+import SliderNavButtons from '@/components/SliderNavButtons/SliderNavButtons';
+import { MATERIALS } from "@/components/MaterialSelector/materials";
+import AddToCartButton from '@/components/AddToCartButton.tsx';
 
+import type { Product, ProductVariant } from '@/types/Products.ts';
+
+import { noImg } from "@/assets";
 import "./index.scss";
 
-const materials = [
-  { id: "silver", label: "Silver", img: silver },
-  { id: "white-gold", label: "White Gold", img: whiteGold },
-  { id: "gold", label: "Gold", img: gold },
-];
 
 const VISIBLE_SLIDES = 3;
 
@@ -23,10 +22,11 @@ type Props = {
 };
 
 export default function TrendingNow({ products, loading }: Props) {
+
   const { goToProduct } = useProductNavigation();
   const trendingProducts = useMemo(() => {
     return Array.isArray(products)
-      ? products.filter((product) => product.action?.includes("trendingNow"))
+      ? products.filter((product) => product.action?.includes("Trending now"))
       : [];
   }, [products]);
 
@@ -72,7 +72,19 @@ export default function TrendingNow({ products, loading }: Props) {
             <div className="slider-window">
               <div ref={sliderRef} className="keen-slider">
                 {trendingProducts.map((product) => {
-                  const selected = selectedMaterials[product._id] || "silver";
+                  const selectedMaterialId = selectedMaterials[product._id] || product.variants[0]?.material;
+                  const currentVariant: ProductVariant | null =
+                    product.variants.find((v) => v.material === selectedMaterialId) || null;
+
+                  const materials = product.variants.map((variant) => {
+                    const found = MATERIALS.find((m) => m.id === variant.material);
+                    return found ?? {
+                      id: variant.material,
+                      label: variant.material.replace(/\b\w/g, (c) => c.toUpperCase()),
+                      img: noImg,
+                    };
+                  });
+
                   return (
                     <div
                       className="keen-slider__slide slide-border"
@@ -81,36 +93,40 @@ export default function TrendingNow({ products, loading }: Props) {
                       style={{ cursor: "pointer" }}
                     >
                       <div className="slide">
-                        <img src={product.image?.[0]} alt={product.name} className="slide-image" />
+                        {product.image.length ? (
+                          <img
+                            src={product.image[0]}
+                            alt={product.name}
+                            className="slide-image"
+                            onError={(e) => {
+                              e.currentTarget.onerror = null;
+                              e.currentTarget.src = noImg;
+                              e.currentTarget.classList.add("is-fallback");
+                            }}
+                          />
+                        ) : (
+                          <img src={noImg} alt="No photo" className="slide-image is-fallback" />
+                        )}
+
                         <p className="title-m" style={{ height: 55 }}>{product.name}</p>
 
                         <MaterialSelector
                           productId={product._id}
-                          selectedMaterial={selected}
+                          selectedMaterial={selectedMaterialId}
                           onChange={(id) => handleMaterialChange(product._id, id)}
                           materials={materials}
                         />
 
-                        <div className="product-actions">
-                          <button
-                            className="primary-btn button-text"
-                            style={{ height: 40, width: 312, marginTop: 27 }}
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              console.log({
-                                productId: product._id,
-                                name: product.name,
-                                material: selected,
-                              });
-                            }}
-                          >
-                            Add to Cart
-                          </button>
-                          <p className="h3">{product.price}₴</p>
+                        <div className="product-actions" onClick={(e) => e.stopPropagation()}>
+                          <AddToCartButton
+                            productId={product._id}
+                            variant={currentVariant && currentVariant.inStock > 0 ? currentVariant : null}
+                            className="primary-btn button-text button-trending"
+                          />
+                          <p className="h3">{currentVariant?.price ?? product.variants[0]?.price}₴</p>
                         </div>
                       </div>
                     </div>
-
                   );
                 })}
               </div>
@@ -132,10 +148,13 @@ export default function TrendingNow({ products, loading }: Props) {
                 <span className="button-text">{String(TOTAL_SLIDES).padStart(2, '0')}</span>
               </div>
 
-              <div className="nav-buttons" style={{ justifyContent: "center" }}>
-                <button onClick={handlePrev} disabled={index === 0} className="arrow left" />
-                <button onClick={handleNext} disabled={index === maxIndex} className="arrow right" />
-              </div>
+              <SliderNavButtons
+                isDisabledPrev={index === 0}
+                isDisabledNext={index >= maxIndex}
+                onPrev={handlePrev}
+                onNext={handleNext}
+                className="slider-nav"
+              />
             </div>
           </div>
         )}

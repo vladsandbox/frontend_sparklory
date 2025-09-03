@@ -1,6 +1,6 @@
-@import "./styles/reset";
-@import "./styles/variables";
-@import "./styles/colors";
+@use "./styles/reset" as *;
+@use "./styles/variables" as *;
+@use "./styles/colors" as *;
 
 * {
   box-sizing: border-box;
@@ -19,8 +19,27 @@ body {
   padding-right: 60px;
 }
 
-.loading {
+.loading,
+.error {
   text-align: center;
-  font-size: 20px;
   font-weight: 500;
+  padding: 350px 0;
+}
+
+.error {
+  font-size: 30px;
+}
+
+.loading {
+  font-size: 20px;
+}
+
+.input-error {
+  color: $color-red;
+  font-weight: $font-text-s-weight;
+  font-size: $font-text-s-size;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 4px;
 }

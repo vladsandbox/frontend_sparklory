@@ -13,11 +13,24 @@ export type Product = {
   name: string;
   description: string;
   category: string;
-  material: string;
   engraving: boolean;
-  price: number;
   image: string[];
-  inStock: boolean;
   action: string[] | null;
   reviews: Review[];
+  prod_collection?: string;
+  discount: number;
+  discountEnd?: string;
+  discountStart?: string;
+  variants: ProductVariant[];
+  gender: string;
+  subcategory: string[];
+  details: string[];
 };
+
+export type ProductVariant = {
+  material: string;
+  price: number;
+  inStock: number;
+  size: string;
+  insert: string;
+}

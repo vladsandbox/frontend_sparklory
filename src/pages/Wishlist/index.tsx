@@ -1,0 +1,115 @@
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+
+import CatalogSearchBar from "@/components/CatalogSearchBar";
+import WishlistList from "./WishlistList/WishlistList";
+import Button from "@/components/Button.tsx";
+
+import { deleteWishlistProduct, mergeLocalWishlist } from "@/store/thunks/wishlistThunk";
+import type { RootState, AppDispatch } from "@/store";
+
+import { getLocalStorage, setLocalStorage } from "@/utils/localStorage";
+import { useAuth } from "@/utils/hooks/useAuth";
+import { fetchProductById } from "@/utils/api";
+
+import type { Product } from "@/types/Products";
+
+export default function WishlistPage() {
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
+  const dispatch: AppDispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const isAuth = useAuth();
+
+  const selectWishlistIds = useSelector((state: RootState) => state.wishlist.ids);
+
+  const hasMerged = useRef(false);
+  const [readyToLoad, setReadyToLoad] = useState(false);
+
+  useEffect(() => {
+    if (isAuth && !hasMerged.current) {
+      hasMerged.current = true;
+      dispatch(mergeLocalWishlist())
+        .unwrap()
+        .finally(() => setReadyToLoad(true));
+    } else if (!isAuth) {
+      setReadyToLoad(true);
+    }
+  }, [isAuth, dispatch]);
+
+  useEffect(() => {
+    if (!readyToLoad) return;
+
+    const loadWishlistProducts = async () => {
+      let productIds: string[];
+
+      if (isAuth) {
+        productIds = Array.isArray(selectWishlistIds) ? selectWishlistIds : [];
+      } else {
+        productIds = getLocalStorage<string[]>("wishlist", []);
+      }
+
+      if (productIds.length === 0) {
+        setProducts([]);
+        setLoading(false);
+        return;
+      }
+
+      setLoading(true);
+      try {
+        const productsLoaded = await Promise.all(productIds.map(fetchProductById));
+        setProducts(productsLoaded);
+      } catch (err) {
+        console.error(err);
+        toast.error("Failed to load wishlist products");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadWishlistProducts();
+  }, [isAuth, selectWishlistIds, readyToLoad]);
+
+  function handleRemove(id: string) {
+    setProducts((prev) => prev.filter((p) => p._id !== id));
+
+    if (isAuth) {
+      dispatch(deleteWishlistProduct(id))
+        .unwrap()
+        .catch(() => {
+          toast.error("Failed to remove from wishlist");
+        });
+    } else {
+      const stored = getLocalStorage<string[]>("wishlist", []);
+      const updated = stored.filter((pid) => pid !== id);
+      setLocalStorage("wishlist", updated);
+    }
+  }
+
+  return (
+    <>
+      <CatalogSearchBar />
+      <div className="wrapper" style={{ paddingBottom: 120 }}>
+        <h1 className="h1" style={{ marginBottom: 60 }}>Wishlist</h1>
+
+        {loading ? (
+          <p className="loading">Loading...</p>
+        ) : products.length === 0 ? (
+          <div>
+            <p className="body" style={{ color: "rgba(104, 104, 104, 1)", marginBottom: 38 }}>
+              Unfortunately, there’s nothing in your wishlist. Go back to shop to add some product you’d like to buy.
+            </p>
+            <Button variant="primary" onClick={() => navigate("/catalog")} size="big" style={{ width: 424 }}>
+              Go to Shop
+            </Button>
+          </div>
+        ) : (
+          <WishlistList products={products} onRemove={handleRemove} />
+        )}
+      </div>
+    </>
+  );
+}

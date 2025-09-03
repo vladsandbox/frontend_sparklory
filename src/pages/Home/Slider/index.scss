@@ -1,4 +1,4 @@
-@import '../../../styles/colors';
+@use '../../../styles/colors' as *;
 
 .slider-container {
     height: 495px;
@@ -68,10 +68,4 @@
     left: 0;
     border-radius: 3px;
     transition: top 0.4s ease-in-out;
-}
-
-.btn-container {
-    .nav-buttons .arrow:disabled {
-        filter: none;
-    }
 }
