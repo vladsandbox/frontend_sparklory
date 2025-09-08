@@ -7,6 +7,7 @@ import {
     fetchProductReviews,
     fetchAllProductReviews,
     fetchProductsCounts,
+    fetchProductActions,
 } from "../thunks/productsThunk";
 
 type ProductState = {
@@ -23,6 +24,10 @@ type ProductState = {
     reviewsTotal: number;
     reviewsLoading: boolean;
     reviewsError: string;
+
+    actionProducts: Record<string, Product[]>;
+    actionLoading: Record<string, boolean>;
+    actionError: Record<string, string>;
 
     filterCounts: ProductsFilterCounts;
     filterCountsLoading: boolean;
@@ -49,6 +54,10 @@ const initialState: ProductState = {
     reviewsTotal: 0,
     reviewsLoading: false,
     reviewsError: "",
+
+    actionProducts: {},
+    actionLoading: {},
+    actionError: {},
 
     filterCounts: {
         price: {
@@ -121,6 +130,21 @@ const productsSlice = createSlice({
             .addCase(fetchProductsCounts.rejected, (state, action) => {
                 state.filterCountsLoading = false;
                 state.filterCountsError = action.payload ?? "Failed to fetch products filter";
+            })
+            .addCase(fetchProductActions.pending, (state, action) => {
+                const actionName = action.meta.arg.action;
+                state.actionLoading[actionName] = true;
+                state.actionError[actionName] = "";
+            })
+            .addCase(fetchProductActions.fulfilled, (state, action) => {
+                const actionName = action.meta.arg.action;
+                state.actionLoading[actionName] = false;
+                state.actionProducts[actionName] = action.payload;
+            })
+            .addCase(fetchProductActions.rejected, (state, action) => {
+                const actionName = action.meta.arg.action;
+                state.actionLoading[actionName] = false;
+                state.actionError[actionName] = action.payload ?? "Failed to fetch action products";
             })
     },
 });
