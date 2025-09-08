@@ -20,7 +20,6 @@ export default function SpringSale({ products, loading }: Props) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const [sliderRef, slider] = useKeenSlider<HTMLDivElement>({
-    mode: "snap",
     slides: {
       origin: "auto",
       perView: 4,

@@ -37,6 +37,7 @@ export default function TrendingNow({ products, loading }: Props) {
 
   const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>({
     slides: {
+      origin: "auto",
       perView: VISIBLE_SLIDES,
       spacing: 44,
     },

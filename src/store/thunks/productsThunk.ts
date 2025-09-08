@@ -119,3 +119,22 @@ export const postProductSubscribe = createAsyncThunk<
         }
     }
 );
+
+export const fetchProductActions = createAsyncThunk<
+    Product[],
+    { action: string },
+    { rejectValue: string }
+>(
+    "products/fetchProductActions",
+    async ({ action }, { rejectWithValue }) => {
+        try {
+            const response = await axios.get<Product[]>(`${apiProductsUrl}/action/${action}`, {
+                params: { action },
+            });
+            return response.data;
+        } catch (error) {
+            const message = error instanceof Error ? error.message : "Unknown error";
+            return rejectWithValue(message);
+        }
+    }
+);

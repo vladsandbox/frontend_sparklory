@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchProducts } from "@/store/thunks/productsThunk.ts";
+import { fetchProductActions, fetchProducts } from "@/store/thunks/productsThunk.ts";
 import type { RootState, AppDispatch } from "@/store";
 
 import { HomeSlider } from "./Slider";
@@ -16,11 +16,14 @@ import 'tippy.js/dist/svg-arrow.css';
 
 export default function Home() {
   const dispatch: AppDispatch = useDispatch();
-  const products = useSelector((state: RootState) => state.products.data);
-  const loading = useSelector((state: RootState) => state.products.loading);
+  const actionProducts = useSelector((state: RootState) => state.products.actionProducts);
+  const actionLoading = useSelector((state: RootState) => state.products.actionLoading);
+
 
   useEffect(() => {
     dispatch(fetchProducts());
+    dispatch(fetchProductActions({ action: "Trending now" }));
+    dispatch(fetchProductActions({ action: "Spring sale" }));
   }, [dispatch]);
 
   return (
@@ -28,9 +31,9 @@ export default function Home() {
       <CatalogSearchBar />
       <HomeSlider />
       <CategoryHome />
-      <TrendingNow products={products.products} loading={loading} />
-      <Reviews products={products.products} loading={loading} />
-      <SpringSale products={products.products} loading={loading} />
+      <TrendingNow products={actionProducts["Trending now"] || []} loading={actionLoading["Trending now"]} />
+      <Reviews />
+      <SpringSale products={actionProducts["Spring sale"] || []} loading={actionLoading["Spring sale"]} />
       <SubscribeSection />
     </div>
   );

@@ -1,22 +1,15 @@
-import { useMemo, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useKeenSlider } from "keen-slider/react";
-import { reviews1, reviews2, reviews3, reviews4, reviews5 } from "../../../assets";
-import ReviewCard from "../../../components/ReviewCard";
-import type { Product } from "../../../types/Products";
+
+import { reviews1, reviews2, reviews3, reviews4, reviews5 } from "@/assets";
+import ReviewCard from "@/components/ReviewCard/";
 import SliderNavButtons from "@/components/SliderNavButtons/SliderNavButtons";
+import { mockReviews } from "./mockReviews";
 
 import "./index.scss";
 
-type Props = {
-    products: Product[];
-    loading: boolean;
-};
-
-export default function Reviews({ products, loading }: Props) {
-    const allReviews = useMemo(() => {
-        if (!Array.isArray(products)) return [];
-        return products.flatMap((product) => product.reviews || []);
-    }, [products]);
+export default function Reviews() {
+    const allReviews = mockReviews;
 
     const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -85,28 +78,22 @@ export default function Reviews({ products, loading }: Props) {
                 </div>
 
                 <div className="reviews-container">
-                    {loading ? (
-                        <p className="loading">Loading...</p>
-                    ) : (
-                        <>
-                            {allReviews.length > 0 && (
-                                <div ref={sliderRef} className="keen-slider">
-                                    {allReviews.map((review, index) => (
-                                        <div className="keen-slider__slide" key={index}>
-                                            <ReviewCard review={review} />
-                                        </div>
-                                    ))}
+                    {allReviews.length > 0 && (
+                        <div ref={sliderRef} className="keen-slider">
+                            {allReviews.map((review, index) => (
+                                <div className="keen-slider__slide" key={index}>
+                                    <ReviewCard review={review} />
                                 </div>
-                            )}
-                            <SliderNavButtons
-                                isDisabledPrev={currentIndex === 0}
-                                isDisabledNext={currentIndex >= allReviews.length - 1}
-                                onPrev={handlePrev}
-                                onNext={handleNext}
-                                className="slider-nav"
-                            />
-                        </>
+                            ))}
+                        </div>
                     )}
+                    <SliderNavButtons
+                        isDisabledPrev={currentIndex === 0}
+                        isDisabledNext={currentIndex >= allReviews.length - 1}
+                        onPrev={handlePrev}
+                        onNext={handleNext}
+                        className="slider-nav"
+                    />
                 </div>
             </div>
         </div>
