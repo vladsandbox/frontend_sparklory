@@ -7,8 +7,9 @@ import { loyaltyHistory, loyaltyBonus } from "@/store/thunks/loyaltyThunk";
 import type { AppDispatch, RootState } from "@/store";
 
 import CatalogSearchBar from "@/components/CatalogSearchBar";
-import { getLinkClass } from "@/utils/getLinkClass.ts";
+import { getLinkClass } from "./utils.ts";
 import { clearLocalStorage } from "@/utils/localStorage.ts";
+import { navLinks } from "./constants.ts";
 
 import styles from './index.module.scss';
 
@@ -20,7 +21,6 @@ export default function Profile() {
     const user = useSelector((state: RootState) => state.user.user);
     const { historyOrders, bonus } = useSelector((state: RootState) => state.loalty);
 
-    const navLinks = ["contact", "security", "orders"];
     const [activeIndex, setActiveIndex] = useState(0);
     const indicatorHeight = 135 / navLinks.length;
     const indicatorTop = activeIndex * indicatorHeight;
@@ -51,14 +51,14 @@ export default function Profile() {
                         </div>
                         <div className={styles.navlinksContainer}>
                             <div className={styles.navlinks}>
-                                {navLinks.map((link, index) => (
+                                {navLinks.map(({ path, label }, index) => (
                                     <NavLink
-                                        key={link}
-                                        to={link}
+                                        key={path}
+                                        to={path}
                                         className={getLinkClass}
                                         onClick={() => setActiveIndex(index)}
                                     >
-                                        {link === "contact" ? "Contact Information" : link === "security" ? "Account Security" : "Orders"}
+                                        {label}
                                     </NavLink>
                                 ))}
                             </div>

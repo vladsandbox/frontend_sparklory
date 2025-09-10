@@ -27,7 +27,7 @@ import PrivateOrderCheckout from "./components/PrivateRoute/PrivateOrderCheckout
 import OrderConfirmation from "./pages/OrderCheckout/OrderConfirmation/index.tsx";
 import ContactInformation from "./pages/Profile/ContactInformation/index.tsx";
 import AccountSecurity from "./pages/Profile/AccountSecurity/index.tsx";
-import OrdersHistory from "./pages/Profile/Orders/index.tsx";
+import OrdersHistory from "./pages/Profile/OrdersHistory/index.tsx";
 
 const router = createBrowserRouter([
   {
