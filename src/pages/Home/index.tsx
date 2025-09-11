@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchProductActions, fetchProducts } from "@/store/thunks/productsThunk.ts";
+import { fetchProductActions } from "@/store/thunks/productsThunk.ts";
 import type { RootState, AppDispatch } from "@/store";
 
 import { HomeSlider } from "./Slider";
@@ -21,7 +21,6 @@ export default function Home() {
 
 
   useEffect(() => {
-    dispatch(fetchProducts());
     dispatch(fetchProductActions({ action: "Trending now" }));
     dispatch(fetchProductActions({ action: "Spring sale" }));
   }, [dispatch]);

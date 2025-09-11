@@ -14,7 +14,9 @@ type Props = {
 
 export default function SpringSale({ products, loading }: Props) {
   const springSaleProducts = useMemo(() => {
-    return products.filter((product) => product.action?.includes("Spring sale"));
+    return Array.isArray(products)
+      ? products.filter((product) => product.action?.includes("Spring sale"))
+      : [];
   }, [products]);
 
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -30,13 +32,8 @@ export default function SpringSale({ products, loading }: Props) {
     },
   });
 
-  const handlePrev = () => {
-    if (currentIndex > 0) slider.current?.prev();
-  };
-
-  const handleNext = () => {
-    if (currentIndex < springSaleProducts.length - 4) slider.current?.next();
-  };
+  const handleNext = () => slider.current?.next();
+  const handlePrev = () => slider.current?.prev();
 
   return (
     <div className="wrapper">

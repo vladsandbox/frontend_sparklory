@@ -5,6 +5,7 @@ import type { PaginatedProductsResponse } from "@/types/Pagination";
 import { instance } from "@/api/axios.api";
 
 const apiProductsUrl = import.meta.env.VITE_PRODUCTS_GET_URL ?? "";
+const apiBaseUrl = import.meta.env.VITE_APP_API_BASE_URL ?? "";
 const apiOptimizedProductsUrl = import.meta.env.VITE_OPTIMIZED_PRODUCTS_GET_URL ?? "";
 
 type FetchReviewsResponse = {
@@ -168,6 +169,28 @@ export const fetchProductsCounts = createAsyncThunk<
                 url += `?category=${params.category}`;
             }
             const response = await axios.get(url);
+            return response.data;
+        } catch (error) {
+            const message = error instanceof Error ? error.message : "Unknown error";
+            return rejectWithValue(message);
+        }
+    }
+);
+
+
+export const fetchSearchResults = createAsyncThunk<
+    PaginatedProductsResponse,
+    { query: string },
+    { rejectValue: string }
+>(
+    "products/fetchSearchResults",
+    async ({ query }, { rejectWithValue }) => {
+        try {
+            const response = await axios.get<PaginatedProductsResponse>(`${apiBaseUrl}/optimized-products/search/`,
+                {
+                    params: { q: query },
+                }
+            );
             return response.data;
         } catch (error) {
             const message = error instanceof Error ? error.message : "Unknown error";
