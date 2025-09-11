@@ -42,6 +42,7 @@ import cardPos from './icons/card-pos.svg'
 import getNotified from './icons/getNotified.svg'
 import closeBtnSubscribe from './icons/closeBtnSubscribe.svg'
 import orderConfirm from './images/orderConfirm.webp'
+import sparkloryBonus from './images/sparkloryBonus.webp'
 
 export {
   heart,
@@ -87,5 +88,6 @@ export {
   cardPos,
   getNotified,
   closeBtnSubscribe,
-  orderConfirm
+  orderConfirm,
+  sparkloryBonus
 };

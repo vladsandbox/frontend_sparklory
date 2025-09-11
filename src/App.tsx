@@ -25,6 +25,9 @@ import OrderCheckout from "./pages/OrderCheckout/index.tsx";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute.tsx";
 import PrivateOrderCheckout from "./components/PrivateRoute/PrivateOrderCheckout.tsx";
 import OrderConfirmation from "./pages/OrderCheckout/OrderConfirmation/index.tsx";
+import ContactInformation from "./pages/Profile/ContactInformation/index.tsx";
+import AccountSecurity from "./pages/Profile/AccountSecurity/index.tsx";
+import OrdersHistory from "./pages/Profile/OrdersHistory/index.tsx";
 
 const router = createBrowserRouter([
   {
@@ -43,11 +46,18 @@ const router = createBrowserRouter([
       { path: "registration", element: <Registration /> },
       { path: "verify-email", element: <VerifyEmail /> },
       {
-        path: "profile", element: (
+        path: "profile",
+        element: (
           <PrivateRoute>
             <Profile />
           </PrivateRoute>
-        )
+        ),
+        children: [
+          { index: true, element: <Navigate to="contact" replace /> },
+          { path: "contact", element: <ContactInformation /> },
+          { path: "security", element: <AccountSecurity /> },
+          { path: "orders", element: <OrdersHistory /> },
+        ]
       },
       { path: "catalog", element: <Catalog /> },
       { path: "catalog/:category", element: <Catalog /> },
@@ -63,7 +73,7 @@ const router = createBrowserRouter([
       {
         path: "order-confirm", element: (
           <OrderConfirmation />
-       )
+        )
       },
       { path: "*", element: <Navigate to="/" replace /> },
     ],

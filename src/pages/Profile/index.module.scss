@@ -1,0 +1,101 @@
+@use "@/styles/colors" as colors;
+
+.profile {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 120px;
+}
+
+.sidebar {
+  width: 312px;
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+}
+
+.content {
+  flex: 1;
+  padding: 24px 60px;
+  border: 1px solid rgba(100, 98, 99, 0.3);
+  border-radius: 12px;
+}
+
+.navlink {
+  text-decoration: none;
+  line-height: 45px;
+  border-radius: 12px;
+  padding: 0 20px;
+
+  &:hover {
+    background: rgba(211, 190, 170, 0.1);
+  }
+}
+
+.active {
+  background: rgba(211, 190, 170, 0.2);
+  color: colors.$color-button-hover;
+}
+
+.userInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: rgba(211, 190, 170, 0.6);
+  border-radius: 12px;
+  padding: 16px 24px;
+}
+
+.bonus {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.navlinks {
+  display: flex;
+  flex-direction: column;
+}
+
+.logoutBtn {
+  width: 70px;
+  padding: 0 20px;
+  color: colors.$color-grey;
+  background: none;
+  border: none;
+  line-height: 45px;
+  text-align: left;
+  cursor: pointer;
+  margin-top: 123px;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: colors.$color-button-hover;
+  }
+
+  &:active {
+    opacity: 0.8;
+  }
+}
+
+.navlinksContainer {
+  position: relative;
+}
+
+.progressTrack {
+  position: absolute;
+  right: 0;
+  width: 4px;
+  height: 135px;
+  background-color: rgba(211, 190, 170, 0.2);
+  border-radius: 20px;
+  top: 0;
+}
+
+.progressIndicator {
+  width: 100%;
+  background-color: colors.$color-button;
+  position: absolute;
+  left: 0;
+  border-radius: 20px;
+  transition: top 0.3s ease-in-out;
+}
