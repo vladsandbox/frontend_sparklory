@@ -1,0 +1,136 @@
+@use "@/styles/colors" as colors;
+@use '@/styles/typography.scss';
+
+.pagination {
+    display: flex;
+    gap: 20px;
+    list-style: none;
+
+    li a {
+        display: flex;
+    }
+}
+
+.pagination li:not(.prev):not(.next) {
+    display: none;
+}
+
+.prev,
+.next {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    width: 12px;
+    height: 24px;
+
+    svg {
+        width: 7px;
+        height: 13px;
+
+        path {
+            stroke: colors.$color-button;
+            fill: colors.$color-button;
+        }
+    }
+}
+
+.disabled {
+    pointer-events: none;
+
+
+    path {
+        stroke: colors.$color-grey !important;
+        fill: colors.$color-grey !important;
+    }
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(100, 98, 99, 0.3);
+    padding-bottom: 20px;
+}
+
+.filter {
+    position: relative;
+
+    .filterBtn {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        @extend .button-text;
+        line-height: 24px;
+        color: colors.$color-black;
+        font-weight: 400;
+
+        background: transparent;
+        border: none;
+        padding: 10.5px 20px;
+        cursor: pointer;
+    }
+
+    .dropdown {
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%) translateY(-10px);
+        z-index: 10;
+
+        background: #fff;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        flex-direction: column;
+        min-width: 120px;
+
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.25s ease, transform 0.25s ease;
+
+        button {
+            @extend .button-text;
+            color: colors.$color-black;
+            width: 100%;
+            padding: 8px 12px;
+            background: transparent;
+            border: none;
+            text-align: left;
+            cursor: pointer;
+
+            &:hover {
+                background: #f0f0f0;
+            }
+        }
+    }
+
+    &:hover .dropdown {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+        pointer-events: auto;
+    }
+}
+
+
+.paginationWrapper {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 26px;
+    margin-top: 8px;
+}
+
+.range {
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.7px;
+    line-height: 120%;
+    color: colors.$color-button;
+    padding: 6px 0;
+
+    &Span {
+        color: colors.$color-black;
+    }
+}
