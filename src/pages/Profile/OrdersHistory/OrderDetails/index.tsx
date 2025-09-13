@@ -5,11 +5,12 @@ import type { LoyaltyHistoryResponse } from "@/types/Loyalty";
 import type { Product } from "@/types/Products";
 import { fetchProductById } from "@/utils/api";
 import { useProductNavigation } from "@/utils/hooks/useProductNavigation";
+import Button from "@/components/Button";
 
 import styles from "./index.module.scss";
 import stylesText from "../OrderItem/index.module.scss";
+
 import { noImg } from "@/assets";
-import Button from "@/components/Button";
 
 interface OutletContextType {
     historyOrders: LoyaltyHistoryResponse;
