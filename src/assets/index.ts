@@ -43,6 +43,7 @@ import getNotified from './icons/getNotified.svg'
 import closeBtnSubscribe from './icons/closeBtnSubscribe.svg'
 import orderConfirm from './images/orderConfirm.webp'
 import sparkloryBonus from './images/sparkloryBonus.webp'
+import arrowDown from './icons/arrow-down.svg'
 
 export {
   heart,
@@ -89,5 +90,6 @@ export {
   getNotified,
   closeBtnSubscribe,
   orderConfirm,
-  sparkloryBonus
+  sparkloryBonus,
+  arrowDown
 };
