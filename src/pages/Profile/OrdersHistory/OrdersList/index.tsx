@@ -14,8 +14,6 @@ interface OrdersListProps {
     orders: LoyaltyHistoryResponse;
 }
 
-
-
 export default function OrdersList({ orders }: OrdersListProps) {
     const [currentPage, setCurrentPage] = useState(0);
     const [period, setPeriod] = useState<"all" | "week" | "month">("all");
