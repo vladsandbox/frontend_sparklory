@@ -1,0 +1,110 @@
+@use '@/styles/typography.scss';
+@use "@/styles/colors" as colors;
+
+.orderTitle {
+    @extend .title-m;
+    margin-bottom: 29px;
+}
+
+.orderSummary {
+    background: rgba(211, 190, 170, 0.2);
+    border-radius: 12px;
+    padding: 24px 20px;
+    display: flex;
+    align-items: center;
+    height: 96px;
+    margin-bottom: 20px;
+}
+
+.orderInfo {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+
+    >div {
+        width: 121px;
+    }
+}
+
+.orderAmount {
+    margin-left: auto;
+    width: 125px;
+}
+
+.itemInner {
+    display: flex;
+    position: relative;
+    padding: 24px 0;
+
+    &::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        border-bottom: 1px solid rgba(100, 98, 99, 0.3);
+    }
+
+}
+
+li:first-child .itemInner {
+    border-top: 1px solid rgba(100, 98, 99, 0.3);
+}
+
+.image {
+    width: 192px;
+    height: 192px;
+    object-fit: cover;
+    border-radius: 12px;
+    border: 0.5px solid colors.$color-button;
+    margin-right: 32px;
+
+    &.noBorder {
+        border: none;
+    }
+}
+
+.productName {
+    @extend .text-filters;
+    line-height: 30px;
+    margin-bottom: 8px;
+    cursor: pointer;
+}
+
+.productDetails {
+    @extend .text-s;
+    line-height: 21px;
+    color: colors.$color-grey;
+    display: flex;
+    gap: 4px;
+    margin-bottom: 13px;
+    text-transform: capitalize;
+}
+
+.productPrice {
+    @extend .productName;
+
+    .discountedPrice {
+        color: colors.$color-button;
+        text-decoration: line-through;
+        margin-right: 8px;
+    }
+}
+
+.dot {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: colors.$color-grey;
+}
+
+.btnContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-left: auto;
+
+    button {
+        width: 164px;
+    }
+}
