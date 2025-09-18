@@ -6,6 +6,8 @@ import {
     getProductById,
     fetchProductReviews,
     fetchAllProductReviews,
+    fetchProductActions,
+    fetchSearchResults
 } from "../thunks/productsThunk";
 
 type ProductState = {
@@ -22,6 +24,14 @@ type ProductState = {
     reviewsTotal: number;
     reviewsLoading: boolean;
     reviewsError: string;
+
+    actionProducts: Record<string, Product[]>;
+    actionLoading: Record<string, boolean>;
+    actionError: Record<string, string>;
+
+    searchResults: Product[];
+    searchLoading: boolean;
+    searchError: string;
 };
 
 const initialState: ProductState = {
@@ -44,12 +54,24 @@ const initialState: ProductState = {
     reviewsTotal: 0,
     reviewsLoading: false,
     reviewsError: "",
+
+    actionProducts: {},
+    actionLoading: {},
+    actionError: {},
+
+    searchResults: [],
+    searchLoading: false,
+    searchError: '',
 };
 
 const productsSlice = createSlice({
     name: "products",
     initialState,
-    reducers: {},
+    reducers: {
+        clearSearchResults(state) {
+            state.searchResults = [];
+        }
+    },
     extraReducers: (builder) => {
         builder
             .addCase(fetchProducts.pending, (state) => {
@@ -95,8 +117,36 @@ const productsSlice = createSlice({
             })
             .addCase(fetchAllProductReviews.rejected, (state) => {
                 state.allReviews = [];
+            })
+            .addCase(fetchProductActions.pending, (state, action) => {
+                const actionName = action.meta.arg.action;
+                state.actionLoading[actionName] = true;
+                state.actionError[actionName] = "";
+            })
+            .addCase(fetchProductActions.fulfilled, (state, action) => {
+                const actionName = action.meta.arg.action;
+                state.actionLoading[actionName] = false;
+                state.actionProducts[actionName] = action.payload;
+            })
+            .addCase(fetchProductActions.rejected, (state, action) => {
+                const actionName = action.meta.arg.action;
+                state.actionLoading[actionName] = false;
+                state.actionError[actionName] = action.payload ?? "Failed to fetch action products";
+            })
+            .addCase(fetchSearchResults.pending, (state) => {
+                state.searchLoading = true;
+                state.searchError = "";
+            })
+            .addCase(fetchSearchResults.fulfilled, (state, action: PayloadAction<PaginatedProductsResponse>) => {
+                state.searchLoading = false;
+                state.searchResults = action.payload.products;
+            })
+            .addCase(fetchSearchResults.rejected, (state, action) => {
+                state.searchLoading = false;
+                state.searchError = action.payload ?? "Failed to fetch search results";
             });
     },
 });
 
+export const { clearSearchResults } = productsSlice.actions;
 export default productsSlice.reducer;
