@@ -13,6 +13,17 @@ export interface IResponseUser {
     isVerifyEmail: boolean
     verifyDeviceCode?: string
     wishlist: string[]
+    loyaltyLevel: ILoyaltyLevel;
+    bonusBalance: number;
+    resetPasswordCode: string | null;
+    facebookId: string | null;
+    googleId: string | null;
+}
+
+export interface ILoyaltyLevel {
+    id: string;
+    name: string;
+    bonusPercent: number;
 }
 
 export interface IResponseUserData {

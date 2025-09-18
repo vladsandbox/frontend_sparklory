@@ -28,6 +28,7 @@ import OrderConfirmation from "./pages/OrderCheckout/OrderConfirmation/index.tsx
 import ContactInformation from "./pages/Profile/ContactInformation/index.tsx";
 import AccountSecurity from "./pages/Profile/AccountSecurity/index.tsx";
 import OrdersHistory from "./pages/Profile/OrdersHistory/index.tsx";
+import OrderDetails from "./pages/Profile/OrdersHistory/OrderDetails/index.tsx";
 
 const router = createBrowserRouter([
   {
@@ -56,7 +57,13 @@ const router = createBrowserRouter([
           { index: true, element: <Navigate to="contact" replace /> },
           { path: "contact", element: <ContactInformation /> },
           { path: "security", element: <AccountSecurity /> },
-          { path: "orders", element: <OrdersHistory /> },
+          {
+            path: "orders",
+            children: [
+              { index: true, element: <OrdersHistory /> },
+              { path: ":id", element: <OrderDetails /> },
+            ],
+          },
         ]
       },
       { path: "catalog", element: <Catalog /> },

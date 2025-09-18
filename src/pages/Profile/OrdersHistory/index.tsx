@@ -1,7 +1,17 @@
+import { useOutletContext } from "react-router-dom";
+
+import OrdersList from "./OrdersList";
+import type { LoyaltyHistoryResponse } from "@/types/Loyalty";
+
+interface OutletContextType {
+    historyOrders: LoyaltyHistoryResponse;
+}
+
 export default function OrdersHistory() {
+    const { historyOrders } = useOutletContext<OutletContextType>();
     return (
         <div>
-            <h2 className="title-m">Orders</h2>
+            <OrdersList orders={historyOrders} />
         </div>
     );
 }
