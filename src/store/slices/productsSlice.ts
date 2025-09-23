@@ -1,11 +1,12 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-import type { Product, Review } from "@/types/Products";
+import type { Product, ProductsFilterCounts, Review } from "@/types/Products";
 import type { PaginatedProductsResponse } from "@/types/Pagination";
 import {
     fetchProducts,
     getProductById,
     fetchProductReviews,
     fetchAllProductReviews,
+    fetchProductsCounts,
 } from "../thunks/productsThunk";
 
 type ProductState = {
@@ -22,6 +23,10 @@ type ProductState = {
     reviewsTotal: number;
     reviewsLoading: boolean;
     reviewsError: string;
+
+    filterCounts: ProductsFilterCounts;
+    filterCountsLoading: boolean;
+    filterCountsError: string;
 };
 
 const initialState: ProductState = {
@@ -44,6 +49,10 @@ const initialState: ProductState = {
     reviewsTotal: 0,
     reviewsLoading: false,
     reviewsError: "",
+
+    filterCounts: {},
+    filterCountsLoading: false,
+    filterCountsError: "",
 };
 
 const productsSlice = createSlice({
@@ -95,7 +104,19 @@ const productsSlice = createSlice({
             })
             .addCase(fetchAllProductReviews.rejected, (state) => {
                 state.allReviews = [];
-            });
+            })
+            .addCase(fetchProductsCounts.pending, (state) => {
+                state.filterCountsLoading = true;
+                state.filterCountsError = "";
+            })
+            .addCase(fetchProductsCounts.fulfilled, (state, action: PayloadAction<ProductsFilterCounts>) => {
+                state.filterCountsLoading = false;
+                state.filterCounts = action.payload;
+            })
+            .addCase(fetchProductsCounts.rejected, (state, action) => {
+                state.filterCountsLoading = false;
+                state.filterCountsError = action.payload ?? "Failed to fetch products filter";
+            })
     },
 });
 

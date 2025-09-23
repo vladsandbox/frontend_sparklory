@@ -1,0 +1,152 @@
+@use "@/styles/colors" as colors;
+@use "@/styles/variables" as var;
+
+.catalog-filter-panel {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1001;
+  width: 100%;
+  max-width: 450px;
+  height: 100dvh;
+  background: #F9F7F2;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid colors.$color-button;
+  overscroll-behavior: contain;
+  padding: 20px;
+
+  &.open {
+    transform: translateX(0);
+  }
+}
+
+.filter-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 24px;
+
+  .filter-title {
+    padding: 24px 0;
+  }
+
+  .close-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: colors.$color-black;
+  }
+}
+
+.filter-content {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: 24px;
+}
+
+.used-filters-section {
+  padding-bottom: 24px;
+
+  .section-subtitle {
+    color: #5C4A3C;
+    margin-bottom: 20px;
+  }
+
+  .used-filters-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+
+    .tag {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 6px 12px;
+      background-color: #EAE0D5;
+      border-radius: 16px;
+      font-size: 14px;
+      color: #5C4A3C;
+
+      .remove-tag-icon {
+        cursor: pointer;
+        width: 10px;
+      }
+    }
+  }
+}
+
+.filter-section {
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    max-width: 510px;
+    margin-bottom: 25px;
+
+    span {
+      font-size: 24px;
+    }
+  }
+
+  .section-options {
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    &.hidden {
+      display: none;
+    }
+  }
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  cursor: pointer;
+  color: #5C4A3C;
+
+  input[type="checkbox"] {
+    display: none;
+  }
+
+  .checkbox-custom {
+    width: 20px;
+    height: 20px;
+    border: 1.5px solid #5C4A3C;
+    border-radius: 6px;
+    margin-right: 12px;
+    display: inline-block;
+    position: relative;
+  }
+
+  input[type="checkbox"]:checked + .checkbox-custom {
+    background-color: #5C4A3C;
+    border-color: #5C4A3C;
+    &::after {
+      content: '✔';
+      font-size: 14px;
+      color: white;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+}
+
+.filter-footer {
+  display: flex;
+  gap: 12px;
+  padding: 24px;
+
+  .footer-btn {
+    flex: 1;
+    cursor: pointer;
+  }
+}
