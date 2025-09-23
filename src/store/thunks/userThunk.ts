@@ -116,3 +116,23 @@ export const verifyEmail = createAsyncThunk<
   }
 );
 
+export const resetPassword = createAsyncThunk<
+  void,
+  { previousPassword: string; newPassword: string },
+  { rejectValue: string }
+>(
+  "user/resetPassword",
+  async ({ previousPassword, newPassword }, { rejectWithValue }) => {
+    try {
+      await instance.patch("/user/me/password", {
+        previousPassword,
+        newPassword,
+      });
+    } catch (error: any) {
+      const message =
+        error?.response?.data?.message ??
+        (error instanceof Error ? error.message : "Unknown error");
+      return rejectWithValue(message);
+    }
+  }
+);
