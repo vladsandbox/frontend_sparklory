@@ -44,6 +44,7 @@ import closeBtnSubscribe from './icons/closeBtnSubscribe.svg'
 import orderConfirm from './images/orderConfirm.webp'
 import sparkloryBonus from './images/sparkloryBonus.webp'
 import arrowDown from './icons/arrow-down.svg'
+import eye from './icons/eye.svg'
 
 export {
   heart,
@@ -91,5 +92,6 @@ export {
   closeBtnSubscribe,
   orderConfirm,
   sparkloryBonus,
-  arrowDown
+  arrowDown,
+  eye
 };

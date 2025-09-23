@@ -70,7 +70,7 @@ export default function AccountSecurity() {
                         <span>******</span>
                     </div>
                     <div>
-                        <p>New Password</p>
+                        <p>New Password:</p>
                         <span>**********</span>
                     </div>
                     <Button onClick={() => setIsEditing(true)}>Change</Button>
@@ -79,8 +79,9 @@ export default function AccountSecurity() {
                 <form onSubmit={formik.handleSubmit} className={styles.form}>
                     <InputField
                         id="oldPassword"
-                        label="Previous Password"
+                        label="Previous Password:"
                         placeholder="Enter previous password"
+                        type="password"
                         autoComplete="current-password"
                         error={formik.errors.oldPassword}
                         touched={formik.touched.oldPassword}
@@ -94,8 +95,9 @@ export default function AccountSecurity() {
 
                     <InputField
                         id="newPassword"
-                        label="New Password"
+                        label="New Password:"
                         placeholder="Enter new password"
+                        type="password"
                         autoComplete="new-password"
                         error={formik.errors.newPassword}
                         touched={formik.touched.newPassword}
@@ -108,8 +110,9 @@ export default function AccountSecurity() {
 
                     <InputField
                         id="confirmPassword"
-                        label="Confirm Password"
+                        label="Confirm Password:"
                         placeholder="Confirm password"
+                        type="password"
                         autoComplete="new-password"
                         error={formik.errors.confirmPassword}
                         touched={formik.touched.confirmPassword}

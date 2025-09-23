@@ -1,5 +1,7 @@
 import { NavLink } from "react-router-dom";
-import styles from "./index.module.scss"
+import { useState } from "react";
+import { eye, eyeSlash } from "@/assets";
+import styles from "./index.module.scss";
 
 type InputFieldProps = React.InputHTMLAttributes<HTMLInputElement> & {
     id: string;
@@ -7,6 +9,7 @@ type InputFieldProps = React.InputHTMLAttributes<HTMLInputElement> & {
     error?: string;
     touched?: boolean;
     forgotLink?: string;
+    type?: string;
 };
 
 export default function InputField({
@@ -21,18 +24,32 @@ export default function InputField({
     ...rest
 }: InputFieldProps) {
     const isError = touched && error;
+    const [showPassword, setShowPassword] = useState(false);
+    const isPassword = type === "password";
 
     return (
         <label htmlFor={id} className={styles.labelPassword}>
             {label}
-            <input
-                id={id}
-                type={type}
-                placeholder={placeholder}
-                autoComplete={autoComplete}
-                className={`primary-input input ${isError ? "error-state" : ""}`}
-                {...rest}
-            />
+            <div className={styles.inputWrapper}>
+                <input
+                    id={id}
+                    type={isPassword && !showPassword ? "password" : "text"}
+                    placeholder={placeholder}
+                    autoComplete={autoComplete}
+                    className={`primary-input input ${isError ? "error-state" : ""}`}
+                    {...rest}
+                />
+
+                {isPassword && (
+                    <img
+                        src={showPassword ? eye : eyeSlash}
+                        alt="toggle password"
+                        className={styles.eyeIcon}
+                        onClick={() => setShowPassword(!showPassword)}
+                    />
+                )}
+            </div>
+
             {isError && <span className="input-error">{error}</span>}
             {forgotLink && (
                 <NavLink to={forgotLink} className={styles.forgotPassword}>
