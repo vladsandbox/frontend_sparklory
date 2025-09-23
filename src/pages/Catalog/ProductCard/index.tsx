@@ -120,12 +120,12 @@ export default function CatalogProductCard({ product, noHoverExpand = false, alw
                         </p>
 
                         {
-                            product.details.length > 0 &&
-                            <p className="details">
+                            product.details?.length > 0 &&
+                            <ul className="details">
                                 {product.details.map((detail, index) => (
                                     <li key={index}>{detail}</li>
                                 ))}
-                            </p>
+                            </ul>
                         }
 
                         {currentVariant && (
