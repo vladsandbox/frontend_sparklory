@@ -1,5 +1,9 @@
 import type { ProductsFilterCounts } from "@/types/Products.ts";
-import { capitalizeFirstLetter, spaceBetweenWords } from "@/components/wordsFormatting.ts";
+import {
+    capitalizeFirstLetter,
+    lowEachFirstLetter,
+    spaceBetweenWords
+} from "@/components/wordsFormatting.ts";
 
 export type FilterOption = {
     label: string;
@@ -57,7 +61,7 @@ export function productsCountsToSections(
                     ([label, count]) => ({
                         label: formatFacetLabel(key, label),
                         count,
-                        value: label === "" ? "null" : label,
+                        value: label === "" ? "null" : lowEachFirstLetter(label),
                     })
                 );
             }
