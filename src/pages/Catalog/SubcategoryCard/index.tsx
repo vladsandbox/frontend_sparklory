@@ -1,6 +1,7 @@
+import { useSearchParams } from "react-router-dom";
+
 import { capitalizeFirstLetter } from "@/components/wordsFormatting.ts";
 import type { Subcategory } from "@/types/Categories.ts";
-import { useSearchParams } from "react-router-dom";
 import { noImg } from "@/assets";
 
 import "./index.scss";
@@ -21,7 +22,6 @@ export default function CatalogSubcategoryCard({ subcategory }: Props) {
         setSearchParams(newSearchParams);
     }
 
-
     return (
         <div className="subcategory-card" onClick={handleClick}>
             <div>
@@ -39,6 +39,7 @@ export default function CatalogSubcategoryCard({ subcategory }: Props) {
                     <img src={noImg} alt="No photo" className="is-fallback" />
                 )}
             </div>
+
             <p className="h3">{capitalizeFirstLetter(subcategory.name)}</p>
         </div>
     );
