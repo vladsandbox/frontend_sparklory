@@ -68,15 +68,20 @@ export default function Catalog() {
                 <CatalogSearchBar />
                 <div className="wrapper">
                     <title>{pageTitle}</title>
-                    <h1 className="catalog-title">{pageTitle}</h1>
-                    {category && <CatalogSubcategoriesSlider category={category} />}
-                    <hr />
-                    <CatalogProductsList
-                        data={data}
-                        loading={loading}
-                        changePage={changePage}
-                        currentPage={currentPage}
-                    />
+                    {
+                        data.products.length > 0 ?
+                        <>
+                            <h1 className="catalog-title">{pageTitle}</h1>
+                            {category && <CatalogSubcategoriesSlider category={category} />}
+                            <CatalogProductsList
+                                data={data}
+                                loading={loading}
+                                changePage={changePage}
+                                currentPage={currentPage}
+                            />
+                        </>
+                            : <p className="error"> No products found </p>
+                    }
                 </div>
                 <SubscribeSection imageSrc={subscribeImg}/>
             </>

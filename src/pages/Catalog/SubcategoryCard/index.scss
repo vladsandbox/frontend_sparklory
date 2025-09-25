@@ -4,14 +4,19 @@
   align-items: center;
   justify-content: center;
   gap: 20px;
-  width: 200px;
-  height: 210px;
   border-radius: 12px;
+  height: 250px;
 
-  img.is-fallback {
-    width: 160px;
-    height: 160px;
-    overflow: hidden;
-    object-fit: contain;
+  img {
+    width: 200px;
+    height: 200px;
+    border-radius: 12px;
+    border: 1px solid var(--buttons, #5E4B4B);
+
+    &.is-fallback {
+      border: none;
+      overflow: hidden;
+      object-fit: contain;
+    }
   }
 }

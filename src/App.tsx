@@ -50,8 +50,7 @@ const router = createBrowserRouter([
         )
       },
       { path: "catalog", element: <Catalog /> },
-      { path: "catalog/:category", element: <Catalog /> },
-      { path: "cart", element: <ShopCart /> },
+      { path: "catalog/:category?", element: <Catalog /> },
       { path: "oauth-callback", element: <OAuthCallback /> },
       {
         path: "order-checkout", element: (
