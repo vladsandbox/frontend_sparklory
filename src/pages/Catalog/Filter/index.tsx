@@ -1,17 +1,22 @@
-import FilterSection from "@/pages/Catalog/Filter/FilterSection.tsx";
-import CloseCircleIcon from "@/assets/icons/close-circle.svg?react";
-import CloseIcon from "@/assets/icons/close-btn.svg?react";
-import "./index.scss";
+import { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch, RootState } from "@/store";
-import { useEffect, useMemo, useState } from "react";
-import { fetchProductsCounts } from "@/store/thunks/productsThunk.ts";
-import { productsCountsToSections } from "@/pages/Catalog/Filter/utils.ts";
 import { useSearchParams } from "react-router-dom";
+
+import CheckboxFilterSection from "@/pages/Catalog/Filter/CheckboxFilterSection.tsx";
+import PriceRangeFilterSection from "@/pages/Catalog/Filter/PriceRangeFilterSection.tsx";
 import { capitalizeFirstLetter } from "@/components/wordsFormatting.ts";
 import Button from "@/components/Button.tsx";
 
+import { productsCountsToSections } from "@/pages/Catalog/Filter/utils.ts";
+import { fetchProductsCounts } from "@/store/thunks/productsThunk.ts";
+
+import CloseCircleIcon from "@/assets/icons/close-circle.svg?react";
+import CloseIcon from "@/assets/icons/close-btn.svg?react";
+import "./index.scss";
+
 type SelectedFilters = Record<string, string[]>;
+type PriceRange = { min: string; max: string };
 
 interface FilterProps {
     isOpen: boolean;
@@ -22,10 +27,12 @@ interface FilterProps {
 export default function Filter({ isOpen, onClose, category }: FilterProps) {
     const dispatch = useDispatch<AppDispatch>();
     const [searchParams, setSearchParams] = useSearchParams();
+
     const [selectedFilters, setSelectedFilters] = useState<SelectedFilters>({});
+    const [priceRange, setPriceRange] = useState<PriceRange>({ min: "", max: "" });
 
     const filterCounts = useSelector((state: RootState) => state.products.filterCounts);
-
+    const fixedPriceRange = useMemo(() => [filterCounts.price.min, filterCounts.price.max], [filterCounts]);
     const filterSections = useMemo(() => productsCountsToSections(filterCounts || {}), [filterCounts]);
 
     useEffect(() => {
@@ -38,6 +45,10 @@ export default function Filter({ isOpen, onClose, category }: FilterProps) {
                 }
             });
             setSelectedFilters(currentFilters);
+
+            const minPrice = searchParams.get('minPrice') || '';
+            const maxPrice = searchParams.get('maxPrice') || '';
+            setPriceRange({ min: minPrice, max: maxPrice });
         }
     }, [isOpen, searchParams, filterSections]);
 
@@ -60,8 +71,15 @@ export default function Filter({ isOpen, onClose, category }: FilterProps) {
         });
     };
 
+    const handlePriceChange = (values: [string, string]) => {
+        setPriceRange({
+            min: values[0],
+            max: values[1],
+        });
+    };
+
     const usedFilters = useMemo(() => {
-        return Object.entries(selectedFilters).flatMap(([key, values]) =>
+        const tags = Object.entries(selectedFilters).flatMap(([key, values]) =>
             values.map(value => {
                 const section = filterSections.find(s => s.key === key);
                 const option = section?.options.find(o => o.value === value);
@@ -72,7 +90,27 @@ export default function Filter({ isOpen, onClose, category }: FilterProps) {
                 };
             })
         );
-    }, [selectedFilters, filterSections]);
+
+        if (priceRange.min && fixedPriceRange[0] !== Number(priceRange.min)) {
+            tags.push({ key: 'minPrice', value: priceRange.min, label: `From ${priceRange.min}₴` });
+        }
+
+        if (priceRange.max && fixedPriceRange[1] !== Number(priceRange.max)) {
+            tags.push({ key: 'maxPrice', value: priceRange.max, label: `To ${priceRange.max}₴` });
+        }
+
+        return tags;
+    }, [selectedFilters, priceRange, fixedPriceRange, filterSections]);
+
+    const handleRemoveTag = (key: string, value: string) => {
+        if (key === 'minPrice') {
+            setPriceRange(prev => ({ ...prev, min: '' }));
+        } else if (key === 'maxPrice') {
+            setPriceRange(prev => ({ ...prev, max: '' }));
+        } else {
+            handleFilterChange(key, value, false);
+        }
+    };
 
     const handleApplyFilters = () => {
         const newSearchParams = new URLSearchParams(searchParams);
@@ -83,6 +121,17 @@ export default function Filter({ isOpen, onClose, category }: FilterProps) {
             values.forEach(value => newSearchParams.append(key, value));
         });
 
+        newSearchParams.delete('minPrice');
+        newSearchParams.delete('maxPrice');
+
+        if (priceRange.min && fixedPriceRange[0] !== Number(priceRange.min)) {
+            newSearchParams.set('minPrice', priceRange.min);
+        }
+
+        if (priceRange.max && fixedPriceRange[1] !== Number(priceRange.max)) {
+            newSearchParams.set('maxPrice', priceRange.max);
+        }
+
         newSearchParams.set('page', '1');
 
         setSearchParams(newSearchParams);
@@ -91,6 +140,7 @@ export default function Filter({ isOpen, onClose, category }: FilterProps) {
 
     const handleClearFilters = () => {
         setSelectedFilters({});
+        setPriceRange({ min: "", max: "" });
     };
 
     useEffect(() => {
@@ -110,20 +160,27 @@ export default function Filter({ isOpen, onClose, category }: FilterProps) {
                     <div className="used-filters-tags">
                         {usedFilters.length
                             ? usedFilters.map(filter => (
-                            <div key={`${filter.key}-${filter.value}`} className="tag text-filters">
-                                {filter.label}
-                                <CloseIcon
-                                    className="remove-tag-icon"
-                                    onClick={() => handleFilterChange(filter.key, filter.value, false)}
-                                />
-                            </div>
-                        ))
+                                <div key={`${filter.key}-${filter.value}`} className="tag text-filters">
+                                    {filter.label}
+                                    <CloseIcon
+                                        className="remove-tag-icon"
+                                        onClick={() => handleRemoveTag(filter.key, filter.value)}
+                                    />
+                                </div>
+                            ))
                             : <p className="text-filters no-filters">No filters selected</p>}
                     </div>
                 </div>
 
+                <PriceRangeFilterSection
+                    minPrice={priceRange.min}
+                    maxPrice={priceRange.max}
+                    fixedPriceRange={[fixedPriceRange[0], fixedPriceRange[1]]}
+                    onChange={handlePriceChange}
+                />
+
                 {filterSections.map((section, index) =>
-                    <FilterSection
+                    <CheckboxFilterSection
                         section={section}
                         isLast={index === filterSections.length - 1}
                         key={section.key}

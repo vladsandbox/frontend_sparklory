@@ -50,7 +50,12 @@ const initialState: ProductState = {
     reviewsLoading: false,
     reviewsError: "",
 
-    filterCounts: {},
+    filterCounts: {
+        price: {
+            min: 0,
+            max: 100000,
+        }
+    },
     filterCountsLoading: false,
     filterCountsError: "",
 };

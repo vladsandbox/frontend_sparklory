@@ -12,7 +12,7 @@ type Props = {
     onChange: (key: string, value: string, checked: boolean) => void;
 }
 
-export default function FilterSection({ section, isLast, selectedOptions, onChange }: Props) {
+export default function CheckboxFilterSection({ section, isLast, selectedOptions, onChange }: Props) {
     const [isOpenFilterSection, setIsOpenFilterSection] = useState(true);
 
     const toggleFilterSection = () => {
