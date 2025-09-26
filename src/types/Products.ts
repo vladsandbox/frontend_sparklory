@@ -37,4 +37,8 @@ export type ProductVariant = {
 
 export type ProductsFilterCounts = {
   [key: string]: number | Record<string, number>;
+  price: {
+    min: number;
+    max: number;
+  }
 }

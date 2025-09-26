@@ -49,7 +49,7 @@ function formatFacetLabel(facet: string, raw: string): string {
 export function productsCountsToSections(
     productsCounts: ProductsFilterCounts
 ): FilterSectionData[] {
-    const ignoreSections = ["total", "category", "executionTime", "cacheHit"];
+    const ignoreSections = ["total", "category", "executionTime", "cacheHit", "price"];
 
     return Object.entries(productsCounts)
         .filter(([key]) => !ignoreSections.includes(key))
