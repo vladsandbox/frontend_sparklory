@@ -60,7 +60,6 @@ export default function Filter({ isOpen, onClose, category }: FilterProps) {
     const SINGLE_SELECT_KEYS = ['engraving'];
     const updateSingleSelect = (currentValues: string[], value: string): string[] => {
         const isAlreadySelected = currentValues[0] === value;
-        console.log(selectedFilters);
         return isAlreadySelected ? [] : [value];
     };
 
