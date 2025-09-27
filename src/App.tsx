@@ -49,8 +49,8 @@ const router = createBrowserRouter([
           </PrivateRoute>
         )
       },
-      { path: "catalog", element: <Catalog /> },
       { path: "catalog/:category?", element: <Catalog /> },
+      { path: "cart", element: <ShopCart /> },
       { path: "oauth-callback", element: <OAuthCallback /> },
       {
         path: "order-checkout", element: (
