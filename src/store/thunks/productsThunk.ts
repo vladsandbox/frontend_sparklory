@@ -150,6 +150,13 @@ export const fetchProductsCounts = createAsyncThunk<
                 url += `?category=${params.category}`;
             }
             const response = await axios.get(url);
+            return response.data;
+        } catch (error) {
+            const message = error instanceof Error ? error.message : "Unknown error";
+            return rejectWithValue(message);
+        }
+    }
+);
 
 export const fetchProductActions = createAsyncThunk<
     Product[],
