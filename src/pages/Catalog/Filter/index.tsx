@@ -8,6 +8,7 @@ import PriceRangeFilterSection from "@/pages/Catalog/Filter/PriceRangeFilterSect
 import { capitalizeFirstLetter } from "@/components/wordsFormatting.ts";
 import Button from "@/components/Button.tsx";
 
+import SearchFilterSection from "@/pages/Catalog/Filter/SearchFilterSection.tsx";
 import { productsCountsToSections } from "@/pages/Catalog/Filter/utils.ts";
 import { fetchProductsCounts } from "@/store/thunks/productsThunk.ts";
 
@@ -30,6 +31,7 @@ export default function Filter({ isOpen, onClose, category }: FilterProps) {
 
     const [selectedFilters, setSelectedFilters] = useState<SelectedFilters>({});
     const [priceRange, setPriceRange] = useState<PriceRange>({ min: "", max: "" });
+    const [searchTerm, setSearchTerm] = useState('');
 
     const filterCounts = useSelector((state: RootState) => state.products.filterCounts);
     const fixedPriceRange = useMemo(() => [filterCounts.price.min, filterCounts.price.max], [filterCounts]);
@@ -49,24 +51,47 @@ export default function Filter({ isOpen, onClose, category }: FilterProps) {
             const minPrice = searchParams.get('minPrice') || '';
             const maxPrice = searchParams.get('maxPrice') || '';
             setPriceRange({ min: minPrice, max: maxPrice });
+
+            const currentSearch = searchParams.get('search') || '';
+            setSearchTerm(currentSearch);
         }
     }, [isOpen, searchParams, filterSections]);
 
+    const SINGLE_SELECT_KEYS = ['engraving'];
+    const updateSingleSelect = (currentValues: string[], value: string): string[] => {
+        const isAlreadySelected = currentValues[0] === value;
+        console.log(selectedFilters);
+        return isAlreadySelected ? [] : [value];
+    };
+
+    const updateMultiSelect = (currentValues: string[], value: string, isChecked: boolean): string[] => {
+        const valueExists = currentValues.includes(value);
+        if (isChecked && !valueExists) {
+            return [...currentValues, value];
+        }
+        if (!isChecked && valueExists) {
+            return currentValues.filter(v => v !== value);
+        }
+        return currentValues;
+    };
+
     const handleFilterChange = (key: string, value: string, isChecked: boolean) => {
+        const isSingleSelect = SINGLE_SELECT_KEYS.includes(key);
+
         setSelectedFilters(prev => {
             const newFilters = { ...prev };
-            const currentValues = newFilters[key] || [];
+            const currentValues = prev[key] || [];
 
-            if (isChecked) {
-                if (!currentValues.includes(value)) {
-                    newFilters[key] = [...currentValues, value];
-                }
+            const newKeyValues = isSingleSelect
+                ? updateSingleSelect(currentValues, value)
+                : updateMultiSelect(currentValues, value, isChecked);
+
+            if (newKeyValues.length > 0) {
+                newFilters[key] = newKeyValues;
             } else {
-                newFilters[key] = currentValues.filter(v => v !== value);
-                if (newFilters[key].length === 0) {
-                    delete newFilters[key];
-                }
+                delete newFilters[key];
             }
+
             return newFilters;
         });
     };
@@ -99,16 +124,26 @@ export default function Filter({ isOpen, onClose, category }: FilterProps) {
             tags.push({ key: 'maxPrice', value: priceRange.max, label: `To ${priceRange.max}₴` });
         }
 
+        if (searchTerm) {
+            tags.push({ key: 'search', value: searchTerm, label: `Search: "${searchTerm}"` });
+        }
+
         return tags;
-    }, [selectedFilters, priceRange, fixedPriceRange, filterSections]);
+    }, [selectedFilters, priceRange, fixedPriceRange, filterSections, searchTerm]);
 
     const handleRemoveTag = (key: string, value: string) => {
-        if (key === 'minPrice') {
-            setPriceRange(prev => ({ ...prev, min: '' }));
-        } else if (key === 'maxPrice') {
-            setPriceRange(prev => ({ ...prev, max: '' }));
-        } else {
-            handleFilterChange(key, value, false);
+        switch (key) {
+            case 'minPrice':
+                setPriceRange(prev => ({ ...prev, min: '' }));
+                break;
+            case 'maxPrice':
+                setPriceRange(prev => ({ ...prev, max: '' }));
+                break;
+            case 'search':
+                setSearchTerm('');
+                break;
+            default:
+                handleFilterChange(key, value, false);
         }
     };
 
@@ -132,6 +167,12 @@ export default function Filter({ isOpen, onClose, category }: FilterProps) {
             newSearchParams.set('maxPrice', priceRange.max);
         }
 
+        if (searchTerm) {
+            newSearchParams.set('search', searchTerm);
+        } else {
+            newSearchParams.delete('search');
+        }
+
         newSearchParams.set('page', '1');
 
         setSearchParams(newSearchParams);
@@ -141,6 +182,7 @@ export default function Filter({ isOpen, onClose, category }: FilterProps) {
     const handleClearFilters = () => {
         setSelectedFilters({});
         setPriceRange({ min: "", max: "" });
+        setSearchTerm('');
     };
 
     useEffect(() => {
@@ -171,6 +213,12 @@ export default function Filter({ isOpen, onClose, category }: FilterProps) {
                             : <p className="text-filters no-filters">No filters selected</p>}
                     </div>
                 </div>
+
+                <SearchFilterSection
+                    searchTerm={searchTerm}
+                    onChange={setSearchTerm}
+                    onEnter={handleApplyFilters}
+                />
 
                 <PriceRangeFilterSection
                     minPrice={priceRange.min}
