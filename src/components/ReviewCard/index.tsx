@@ -45,7 +45,7 @@ export default function ReviewCard({ review, showExtraInfo = false }: Props) {
         </div>
       </div>
 
-      <p className="body review-text">"{review.text}"</p>
+      <p className="body review-text">{review.text}</p>
 
       {showExtraInfo && (
         <div className="review-extra">
