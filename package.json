@@ -15,6 +15,7 @@
     "axios": "^1.10.0",
     "formik": "^2.4.6",
     "keen-slider": "^6.8.6",
+    "rc-slider": "^11.1.9",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-paginate": "^8.3.0",

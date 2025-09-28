@@ -1,11 +1,12 @@
-@use "../../styles/colors" as *;
+@use "@/styles/colors" as colors;
+@use "@/styles/variables" as var;
 
 .header-container {
     width: 100%;
     border-bottom: 1px solid rgba(100, 98, 99, 0.3);
 
     .inner {
-        height: 84px;
+        height: var.$header-height;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -62,7 +63,7 @@
 
             a {
                 text-decoration: none;
-                color: $color-black
+                color: colors.$color-black
             }
         }
     }
@@ -79,8 +80,8 @@
     position: absolute;
     top: -3px;
     right: -7px;
-    background: $color-button;
-    color: $color-white !important;
+    background: colors.$color-button;
+    color: colors.$color-white !important;
     border-radius: 50%;
     padding: 2px 6px;
     width: 24px;

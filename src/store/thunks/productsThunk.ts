@@ -1,10 +1,11 @@
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import type { Product, Review } from "@/types/Products";
+import type { Product, ProductsFilterCounts, Review } from "@/types/Products";
 import type { PaginatedProductsResponse } from "@/types/Pagination";
 import { instance } from "@/api/axios.api";
 
 const apiProductsUrl = import.meta.env.VITE_PRODUCTS_GET_URL ?? "";
+const apiOptimizedProductsUrl = import.meta.env.VITE_OPTIMIZED_PRODUCTS_GET_URL ?? "";
 const apiBaseUrl = import.meta.env.VITE_APP_API_BASE_URL ?? "";
 
 type FetchReviewsResponse = {
@@ -12,19 +13,34 @@ type FetchReviewsResponse = {
     total: number;
 };
 
+type FetchProductsParams = Record<string, string | number | string[]>;
+
 /**
  * Fetches a paginated and filtered list of products.
  * Accepts an object with optional filters, sorting, and pagination.
  */
 export const fetchProducts = createAsyncThunk<
     PaginatedProductsResponse,
-    Record<string, unknown> | void,
+    FetchProductsParams | void,
     { rejectValue: string }
 >(
     "products/fetchProducts",
     async (params = {}, { rejectWithValue }) => {
         try {
-            const response = await axios.get<PaginatedProductsResponse>(apiProductsUrl, { params });
+            const response = await axios.get<PaginatedProductsResponse>(apiOptimizedProductsUrl, {
+                params,
+                paramsSerializer: params => {
+                    const searchParams = new URLSearchParams();
+                    for (const [key, value] of Object.entries(params)) {
+                        if (Array.isArray(value)) {
+                            value.forEach(v => searchParams.append(key, String(v)));
+                        } else if (value != null) {
+                            searchParams.append(key, String(value));
+                        }
+                    }
+                    return searchParams.toString();
+                }
+            });
             return response.data;
         } catch (error) {
             const message = error instanceof Error ? error.message : "Unknown error";
@@ -121,6 +137,27 @@ export const postProductSubscribe = createAsyncThunk<
     }
 );
 
+export const fetchProductsCounts = createAsyncThunk<
+    ProductsFilterCounts,
+    { category?: string } | void,
+    { rejectValue: string }
+>(
+    "products/fetchCounts",
+    async (params, { rejectWithValue }) => {
+        try {
+            let url = `${apiProductsUrl}/counts`;
+            if (params && params.category) {
+                url += `?category=${params.category}`;
+            }
+            const response = await axios.get(url);
+            return response.data;
+        } catch (error) {
+            const message = error instanceof Error ? error.message : "Unknown error";
+            return rejectWithValue(message);
+        }
+    }
+);
+
 export const fetchProductActions = createAsyncThunk<
     Product[],
     { action: string },
@@ -132,6 +169,7 @@ export const fetchProductActions = createAsyncThunk<
             const response = await axios.get<Product[]>(`${apiProductsUrl}/action/${action}`, {
                 params: { action },
             });
+
             return response.data;
         } catch (error) {
             const message = error instanceof Error ? error.message : "Unknown error";
