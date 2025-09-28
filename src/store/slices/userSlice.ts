@@ -1,5 +1,5 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-import { checkAuth, loginUser, registration } from "../thunks/userThunk.ts";
+import { checkAuth, loginUser, registration, resetPassword } from "../thunks/userThunk.ts";
 import type { IResponseUser, IResponseUserData } from "../../types/Auth";
 
 interface UserState {
@@ -7,13 +7,17 @@ interface UserState {
     isAuth: boolean,
     loading: boolean
     error: string
+    resetPasswordLoading: boolean;
+    resetPasswordError: string;
 }
 
 const initialState: UserState = {
     user: null,
     isAuth: false,
     loading: false,
-    error: ''
+    error: '',
+    resetPasswordLoading: false,
+    resetPasswordError: ''
 }
 
 const userSlice = createSlice({
@@ -23,6 +27,9 @@ const userSlice = createSlice({
         logout: (state) => {
             state.user = null;
             state.isAuth = false;
+        },
+        clearResetPasswordError: (state) => {
+            state.resetPasswordError = '';
         }
     },
     extraReducers: (builder) => {
@@ -72,9 +79,21 @@ const userSlice = createSlice({
             .addCase(loginUser.rejected, (state, action: PayloadAction<string | undefined>) => {
                 state.loading = false;
                 state.error = action.payload || "Login failed";
+            })
+            .addCase(resetPassword.pending, (state) => {
+                state.resetPasswordLoading = true;
+                state.resetPasswordError = '';
+            })
+            .addCase(resetPassword.fulfilled, (state) => {
+                state.resetPasswordLoading = false;
+                state.resetPasswordError = '';
+            })
+            .addCase(resetPassword.rejected, (state, action: PayloadAction<string | undefined>) => {
+                state.resetPasswordLoading = false;
+                state.resetPasswordError = action.payload || "Failed to reset password";
             });
     }
 })
 
-export const { logout } = userSlice.actions;
+export const { logout, clearResetPasswordError } = userSlice.actions;
 export default userSlice.reducer;
