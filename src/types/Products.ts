@@ -34,3 +34,11 @@ export type ProductVariant = {
   size: string;
   insert: string;
 }
+
+export type ProductsFilterCounts = {
+  [key: string]: number | Record<string, number>;
+  price: {
+    min: number;
+    max: number;
+  }
+}
