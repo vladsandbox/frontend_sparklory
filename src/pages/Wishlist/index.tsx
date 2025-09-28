@@ -3,7 +3,6 @@ import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
-import CatalogSearchBar from "@/components/CatalogSearchBar";
 import WishlistList from "./WishlistList/WishlistList";
 import Button from "@/components/Button.tsx";
 
@@ -90,8 +89,6 @@ export default function WishlistPage() {
   }
 
   return (
-    <>
-      <CatalogSearchBar />
       <div className="wrapper" style={{ paddingBottom: 120 }}>
         <h1 className="h1" style={{ marginBottom: 60 }}>Wishlist</h1>
 
@@ -110,6 +107,5 @@ export default function WishlistPage() {
           <WishlistList products={products} onRemove={handleRemove} />
         )}
       </div>
-    </>
   );
 }

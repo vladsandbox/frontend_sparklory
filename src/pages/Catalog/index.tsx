@@ -7,7 +7,6 @@ import { fetchProducts } from "@/store/thunks/productsThunk";
 import type { AppDispatch, RootState } from "@/store";
 
 import CatalogSubcategoriesSlider from "@/pages/Catalog/SubcategoriesSlider";
-import CatalogSearchBar from "@/components/CatalogSearchBar";
 import SubscribeSection from "@/components/SubscribeSection";
 import CatalogProductsList from "./ProductsList";
 import Filter from "./Filter";
@@ -109,7 +108,6 @@ export default function Catalog() {
     return (
             <>
                 <Filter isOpen={isFilterOpen} onClose={closeFilter} category={category} />
-                <CatalogSearchBar />
                 <div className="wrapper">
                     <title>{pageTitle}</title>
                     <h1 className="catalog-title">{pageTitle}</h1>

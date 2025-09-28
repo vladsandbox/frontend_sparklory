@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import CatalogSearchBar from "@/components/CatalogSearchBar";
 import CartList from "./CartList/CartList";
 import { fetchCartProducts, updateCartQuantity, removeCartItem } from "@/store/thunks/cartThunk";
 import { useAuth } from "@/utils/hooks/useAuth";
@@ -51,8 +50,6 @@ export default function ShopCart() {
   };
 
   return (
-    <>
-      <CatalogSearchBar />
       <div className="wrapper" style={{ paddingBottom: 120 }}>
         <h1 className="h1" style={{ marginBottom: 60 }}>Shopping Cart</h1>
 
@@ -78,7 +75,6 @@ export default function ShopCart() {
           </>
         )}
       </div>
-    </>
   );
 }
 
