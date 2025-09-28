@@ -114,7 +114,6 @@ export default function Catalog() {
                     <title>{pageTitle}</title>
                     <h1 className="catalog-title">{pageTitle}</h1>
                     {category && <CatalogSubcategoriesSlider category={category} />}
-                    <hr className="divider" style={{margin: "60px auto"}} />
                     <CatalogProductsList
                         data={data}
                         loading={loading}

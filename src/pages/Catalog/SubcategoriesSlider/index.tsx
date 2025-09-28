@@ -84,7 +84,7 @@ export default function CatalogSubcategoriesSlider({ category }: Props) {
                     />
                 }
             </div>
-            <hr className="divider" />
+            <hr className="divider" style={{ margin: "60px auto" }} />
         </>
     );
 }
