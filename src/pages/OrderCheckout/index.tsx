@@ -13,7 +13,6 @@ import { deliveryMethods, type DeliveryMethod } from "./deliveryMethods";
 import Payment from "./Payment";
 import { normalizePrice } from "@/utils/formatPrice";
 import Button from "@/components/Button";
-import CatalogSearchBar from "@/components/CatalogSearchBar";
 
 import styles from "./index.module.scss";
 import { deliveryCar } from "@/assets";
@@ -82,8 +81,6 @@ export default function OrderCheckout() {
     };
 
     return (
-        <>
-        <CatalogSearchBar />
         <div className="wrapper">
             <div className={styles.container}>
                 <div className={styles.contactInfoCointainer}>
@@ -209,6 +206,5 @@ export default function OrderCheckout() {
                 </div>
             </div>
         </div>
-        </>
     );
 }

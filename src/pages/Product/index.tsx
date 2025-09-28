@@ -1,11 +1,10 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { fetchProducts, getProductById } from "../../store/thunks/productsThunk";
-import type { RootState, AppDispatch } from "../../store";
+import { fetchProducts, getProductById } from "@/store/thunks/productsThunk.ts";
+import type { RootState, AppDispatch } from "@/store";
 
 import ProductDetails from "./Details";
-import CatalogSearchBar from "../../components/CatalogSearchBar";
 import RecommendedProducts from "./RecommendedProducts";
 
 export default function Product() {
@@ -34,7 +33,6 @@ export default function Product() {
 
   return (
     <div>
-      <CatalogSearchBar />
       <ProductDetails product={product} />
       <RecommendedProducts products={relatedProducts} loading={loading} />
     </div>

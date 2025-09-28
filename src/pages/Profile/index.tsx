@@ -6,7 +6,6 @@ import { logout } from "@/store/slices/userSlice.ts";
 import { loyaltyHistory, loyaltyBonus } from "@/store/thunks/loyaltyThunk";
 import type { AppDispatch, RootState } from "@/store";
 
-import CatalogSearchBar from "@/components/CatalogSearchBar";
 import { getLinkClass } from "./utils.ts";
 import { clearLocalStorage } from "@/utils/localStorage.ts";
 import { navLinks } from "./constants.ts";
@@ -37,48 +36,45 @@ export default function Profile() {
     };
 
     return (
-        <>
-            <CatalogSearchBar />
-            <div className="wrapper">
-                <div className={styles.profile}>
-                    <div className={styles.sidebar}>
-                        <div className={styles.userInfo}>
-                            <h2 className="input">Welcome, {user?.name}</h2>
-                            <div className={styles.bonus}>
-                                <img src={sparkloryBonus} alt="Sparklory Bonus" />
-                                <p className="text-s"><span className="input">{bonus}</span> Sparkles on balance</p>
-                            </div>
+        <div className="wrapper">
+            <div className={styles.profile}>
+                <div className={styles.sidebar}>
+                    <div className={styles.userInfo}>
+                        <h2 className="input">Welcome, {user?.name}</h2>
+                        <div className={styles.bonus}>
+                            <img src={sparkloryBonus} alt="Sparklory Bonus" />
+                            <p className="text-s"><span className="input">{bonus}</span> Sparkles on balance</p>
                         </div>
-                        <div className={styles.navlinksContainer}>
-                            <div className={styles.navlinks}>
-                                {navLinks.map(({ path, label }, index) => (
-                                    <NavLink
-                                        key={path}
-                                        to={path}
-                                        className={getLinkClass}
-                                        onClick={() => setActiveIndex(index)}
-                                    >
-                                        {label}
-                                    </NavLink>
-                                ))}
-                            </div>
-
-                            <div className={styles.progressTrack}>
-                                <div
-                                    className={styles.progressIndicator}
-                                    style={{ top: `${indicatorTop}px`, height: `${indicatorHeight}px` }}
-                                />
-                            </div>
+                    </div>
+                    <div className={styles.navlinksContainer}>
+                        <div className={styles.navlinks}>
+                            {navLinks.map(({ path, label }, index) => (
+                                <NavLink
+                                    key={path}
+                                    to={path}
+                                    className={getLinkClass}
+                                    onClick={() => setActiveIndex(index)}
+                                >
+                                    {label}
+                                </NavLink>
+                            ))}
                         </div>
 
-                        <button className={`input ${styles.logoutBtn}`} onClick={logoutHandler}>Exit</button>
+                        <div className={styles.progressTrack}>
+                            <div
+                                className={styles.progressIndicator}
+                                style={{ top: `${indicatorTop}px`, height: `${indicatorHeight}px` }}
+                            />
+                        </div>
                     </div>
 
-                    <div className={styles.content}>
-                        <Outlet context={{ user, historyOrders, bonus }} />
-                    </div>
+                    <button className={`input ${styles.logoutBtn}`} onClick={logoutHandler}>Exit</button>
+                </div>
+
+                <div className={styles.content}>
+                    <Outlet context={{ user, historyOrders, bonus }} />
                 </div>
             </div>
-        </>
+        </div>
     );
 }
