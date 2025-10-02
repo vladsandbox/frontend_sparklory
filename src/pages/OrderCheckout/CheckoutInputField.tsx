@@ -1,3 +1,5 @@
+import Input from "@/components/Input";
+
 type Props = {
     label: string;
     value: string;
@@ -10,12 +12,12 @@ export default function CheckoutInputField({ label, value, type = "text", error,
     return (
         <label className="text-xs">
             {label}
-            <input
+            <Input
                 type={type}
                 placeholder={label}
                 value={value}
                 onChange={(e) => onChange(e.target.value)}
-                className="input primary-input"
+                error={!!error}
             />
             {error && <span className="input-error">{error}</span>}
         </label>
