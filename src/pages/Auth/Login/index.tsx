@@ -4,12 +4,12 @@ import type { AppDispatch } from "@/store";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { loginUser } from "@/store/thunks/userThunk.ts";
-import { ErrorMessage, Field, Form, Formik } from "formik";
+import { Form, Formik } from "formik";
 import { toast } from "react-toastify";
 import { setLocalStorage } from "@/utils/localStorage.ts";
 import { useOAuthPopupAuth } from "@/utils/hooks/useOAuthPopupAuth.ts";
 import { openOAuthPopup } from "@/utils/oauth.ts";
-import { eyeSlash } from "@/assets";
+import Input from "@/components/Input";
 
 import Facebook from "@/assets/icons/logo-facebook.svg?react"
 import Google from "@/assets/icons/logo-google.svg?react"
@@ -47,7 +47,7 @@ export default function Login() {
 
     const validationSchema = Yup.object({
         email: Yup.string()
-            .email('Invalid email')
+            .email('Please enter valid email address')
             .required('Email is required'),
         password: Yup.string()
             .required('Password is required')
@@ -65,7 +65,7 @@ export default function Login() {
     return (
         <div className="wrapper">
             <div className="auth-container">
-                <h1 className="h1" style={{marginBottom: 60, textAlign: "center"}}>
+                <h1 className="h1" style={{ marginBottom: 60, textAlign: "center" }}>
                     Log In
                 </h1>
                 <Formik
@@ -73,27 +73,60 @@ export default function Login() {
                     onSubmit={handleSubmit}
                     validationSchema={validationSchema}
                 >
-                    {({ isSubmitting }) => (
-                        <Form className="login-form" style={{display: "flex", flexDirection: "column"}}>
+                    {({ values, handleChange, handleBlur, errors, touched, isSubmitting }) => (
+                        <Form className="login-form" style={{ display: "flex", flexDirection: "column" }}>
+
                             <div className="form-row auth-menu">
                                 <NavLink className="auth-link" to="/login">Login</NavLink>
                                 <NavLink className="auth-link" to="/registration">Sign Up</NavLink>
                             </div>
-                            <div className="form-row">
-                                <label>Email:</label>
-                                <Field type='text' name='email' className="primary-input input"
-                                       placeholder='Enter your E-mail'/>
-                                <ErrorMessage name='email' className='error-auth' component='span'/>
+
+                            <div style={{ display: "flex", flexDirection: "column", gap: 25 }}>
+                                <Input
+                                    id="email"
+                                    name="email"
+                                    label="Email"
+                                    placeholder="Enter your E-mail"
+                                    type="text"
+                                    value={values.email}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    error={!!(touched.email && errors.email)}
+                                    errorMessage={touched.email ? errors.email : undefined}
+                                    className="primary-input input"
+                                />
+
+                                <Input
+                                    id="password"
+                                    name="password"
+                                    label="Password"
+                                    placeholder="Enter your Password"
+                                    type="password"
+                                    value={values.password}
+                                    onChange={handleChange}
+                                    wrapperClassName="password-wrapper"
+                                    onBlur={handleBlur}
+                                    error={!!(touched.password && errors.password)}
+                                />
                             </div>
-                            <div className="form-row password-row">
-                                <label>Password:</label>
-                                <Field type='password' name='password' className="primary-input input"
-                                       placeholder='Enter your Password'/>
-                                <img className='eye-slash' src={eyeSlash} alt='eyeSlash'/>
-                                <ErrorMessage name='password' className='error-auth' component='span'/>
-                            </div>
-                            <NavLink className="auth-link" to="/reset-password">Forgot your password?</NavLink>
-                            <div className="auth-buttons">
+                            {touched.password && errors.password && (
+                                <div className="password-error">
+                                    <span className="text-s" style={{ color: "#DD1010" }}>
+                                        {errors.password}
+                                    </span>
+                                    <NavLink
+                                        to="/forgot-password"
+                                        className="text-s"
+                                        style={{ color: "#DD1010", fontWeight: 500 }}
+                                    >
+                                        Forgot your password?
+                                    </NavLink>
+                                </div>
+                            )}
+
+
+
+                            <div className="auth-buttons" style={{ marginTop: 24 }}>
                                 <Button type="submit" variant="primary" disabled={isSubmitting}>
                                     {isSubmitting ? 'Submitting...' : 'Log In'}
                                 </Button>

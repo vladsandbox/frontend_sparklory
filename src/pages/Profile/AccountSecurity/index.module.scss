@@ -43,6 +43,8 @@
     @extend .text-s;
     line-height: 21px;
     text-decoration: underline;
+    display: block;
+    margin-top: 8px;
 }
 
 .labelPassword {
@@ -61,14 +63,4 @@
         width: 100%;
         padding-right: 40px;
     }
-}
-
-.eyeIcon {
-    position: absolute;
-    right: 12.5px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 24px;
-    height: 24px;
-    cursor: pointer;
 }

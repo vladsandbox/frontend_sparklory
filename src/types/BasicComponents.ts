@@ -21,6 +21,7 @@ export type Input = {
     isLoading?: boolean;
     disabled?: boolean;
     error?: boolean;
+    errorMessage?: string;
     type?: React.HTMLInputTypeAttribute;
     name?: string;
     id?: string;
@@ -31,4 +32,11 @@ export type Input = {
     onBlur?: React.FocusEventHandler<HTMLInputElement>;
     className?: string;
     style?: React.CSSProperties;
+    maxLength?: number;
+    checked?: boolean;
+    multiple?: boolean;
+    label?: string;
+    labelClassName?: string;
+    autoComplete?: string;
+    wrapperClassName?: string;
 };

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { NavLink } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { toast } from "react-toastify";
@@ -8,7 +9,7 @@ import type { AppDispatch, RootState } from "@/store";
 import { resetPassword } from "@/store/thunks/userThunk";
 import { clearResetPasswordError } from "@/store/slices/userSlice";
 import Button from "@/components/Button";
-import InputField from "./InputField";
+import Input from "@/components/Input";
 
 import styles from "./index.module.scss";
 
@@ -77,50 +78,63 @@ export default function AccountSecurity() {
                 </div>
             ) : (
                 <form onSubmit={formik.handleSubmit} className={styles.form}>
-                    <InputField
-                        id="oldPassword"
-                        label="Previous Password:"
-                        placeholder="Enter previous password"
-                        type="password"
-                        autoComplete="current-password"
-                        error={formik.errors.oldPassword}
-                        touched={formik.touched.oldPassword}
-                        {...formik.getFieldProps("oldPassword")}
-                        forgotLink="/forgot-password"
-                        onChange={(e) => {
-                            formik.handleChange(e);
-                            if (resetPasswordError) dispatch(clearResetPasswordError());
-                        }}
-                    />
+                    <div>
+                        <Input
+                            id="oldPassword"
+                            label="Previous Password:"
+                            labelClassName="text-s"
+                            placeholder="Enter previous password"
+                            type="password"
+                            autoComplete="current-password"
+                            wrapperClassName={styles.inputWrapper}
+                            value={formik.values.oldPassword}
+                            onChange={(e) => {
+                                formik.handleChange(e);
+                                if (resetPasswordError) dispatch(clearResetPasswordError());
+                            }}
+                            onBlur={formik.handleBlur}
+                            error={!!(formik.touched.oldPassword && formik.errors.oldPassword)}
+                            errorMessage={formik.touched.oldPassword ? formik.errors.oldPassword : undefined}
+                        />
+                        <NavLink to="/profile/forgot-password" className={styles.forgotPassword}>
+                            Forgot Password?
+                        </NavLink>
+                    </div>
 
-                    <InputField
+                    <Input
                         id="newPassword"
                         label="New Password:"
+                        labelClassName="text-s"
                         placeholder="Enter new password"
                         type="password"
                         autoComplete="new-password"
-                        error={formik.errors.newPassword}
-                        touched={formik.touched.newPassword}
-                        {...formik.getFieldProps("newPassword")}
+                        wrapperClassName={styles.inputWrapper}
+                        value={formik.values.newPassword}
                         onChange={(e) => {
                             formik.handleChange(e);
                             if (resetPasswordError) dispatch(clearResetPasswordError());
                         }}
+                        onBlur={formik.handleBlur}
+                        error={!!(formik.touched.newPassword && formik.errors.newPassword)}
+                        errorMessage={formik.touched.newPassword ? formik.errors.newPassword : undefined}
                     />
 
-                    <InputField
+                    <Input
                         id="confirmPassword"
                         label="Confirm Password:"
+                        labelClassName="text-s"
                         placeholder="Confirm password"
                         type="password"
                         autoComplete="new-password"
-                        error={formik.errors.confirmPassword}
-                        touched={formik.touched.confirmPassword}
-                        {...formik.getFieldProps("confirmPassword")}
+                        wrapperClassName={styles.inputWrapper}
+                        value={formik.values.confirmPassword}
                         onChange={(e) => {
                             formik.handleChange(e);
                             if (resetPasswordError) dispatch(clearResetPasswordError());
                         }}
+                        onBlur={formik.handleBlur}
+                        error={!!(formik.touched.confirmPassword && formik.errors.confirmPassword)}
+                        errorMessage={formik.touched.confirmPassword ? formik.errors.confirmPassword : undefined}
                     />
 
                     <div style={{ position: "relative" }}>
