@@ -9,6 +9,7 @@ import { formatPrice } from "@/utils/formatPrice";
 
 import styles from "./index.module.scss";
 import Button from "@/components/Button.tsx";
+import Input from "@/components/Input";
 
 type Props = {
     firstAmount: number;
@@ -71,8 +72,7 @@ export default function CartTotals({ discount, finalAmount, firstAmount, applied
                     </div>
                 </div>
                 <div className={styles.loyaltyContainer}>
-                    <input
-                        className={`${styles.input} ${!showHeader ? styles.compact : ""} input primary-input`}
+                    <Input
                         type="text"
                         placeholder="Coupon"
                         value={coupon}
@@ -81,6 +81,8 @@ export default function CartTotals({ discount, finalAmount, firstAmount, applied
                             setError("");
                         }}
                         disabled={!!appliedCoupon}
+                        error={!!error}
+                        className={`${styles.input} ${!showHeader ? styles.compact : ""}`}
                     />
                     <Button
                         variant="primary"
