@@ -9,3 +9,6 @@ export const capitalizeEachFirstLetter = (text: string) =>
 
 export const spaceBetweenWords = (text: string) =>
     text.replace(/[-_]/g, ' ');
+
+export const allToLowerCase = (text: string) =>
+    text.toLowerCase();
