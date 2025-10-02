@@ -51,8 +51,22 @@
 
 .filter-content {
   flex-grow: 1;
-  overflow-y: auto;
+  overflow-y: scroll;
   padding: 24px;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: colors.$color-button;
+    border-radius: 8px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    cursor: pointer;
+    background-color: colors.$color-button-hover;
+  }
 }
 
 .used-filters-section {

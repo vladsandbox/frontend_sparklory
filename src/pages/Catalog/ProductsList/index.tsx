@@ -27,13 +27,14 @@ export default function CatalogProductsList({ data, loading, changePage, current
 
     return (
         <>
-            <ProductsListFilterSection dataCount={total} loading={loading} onFilterOpen={onFilterOpen}/>
             { products.length === 0
                 ? <p className="error">No products found</p>
                 : <>
-                    <div className="catalog-products-wrapper">{products.map((product) => (
-                             <CatalogProductCard product={product} key={product._id} />
-                    ))}
+                    <ProductsListFilterSection total={total} loading={loading} onFilterOpen={onFilterOpen}/>
+                    <div className="catalog-products-wrapper">
+                        {products.map((product) => (
+                            <CatalogProductCard product={product} key={product._id} />
+                        ))}
                     </div>
                     { pages > 1 &&
                         <CatalogPagination

@@ -2,18 +2,18 @@ import Button from "@/components/Button.tsx";
 import FilterIcon from "@/assets/icons/filter.svg?react";
 
 type Props = {
-    dataCount: number;
+    total: number;
     loading: boolean;
     onFilterOpen: () => void;
 };
 
-export default function ProductsListFilterSection({ dataCount, onFilterOpen }: Props) {
-    const dataCountText = `${dataCount} ${dataCount === 1 ? "item has" : "items have"} been found`;
+export default function ProductsListFilterSection({ total, onFilterOpen }: Props) {
+    const totalText = `${total} ${total === 1 ? "item has" : "items have"} been found`;
 
     return (
         <div className="catalog-filter-section">
             <span className="catalog-products-count">
-                {dataCountText}
+                {totalText}
             </span>
 
             <span className="catalog-filter-interactive">
