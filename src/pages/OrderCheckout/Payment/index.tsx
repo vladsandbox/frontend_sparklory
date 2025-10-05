@@ -6,6 +6,7 @@ import type { PaymentContactInfo } from "@/types/Payment";
 import LiqPayCheckout from "./LiqPayCheckout";
 import { formatCardNumber, formatExpiryDate } from "./formatters";
 import Button from "@/components/Button";
+import Input from "@/components/Input";
 
 import styles from "./index.module.scss";
 import { cardPos } from "@/assets";
@@ -43,58 +44,48 @@ export default function Payment({ isGuestCheckout, amount, contactInfo }: Props)
                 <LiqPayCheckout data={liqpayData} signature={liqpaySignature} />
             ) : (
                 <form onSubmit={formik.handleSubmit} noValidate className={styles.form}>
-                    <label className={styles.label}>
-                        Card Number
-                        <input
-                            {...formik.getFieldProps("cardNumber")}
-                            className="input primary-input"
-                            placeholder="Card Number"
-                            onChange={handleCardNumberChange}
-                        />
-                        {formik.touched.cardNumber && formik.errors.cardNumber && (
-                            <span className="input-error">{formik.errors.cardNumber}</span>
-                        )}
-                    </label>
+
+                    <Input
+                        {...formik.getFieldProps("cardNumber")}
+                        label="Card Number"
+                        placeholder="Card Number"
+                        value={formik.values.cardNumber}
+                        onChange={handleCardNumberChange}
+                        error={!!(formik.touched.cardNumber && formik.errors.cardNumber)}
+                        errorMessage={formik.touched.cardNumber ? formik.errors.cardNumber : undefined}
+                    />
 
                     <div className={styles.expiryContainer}>
-                        <label className={styles.label}>
-                            Expiry date
-                            <input
-                                {...formik.getFieldProps("expiryDate")}
-                                className="input primary-input"
-                                placeholder="MM/YY"
-                                onChange={handleExpiryChange}
-                            />
-                            {formik.touched.expiryDate && formik.errors.expiryDate && (
-                                <span className="input-error">{formik.errors.expiryDate}</span>
-                            )}
-                        </label>
+                        <Input
+                            {...formik.getFieldProps("expiryDate")}
+                            label="Expiry date"
+                            placeholder="MM/YY"
+                            value={formik.values.expiryDate}
+                            onChange={handleExpiryChange}
+                            error={!!(formik.touched.expiryDate && formik.errors.expiryDate)}
+                            errorMessage={formik.touched.expiryDate ? formik.errors.expiryDate : undefined}
+                        />
 
-                        <label className={styles.label}>
-                            CVV
-                            <input
-                                {...formik.getFieldProps("cvv")}
-                                className="input primary-input"
-                                placeholder="3 digits"
-                                maxLength={3}
-                            />
-                            {formik.touched.cvv && formik.errors.cvv && (
-                                <span className="input-error">{formik.errors.cvv}</span>
-                            )}
-                        </label>
+                        <Input
+                            {...formik.getFieldProps("cvv")}
+                            label="CVV"
+                            placeholder="3 digits"
+                            value={formik.values.cvv}
+                            maxLength={3}
+                            error={!!(formik.touched.cvv && formik.errors.cvv)}
+                            errorMessage={formik.touched.cvv ? formik.errors.cvv : undefined}
+                        />
                     </div>
 
-                    <label className={styles.label}>
-                        Name on Card
-                        <input
-                            {...formik.getFieldProps("nameOnCard")}
-                            className="input primary-input"
-                            placeholder="Name on Card"
-                        />
-                        {formik.touched.nameOnCard && formik.errors.nameOnCard && (
-                            <span className="input-error">{formik.errors.nameOnCard}</span>
-                        )}
-                    </label>
+                    <Input
+                        {...formik.getFieldProps("nameOnCard")}
+                        label="Name on Card"
+                        placeholder="Name on Card"
+                        value={formik.values.nameOnCard}
+                        error={!!(formik.touched.nameOnCard && formik.errors.nameOnCard)}
+                        errorMessage={formik.touched.nameOnCard ? formik.errors.nameOnCard : undefined}
+                    />
+
 
                     <p className={styles.checkoutDisclaimer}>
                         By continuing to checkout I agree to the general Terms and Conditions.

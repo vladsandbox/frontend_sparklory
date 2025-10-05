@@ -9,12 +9,12 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import { registration, loginUser } from "@/store/thunks/userThunk.ts";
 import { setLocalStorage } from "@/utils/localStorage.ts";
 import { useOAuthPopupAuth } from "@/utils/hooks/useOAuthPopupAuth.ts";
-import { eyeSlash } from "@/assets";
 import { openOAuthPopup } from "@/utils/oauth.ts";
 
 import Facebook from "@/assets/icons/logo-facebook.svg?react"
 import Google from "@/assets/icons/logo-google.svg?react"
 import Button from "@/components/Button.tsx";
+import Input from "@/components/Input";
 import "./index.scss"
 
 export default function Registration() {
@@ -94,38 +94,75 @@ export default function Registration() {
                     onSubmit={handleSubmit}
                     validationSchema={validationSchema}
                 >
-                    {({ values, isSubmitting }) => (
+                    {({ values, handleChange, handleBlur, errors, touched, isSubmitting }) => (
                         <Form>
                             <div className="form-row auth-menu">
                                 <NavLink className="auth-link" to="/login">Login</NavLink>
                                 <NavLink className="auth-link" to="/registration">Sign Up</NavLink>
                             </div>
+
                             <div className="form-row">
-                                <label htmlFor="name">Full Name:</label>
-                                <Field type='text' name='name' className="primary-input input"
-                                    placeholder='Enter your Full Name' />
-                                <ErrorMessage name='name' className='error-auth' component="span" />
+                                <Input
+                                    id="name"
+                                    name="name"
+                                    label="Full Name:"
+                                    placeholder="Enter your Full Name"
+                                    type="text"
+                                    value={values.name}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    error={!!(touched.name && errors.name)}
+                                    errorMessage={touched.name ? errors.name : undefined}
+                                />
                             </div>
+
                             <div className="form-row">
-                                <label htmlFor="email">Email:</label>
-                                <Field type='text' name='email' className="primary-input input"
-                                    placeholder='Enter your E-mail' />
-                                <ErrorMessage name='email' className='error-auth' component='span' />
+                                <Input
+                                    id="email"
+                                    name="email"
+                                    label="Email:"
+                                    placeholder="Enter your E-mail"
+                                    type="text"
+                                    value={values.email}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    error={!!(touched.email && errors.email)}
+                                    errorMessage={touched.email ? errors.email : undefined}
+                                />
                             </div>
-                            <div className="form-row password-row">
-                                <label htmlFor="password">Password:</label>
-                                <Field type='password' name='password' className="primary-input input"
-                                    placeholder='Enter your Password' />
-                                <img className='eye-slash' src={eyeSlash} alt='eyeSlash' />
-                                <ErrorMessage name='password' className='error-auth' component='span' />
+
+                            <div className="form-row">
+                                <Input
+                                    id="password"
+                                    name="password"
+                                    label="Password:"
+                                    placeholder="Enter your Password"
+                                    type="password"
+                                    wrapperClassName="password-wrapper"
+                                    value={values.password}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    error={!!(touched.password && errors.password)}
+                                    errorMessage={touched.password ? errors.password : undefined}
+                                />
                             </div>
-                            <div className="form-row password-row">
-                                <label htmlFor="confirmPassword">Confirm password:</label>
-                                <Field type='password' name='confirmPassword' className="primary-input input"
-                                    placeholder='Confirm your Password' />
-                                <img className='eye-slash' src={eyeSlash} alt='eyeSlash' />
-                                <ErrorMessage name='confirmPassword' className='error-auth' component='span' />
+
+                            <div className="form-row">
+                                <Input
+                                    id="confirmPassword"
+                                    name="confirmPassword"
+                                    label="Confirm Password:"
+                                    placeholder="Confirm your Password"
+                                    type="password"
+                                    wrapperClassName="password-wrapper"
+                                    value={values.confirmPassword}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    error={!!(touched.confirmPassword && errors.confirmPassword)}
+                                    errorMessage={touched.confirmPassword ? errors.confirmPassword : undefined}
+                                />
                             </div>
+
                             <div className="agree-terms">
                                 <Field
                                     type='checkbox'
@@ -136,12 +173,14 @@ export default function Registration() {
                                 <span className="agree-terms-text">Agree to Terms</span>
                                 <ErrorMessage name='agreeTerms' className='error-auth' component='span' />
                             </div>
+
                             <div className="terms-description">
                                 <p>
-                                    The following text of the User Agreement (hereinafter referred to as the “Agreement”
-                                    and/or “Agreement”) address
+                                    The following text of the User Agreement (hereinafter referred to as the “Agreement”)
+                                    address
                                 </p>
                             </div>
+
                             <div className="auth-buttons">
                                 <Button type="submit" variant="primary" disabled={isSubmitting}>
                                     {isSubmitting ? 'Submitting...' : 'Sign Up'}
@@ -166,6 +205,7 @@ export default function Registration() {
                         </Form>
                     )}
                 </Formik>
+
             </div>
         </div>
     );

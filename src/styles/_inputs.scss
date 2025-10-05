@@ -7,6 +7,7 @@
   border: 1px solid $color-disabled;
   border-radius: 12px;
   transition: border-color 0.2s ease;
+  width: 100%;
 
   &:hover {
     border-color: $color-grey;
@@ -27,5 +28,29 @@
     &::placeholder {
       color: $color-red;
     }
+  }
+}
+
+.label {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.input__icon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+
+  &--left {
+    left: 12.5px;
+  }
+
+  &--right {
+    right: 12.5px;
   }
 }
