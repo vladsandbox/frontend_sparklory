@@ -1,13 +1,16 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useSearchParams } from "react-router-dom";
+import { useKeenSlider } from "keen-slider/react";
+
 import { fetchCategory } from "@/store/thunks/categoriesThunk";
 import type { AppDispatch, RootState } from "@/store";
-import { useKeenSlider } from "keen-slider/react";
-import "keen-slider/keen-slider.min.css";
 
-import CatalogSubcategoryCard from "@/pages/Catalog/SubcategoryCard";
 import SliderNavButtons from "@/components/SliderNavButtons/SliderNavButtons.tsx";
+import CatalogCard from "@/components/CatalogCard";
+import type { Subcategory } from "@/types/Categories.ts";
 
+import "keen-slider/keen-slider.min.css";
 import "./index.scss";
 
 type Props = { category: string };
@@ -15,6 +18,8 @@ type Props = { category: string };
 export default function CatalogSubcategoriesSlider({ category }: Props) {
     const dispatch = useDispatch<AppDispatch>();
     const { singleCategory, loading, error } = useSelector((state: RootState) => state.categories);
+
+    const [searchParams, setSearchParams] = useSearchParams();
 
     const [arrowDisabledPrev, setArrowDisabledPrev] = useState(true);
     const [arrowDisabledNext, setArrowDisabledNext] = useState(false);
@@ -52,6 +57,15 @@ export default function CatalogSubcategoriesSlider({ category }: Props) {
         }
     });
 
+    const handleClick = (subcategory: Subcategory) => {
+        const newSearchParams = new URLSearchParams(searchParams);
+
+        newSearchParams.delete('subcategory');
+        newSearchParams.set('subcategory', subcategory.name);
+
+        setSearchParams(newSearchParams);
+    }
+
     useEffect(() => {
         dispatch(fetchCategory(category));
     }, [dispatch, category]);
@@ -68,7 +82,7 @@ export default function CatalogSubcategoriesSlider({ category }: Props) {
                 <div ref={sliderRef} className="subcategories-slider keen-slider">
                     {subcategories.map((subcategory) => (
                         <div key={subcategory._id} className="keen-slider__slide subcategories-slider__slide">
-                            <CatalogSubcategoryCard subcategory={subcategory} />
+                            <CatalogCard cardData={subcategory} handleClick={() => handleClick(subcategory)} />
                         </div>
                     ))}
                 </div>
