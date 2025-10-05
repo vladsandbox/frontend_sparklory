@@ -2,7 +2,6 @@ import type { PaginatedProductsResponse } from "@/types/Pagination.ts";
 
 import CatalogProductCard from "../ProductCard";
 import CatalogPagination from "../Pagination";
-import ProductsListFilterSection from "./ProductsListFilterSection";
 
 import "./index.scss";
 
@@ -11,10 +10,11 @@ type Props = {
     loading: boolean;
     changePage: (page: number) => void;
     currentPage: number;
-    onFilterOpen: () => void;
 };
 
-export default function CatalogProductsList({ data, loading, changePage, currentPage, onFilterOpen }: Props) {
+export default function CatalogProductsList({ data, loading, changePage, currentPage }: Props) {
+    const { products, pages } = data;
+
     if (loading) {
         return <p className="loading">Loading...</p>;
     }
@@ -23,26 +23,23 @@ export default function CatalogProductsList({ data, loading, changePage, current
         return <p className="error">Failed to load products</p>;
     }
 
-    const { products, pages, total } = data;
+    if (products.length === 0) {
+        return <p className="error">No products found</p>
+    }
 
     return (
         <>
-            { products.length === 0
-                ? <p className="error">No products found</p>
-                : <>
-                    <ProductsListFilterSection total={total} loading={loading} onFilterOpen={onFilterOpen}/>
-                    <div className="catalog-products-wrapper">
-                        {products.map((product) => (
-                            <CatalogProductCard product={product} key={product._id} />
-                        ))}
-                    </div>
-                    { pages > 1 &&
-                        <CatalogPagination
-                            currentPage={currentPage}
-                            totalPages={pages}
-                            onPageChange={changePage}
-                        /> }
-                </> }
+            <div className="catalog-products-wrapper">
+                {products.map((product) => (
+                    <CatalogProductCard product={product} key={product._id} />
+                ))}
+            </div>
+            { pages > 1 &&
+                <CatalogPagination
+                    currentPage={currentPage}
+                    totalPages={pages}
+                    onPageChange={changePage}
+                /> }
         </>
     );
 }

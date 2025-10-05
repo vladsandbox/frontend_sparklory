@@ -94,6 +94,17 @@
     }
 }
 
+.btn--empty {
+    background-color: transparent;
+    color: $color-button;
+    border: none;
+
+    &:active {
+        background-color: rgba($color-black, 0.03);
+        box-shadow: 0 0 10px rgba($color-black, 0.05);
+    }
+}
+
 /* SIZES */
 
 .btn--normal {
@@ -118,4 +129,9 @@
 .secondary-white-btn {
     @extend .btn;
     @extend .btn--secondary-white;
+}
+
+.empty-btn {
+    @extend .btn;
+    @extend .btn--empty;
 }
