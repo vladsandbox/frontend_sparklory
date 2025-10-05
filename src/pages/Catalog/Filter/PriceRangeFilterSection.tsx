@@ -69,6 +69,8 @@ export default function PriceRangeFilterSection({ minPrice, maxPrice, fixedPrice
         maxPrice ? Number(maxPrice) : fixedMaxPrice
     ];
 
+    if (fixedPriceRange[0] === fixedPriceRange[1]) return null;
+
     return (
         <div className="filter-section">
             <div className="section-header" onClick={toggleFilterSection}>

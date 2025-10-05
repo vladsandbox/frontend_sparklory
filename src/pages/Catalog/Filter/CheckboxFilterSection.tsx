@@ -19,6 +19,8 @@ export default function CheckboxFilterSection({ section, isLast, selectedOptions
         setIsOpenFilterSection(!isOpenFilterSection);
     };
 
+    if (section.options.length === 0) return null;
+
     return (
         <div className="filter-section">
             <div className="section-header" onClick={toggleFilterSection}>

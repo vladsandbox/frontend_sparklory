@@ -57,8 +57,9 @@ export function productsCountsToSections(
             let options: FilterSectionData["options"] = [];
 
             if (typeof value === "object" && value !== null) {
-                options = Object.entries(value as Record<string, number>).map(
-                    ([label, count]) => ({
+                options = Object.entries(value as Record<string, number>)
+                    .filter(([, count]) => count > 0)
+                    .map(([label, count]) => ({
                         label: formatFacetLabel(key, label),
                         count,
                         value: label === "" ? "null" : lowEachFirstLetter(label),
