@@ -21,13 +21,26 @@ type Props = {
 };
 
 export default function CatalogProductCard({ product, noHoverExpand = false, alwaysClosed = false }: Props) {
-    const materials = product.variants.map((variant) => {
-        const found = MATERIALS.find((m) => m.id === variant.material);
-        return found ?? { id: variant.material, label: variant.material.replace(/\b\w/g, (c) => c.toUpperCase()), img: noImg };
-    });
+    const minPriceVariant = product.variants.reduce(
+        (min, current) => current.price < min.price ? current : min,
+        product.variants[0]
+    );
 
-    const [selectedMaterial, setSelectedMaterial] = useState<string>(materials[0]?.id ?? "");
-    const currentVariant: ProductVariant | null = product.variants.find((variant) => variant.material === selectedMaterial) || null;
+    const materials = Array.from(
+        new Map(
+            product.variants.map((variant) => {
+                const found = MATERIALS
+                    .find((m) => m.id === variant.material);
+                return [variant.material, found ?? { id: variant.material, label: variant.material, img: noImg }];
+            })
+        ).values()
+    );
+
+    const [selectedMaterial, setSelectedMaterial] = useState<string>(minPriceVariant.material);
+
+    const currentVariant: ProductVariant | null = product.variants.find(
+        (variant) => variant.material === selectedMaterial
+    ) || null;
 
     const handleMaterialChange = (id: string) => {
         setSelectedMaterial(id);
