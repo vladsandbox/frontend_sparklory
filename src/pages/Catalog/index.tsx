@@ -1,18 +1,18 @@
 import { useParams, useSearchParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useMemo, useCallback, useState } from "react";
-import subscribeImg from "@/assets/images/subscribe-img-2.png";
 
 import { fetchProducts } from "@/store/thunks/productsThunk";
 import type { AppDispatch, RootState } from "@/store";
 
+import { capitalizeFirstLetter, spaceBetweenWords } from "@/utils/wordsFormatting.ts";
 import CatalogSubcategoriesSlider from "@/pages/Catalog/SubcategoriesSlider";
 import SubscribeSection from "@/components/SubscribeSection";
 import CatalogProductsList from "./ProductsList";
 import Filter from "./Filter";
 
+import subscribeImg from "@/assets/images/subscribe-img-2.png";
 import "./index.scss";
-import { capitalizeFirstLetter, spaceBetweenWords } from "@/components/wordsFormatting.ts";
 
 export default function Catalog() {
     const { category } = useParams<{ category?: string }>();

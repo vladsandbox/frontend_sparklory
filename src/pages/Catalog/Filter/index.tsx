@@ -3,9 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch, RootState } from "@/store";
 import { useSearchParams } from "react-router-dom";
 
+import { capitalizeFirstLetter } from "@/utils/wordsFormatting.ts";
 import CheckboxFilterSection from "@/pages/Catalog/Filter/CheckboxFilterSection.tsx";
 import PriceRangeFilterSection from "@/pages/Catalog/Filter/PriceRangeFilterSection.tsx";
-import { capitalizeFirstLetter } from "@/components/wordsFormatting.ts";
 import Button from "@/components/Button.tsx";
 
 import SearchFilterSection from "@/pages/Catalog/Filter/SearchFilterSection.tsx";
