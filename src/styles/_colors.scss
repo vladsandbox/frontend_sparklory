@@ -24,3 +24,9 @@ $gradient-background: linear-gradient(
 // Tag
 $tag-background: rgb(234, 224, 213);
 $tag-color: rgb(92, 74, 60);
+
+// Skeleton
+$skeleton-background: rgb(245, 245, 245);
+$skeleton-border: rgb(221, 221, 221);
+$skeleton-image: rgb(224, 224, 224);
+$skeleton-shimmer: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);

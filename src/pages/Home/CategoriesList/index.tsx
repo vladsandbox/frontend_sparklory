@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 
-import { allToLowerCase } from "@/utils/wordsFormatting.ts";
+import SkeletonCatalogCard from "@/components/CatalogCard/SkeletonCatalogCard.tsx";
+import { allToLowerCase } from "@/components/wordsFormatting.ts";
 import CatalogCard from "@/components/CatalogCard";
 import type { Category } from "@/types/Categories.ts";
 
@@ -18,8 +19,18 @@ export default function CategoriesList({categories, loading}: Props) {
         navigate(`/catalog/${allToLowerCase(category)}`);
     }
 
-    if (loading) return <div className="loading">Loading categories…</div>;
-    if (!categories) return;
+    if (loading) return (
+        <div className="wrapper">
+                <div className="categories-wrapper">
+                {Array.from({ length: 6 }).map((_, i) => (
+                    <SkeletonCatalogCard key={i} />
+                ))}
+            </div>
+        </div>
+
+    );
+
+    if (!categories) return null;
 
     return (
         <div className="wrapper">

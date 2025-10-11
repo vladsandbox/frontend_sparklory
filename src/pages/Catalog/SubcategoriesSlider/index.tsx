@@ -7,6 +7,7 @@ import { fetchCategory } from "@/store/thunks/categoriesThunk";
 import type { AppDispatch, RootState } from "@/store";
 
 import SliderNavButtons from "@/components/SliderNavButtons/SliderNavButtons.tsx";
+import SkeletonCatalogCard from "@/components/CatalogCard/SkeletonCatalogCard.tsx";
 import CatalogCard from "@/components/CatalogCard";
 import type { Subcategory } from "@/types/Categories.ts";
 
@@ -70,8 +71,25 @@ export default function CatalogSubcategoriesSlider({ category }: Props) {
         dispatch(fetchCategory(category));
     }, [dispatch, category]);
 
-    if (loading) return <div className="loading">Loading subcategories…</div>;
-    if (error) return;
+    if (loading) {
+        return (
+            <>
+                <div className="skeleton-card-container">
+                    <div className="skeleton-card-slider">
+                        {Array.from({ length: 6 }).map((_, i) => (
+                            <div key={i} className="keen-slider__slide">
+                                <SkeletonCatalogCard />
+                            </div>
+                        ))}
+                    </div>
+                </div>
+                <hr className="divider" style={{ margin: "60px auto" }}/>
+            </>
+        );
+    }
+
+    if (error) return null;
+
     if (!singleCategory?.subcategories?.length) return null;
 
     const subcategories = singleCategory.subcategories;

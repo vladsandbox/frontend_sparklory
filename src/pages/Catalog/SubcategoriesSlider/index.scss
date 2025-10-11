@@ -16,3 +16,12 @@
   }
 }
 
+.skeleton-card-container {
+  overflow: hidden;
+  width: 100%;
+
+  .skeleton-card-slider {
+    display: flex;
+    gap: 24px;
+  }
+}
