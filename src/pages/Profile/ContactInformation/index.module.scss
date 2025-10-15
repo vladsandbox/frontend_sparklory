@@ -1,0 +1,29 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    width: 364px;
+}
+
+.infoBlock {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+
+    >div {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+}
+
+.buttonWrapper {
+    margin-top: auto;
+}
+
+.inputContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}

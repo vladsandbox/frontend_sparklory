@@ -3,12 +3,12 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 
 import { logout } from "../slices/userSlice";
 import { getLocalStorage } from "../../utils/localStorage";
-import {instance} from "../../api/axios.api";
+import { instance } from "../../api/axios.api";
 
 import type {
-    ILoginUserData,
-    IRegistrationUserData, IResponseUser,
-    IResponseUserData,
+  ILoginUserData,
+  IRegistrationUserData, IResponseUser,
+  IResponseUserData,
 } from "../../types/Auth";
 
 const apiLoginUrl = import.meta.env.VITE_APP_LOGIN_URL ?? "";
@@ -17,54 +17,54 @@ const apiProfileUrl = import.meta.env.VITE_APP_PROFILE_URL ?? "";
 const apiVerifyEmailUrl = import.meta.env.VITE_APP_VERIFY_EMAIL_URL ?? "";
 
 export const checkAuth = createAsyncThunk<
-    IResponseUser | null,
-    void,
-    { rejectValue: string }
+  IResponseUser | null,
+  void,
+  { rejectValue: string }
 >(
-    "auth/checkAuth",
-    async (_, { dispatch, rejectWithValue }) => {
-        const token = getLocalStorage("token", "");
+  "auth/checkAuth",
+  async (_, { dispatch, rejectWithValue }) => {
+    const token = getLocalStorage("token", "");
 
-        if (!token) {
-            dispatch(logout());
-            return null;
-        }
-
-        try {
-            const res = await instance.get(`${apiProfileUrl}`);
-            return res.data;
-        } catch (error: unknown) {
-            let errorMessage = "Unknown error";
-
-            if (axios.isAxiosError(error) && error.response) {
-                errorMessage = error.response.data.message || error.message;
-            } else if (error instanceof Error) {
-                errorMessage = error.message;
-            }
-
-            return rejectWithValue(errorMessage);
-        }
+    if (!token) {
+      dispatch(logout());
+      return null;
     }
+
+    try {
+      const res = await instance.get(`${apiProfileUrl}`);
+      return res.data;
+    } catch (error: unknown) {
+      let errorMessage = "Unknown error";
+
+      if (axios.isAxiosError(error) && error.response) {
+        errorMessage = error.response.data.message || error.message;
+      } else if (error instanceof Error) {
+        errorMessage = error.message;
+      }
+
+      return rejectWithValue(errorMessage);
+    }
+  }
 );
 
 export const registration = createAsyncThunk<
-    IResponseUser,
-    IRegistrationUserData,
-    { rejectValue: string }
+  IResponseUser,
+  IRegistrationUserData,
+  { rejectValue: string }
 >(
-    'user/registration',
-    async (userData, { rejectWithValue }) => {
-        try {
-            const res = await instance.post(apiRegistrationUrl, userData);
-            return res.data;
-        } catch (error: unknown) {
-            const message = axios.isAxiosError(error)
-                ? error.response?.data?.message || error.message
-                : error instanceof Error ? error.message : "Unknown error";
+  'user/registration',
+  async (userData, { rejectWithValue }) => {
+    try {
+      const res = await instance.post(apiRegistrationUrl, userData);
+      return res.data;
+    } catch (error: unknown) {
+      const message = axios.isAxiosError(error)
+        ? error.response?.data?.message || error.message
+        : error instanceof Error ? error.message : "Unknown error";
 
-            return rejectWithValue(message);
-        }
+      return rejectWithValue(message);
     }
+  }
 );
 
 export const loginUser = createAsyncThunk<
@@ -82,8 +82,8 @@ export const loginUser = createAsyncThunk<
       const message = axios.isAxiosError(error)
         ? error.response?.data?.message || error.message
         : error instanceof Error
-        ? error.message
-        : "Unknown error";
+          ? error.message
+          : "Unknown error";
 
       return rejectWithValue(message);
     }
@@ -103,15 +103,15 @@ export const verifyEmail = createAsyncThunk<
         code
       });
     } catch (error: unknown) {
-        let errorMessage = "Unknown error";
+      let errorMessage = "Unknown error";
 
-        if (axios.isAxiosError(error) && error.response) {
-            errorMessage = error.response.data.message || error.message;
-        } else if (error instanceof Error) {
-            errorMessage = error.message;
-        }
+      if (axios.isAxiosError(error) && error.response) {
+        errorMessage = error.response.data.message || error.message;
+      } else if (error instanceof Error) {
+        errorMessage = error.message;
+      }
 
-        return rejectWithValue(errorMessage);
+      return rejectWithValue(errorMessage);
     }
   }
 );
@@ -128,6 +128,28 @@ export const resetPassword = createAsyncThunk<
         previousPassword,
         newPassword,
       });
+    } catch (error: any) {
+      const message =
+        error?.response?.data?.message ??
+        (error instanceof Error ? error.message : "Unknown error");
+      return rejectWithValue(message);
+    }
+  }
+);
+
+export const updateUser = createAsyncThunk<
+  IResponseUser,
+  { name: string; email: string },
+  { rejectValue: string }
+>(
+  "user/updateUser",
+  async ({ name, email }, { rejectWithValue }) => {
+    try {
+      const { data } = await instance.patch<IResponseUser>("/user/me", {
+        name,
+        email,
+      });
+      return data;
     } catch (error: any) {
       const message =
         error?.response?.data?.message ??
