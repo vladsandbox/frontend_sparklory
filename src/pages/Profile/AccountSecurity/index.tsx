@@ -96,7 +96,7 @@ export default function AccountSecurity() {
                             error={!!(formik.touched.oldPassword && formik.errors.oldPassword)}
                             errorMessage={formik.touched.oldPassword ? formik.errors.oldPassword : undefined}
                         />
-                        <NavLink to="/profile/forgot-password" className={styles.forgotPassword}>
+                        <NavLink to="/forgot-password" className={styles.forgotPassword}>
                             Forgot Password?
                         </NavLink>
                     </div>

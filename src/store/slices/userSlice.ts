@@ -1,5 +1,5 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-import { checkAuth, loginUser, registration, resetPassword } from "../thunks/userThunk.ts";
+import { checkAuth, loginUser, registration, resetPassword, forgotPassword, resetForgottenPassword } from "../thunks/userThunk.ts";
 import type { IResponseUser, IResponseUserData } from "../../types/Auth";
 
 interface UserState {
@@ -89,6 +89,32 @@ const userSlice = createSlice({
                 state.resetPasswordError = '';
             })
             .addCase(resetPassword.rejected, (state, action: PayloadAction<string | undefined>) => {
+                state.resetPasswordLoading = false;
+                state.resetPasswordError = action.payload || "Failed to reset password";
+            })
+
+            // forgot password
+            .addCase(forgotPassword.pending, (state) => {
+                state.resetPasswordLoading = true;
+                state.resetPasswordError = "";
+            })
+            .addCase(forgotPassword.fulfilled, (state) => {
+                state.resetPasswordLoading = false;
+            })
+            .addCase(forgotPassword.rejected, (state, action) => {
+                state.resetPasswordLoading = false;
+                state.resetPasswordError = action.payload || "Failed to send reset email";
+            })
+
+            // reset forgotten password
+            .addCase(resetForgottenPassword.pending, (state) => {
+                state.resetPasswordLoading = true;
+                state.resetPasswordError = "";
+            })
+            .addCase(resetForgottenPassword.fulfilled, (state) => {
+                state.resetPasswordLoading = false;
+            })
+            .addCase(resetForgottenPassword.rejected, (state, action) => {
                 state.resetPasswordLoading = false;
                 state.resetPasswordError = action.payload || "Failed to reset password";
             });

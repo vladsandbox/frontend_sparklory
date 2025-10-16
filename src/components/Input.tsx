@@ -34,6 +34,7 @@ export default function Input({
     const isDisabled = disabled || isLoading;
 
     const inputType = isPassword && showPassword ? "text" : type;
+    const defaultWrapperClass = isPassword ? "passwordInputWrapper" : undefined;
 
     const rightIcon = isPassword ? (
         <img
@@ -50,7 +51,7 @@ export default function Input({
         <label className={clsx("text-xs", "label", labelClassName)}>
             {label}
             {iconLeft && <span className="input__icon input__icon--left">{iconLeft}</span>}
-            <div className={clsx(wrapperClassName)}>
+            <div className={clsx(defaultWrapperClass, wrapperClassName)}>
                 <input
                     id={id}
                     name={name}

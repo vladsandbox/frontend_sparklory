@@ -45,6 +45,9 @@ import orderConfirm from './images/orderConfirm.webp'
 import sparkloryBonus from './images/sparkloryBonus.webp'
 import arrowDown from './icons/arrow-down.svg'
 import eye from './icons/eye.svg'
+import forgotPass1 from './images/forgotPass1.webp'
+import forgotPass2 from './images/forgotPass2.webp'
+import forgotPass3 from './images/forgotPass3.webp'
 
 export {
   heart,
@@ -93,5 +96,8 @@ export {
   orderConfirm,
   sparkloryBonus,
   arrowDown,
-  eye
+  eye,
+  forgotPass1,
+  forgotPass2,
+  forgotPass3
 };
