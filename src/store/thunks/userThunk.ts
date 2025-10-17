@@ -7,8 +7,7 @@ import { instance } from "../../api/axios.api";
 
 import type {
     ILoginUserData,
-    IRegistrationUserData,
-    IResponseUser,
+    IRegistrationUserData, IResponseUser,
     IResponseUserData,
 } from "../../types/Auth";
 
@@ -53,7 +52,7 @@ export const registration = createAsyncThunk<
     IRegistrationUserData,
     { rejectValue: string }
 >(
-    "user/registration",
+    'user/registration',
     async (userData, { rejectWithValue }) => {
         try {
             const res = await instance.post(apiRegistrationUrl, userData);
@@ -61,9 +60,7 @@ export const registration = createAsyncThunk<
         } catch (error: unknown) {
             const message = axios.isAxiosError(error)
                 ? error.response?.data?.message || error.message
-                : error instanceof Error
-                    ? error.message
-                    : "Unknown error";
+                : error instanceof Error ? error.message : "Unknown error";
 
             return rejectWithValue(message);
         }
@@ -71,69 +68,73 @@ export const registration = createAsyncThunk<
 );
 
 export const loginUser = createAsyncThunk<
-    IResponseUserData,
-    ILoginUserData,
-    { rejectValue: string }
+  IResponseUserData,
+  ILoginUserData,
+  { rejectValue: string }
 >(
-    "user/loginUser",
-    async (userData, { rejectWithValue }) => {
-        try {
-            const res = await instance.post(apiLoginUrl, userData);
-            return res.data;
-        } catch (error: unknown) {
-            const message = axios.isAxiosError(error)
-                ? error.response?.data?.message || error.message
-                : error instanceof Error
-                    ? error.message
-                    : "Unknown error";
+  "user/loginUser",
+  async (userData, { rejectWithValue }) => {
+    try {
+      const res = await instance.post(apiLoginUrl, userData);
 
-            return rejectWithValue(message);
-        }
+      return res.data;
+    } catch (error: unknown) {
+      const message = axios.isAxiosError(error)
+        ? error.response?.data?.message || error.message
+        : error instanceof Error
+        ? error.message
+        : "Unknown error";
+
+      return rejectWithValue(message);
     }
+  }
 );
 
 export const verifyEmail = createAsyncThunk<
-    void,
-    { email: string; code: string },
-    { rejectValue: string }
+  void,
+  { email: string; code: string },
+  { rejectValue: string }
 >(
-    "user/verifyEmail",
-    async ({ email, code }, { rejectWithValue }) => {
-        try {
-            await instance.post(apiVerifyEmailUrl, { email, code });
-        } catch (error: unknown) {
-            let errorMessage = "Unknown error";
+  "user/verifyEmail",
+  async ({ email, code }, { rejectWithValue }) => {
+    try {
+      await instance.post(apiVerifyEmailUrl, {
+        email,
+        code
+      });
+    } catch (error: unknown) {
+        let errorMessage = "Unknown error";
 
-            if (axios.isAxiosError(error) && error.response) {
-                errorMessage = error.response.data.message || error.message;
-            } else if (error instanceof Error) {
-                errorMessage = error.message;
-            }
-
-            return rejectWithValue(errorMessage);
+        if (axios.isAxiosError(error) && error.response) {
+            errorMessage = error.response.data.message || error.message;
+        } else if (error instanceof Error) {
+            errorMessage = error.message;
         }
+
+        return rejectWithValue(errorMessage);
     }
+  }
 );
 
 export const resetPassword = createAsyncThunk<
-    void,
-    { previousPassword: string; newPassword: string },
-    { rejectValue: string }
+  void,
+  { previousPassword: string; newPassword: string },
+  { rejectValue: string }
 >(
-    "user/resetPassword",
-    async ({ previousPassword, newPassword }, { rejectWithValue }) => {
-        try {
-            await instance.patch("/user/me/password", {
-                previousPassword,
-                newPassword,
-            });
-        } catch (error: any) {
-            const message =
-                error?.response?.data?.message ??
-                (error instanceof Error ? error.message : "Unknown error");
-            return rejectWithValue(message);
-        }
+  "user/resetPassword",
+  async ({ previousPassword, newPassword }, { rejectWithValue }) => {
+    try {
+      await instance.patch("/user/me/password", {
+        previousPassword,
+        newPassword,
+      });
+    } catch (error: any) {
+      const message =
+        error?.response?.data?.message ??
+        (error instanceof Error ? error.message : "Unknown error");
+      return rejectWithValue(message);
     }
+  }
 );
 
 export const updateUser = createAsyncThunk<
