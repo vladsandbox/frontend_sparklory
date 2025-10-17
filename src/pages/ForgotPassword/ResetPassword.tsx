@@ -1,7 +1,7 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useDispatch } from "react-redux";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import type { AppDispatch } from "@/store";
@@ -13,6 +13,7 @@ import { forgotPass3 } from "@/assets";
 import styles from "./index.module.scss";
 
 export default function ResetPassword() {
+    const navigate = useNavigate()
     const dispatch = useDispatch<AppDispatch>();
     const [searchParams] = useSearchParams();
     const email = searchParams.get("email") || "";
@@ -38,6 +39,7 @@ export default function ResetPassword() {
                     })
                 ).unwrap();
                 toast.success("Password successfully changed!");
+                setTimeout(() => navigate("/login"), 2000)
             } catch (err: any) {
                 toast.error(err || "Failed to reset password");
             }
