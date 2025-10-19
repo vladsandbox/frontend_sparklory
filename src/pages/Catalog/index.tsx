@@ -66,7 +66,6 @@ export default function Catalog() {
         }
 
         dispatch(fetchProducts(params));
-
     }, [category, dispatch, searchParams]);
 
     useEffect(() => {
@@ -78,8 +77,6 @@ export default function Catalog() {
         if (category) {
             params.category = category;
         }
-        dispatch(fetchProducts(params));
-
     }, [category, currentPage, dispatch]);
 
     useEffect(() => {
