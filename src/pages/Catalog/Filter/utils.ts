@@ -1,9 +1,10 @@
-import type { ProductsFilterCounts } from "@/types/Products.ts";
+import { formatFacetLabel } from "@/utils/facet.ts";
 import {
     capitalizeFirstLetter,
     lowEachFirstLetter,
     spaceBetweenWords
-} from "@/components/wordsFormatting.ts";
+} from "@/utils/wordsFormatting.ts";
+import type { ProductsFilterCounts } from "@/types/Products.ts";
 
 export type FilterOption = {
     label: string;
@@ -22,29 +23,6 @@ type FilterSectionData = {
     title: string;
     options: FilterOption[];
 };
-
-const FACET_VALUE_LABELS: Record<string, Record<string, string>> = {
-    engraving: {
-        true: "With engraving",
-        false: "Without engraving",
-    },
-    gender: {
-        female: "Women’s",
-        male: "Men’s",
-        kids: "Kids",
-    },
-    subcategory: {
-        "": "No subcategory",
-    },
-};
-
-function formatFacetLabel(facet: string, raw: string): string {
-    const dict = FACET_VALUE_LABELS[facet];
-    if (dict && raw in dict) {
-        return dict[raw];
-    }
-    return capitalizeFirstLetter(raw) || "Other";
-}
 
 export function productsCountsToSections(
     productsCounts: ProductsFilterCounts

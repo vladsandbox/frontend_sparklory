@@ -1,7 +1,7 @@
+import { capitalizeFirstLetter } from "@/utils/wordsFormatting.ts";
 import type { Category, Subcategory } from "@/types/Categories.ts";
-import { capitalizeFirstLetter } from "@/components/wordsFormatting.ts";
-import { noImg } from "@/assets";
 
+import { noImg } from "@/assets";
 import "./index.scss";
 
 type Props = {
