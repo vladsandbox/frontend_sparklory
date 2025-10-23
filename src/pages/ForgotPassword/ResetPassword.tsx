@@ -1,10 +1,10 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
-import type { AppDispatch } from "@/store";
+import type { AppDispatch, RootState } from "@/store";
 import { resetForgottenPassword } from "@/store/thunks/userThunk";
 import Input from "@/components/Input";
 import Button from "@/components/Button";
@@ -13,6 +13,7 @@ import { forgotPass3 } from "@/assets";
 import styles from "./index.module.scss";
 
 export default function ResetPassword() {
+    const isLoading = useSelector((state: RootState) => state.user.resetPasswordLoading)
     const navigate = useNavigate()
     const dispatch = useDispatch<AppDispatch>();
     const [searchParams] = useSearchParams();
@@ -84,6 +85,7 @@ export default function ResetPassword() {
                         type="submit"
                         disabled={!formik.isValid}
                         style={{ width: "100%", marginTop: "20px" }}
+                        isLoading={isLoading}
                     >
                         Save
                     </Button>

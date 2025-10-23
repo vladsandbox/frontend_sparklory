@@ -29,7 +29,7 @@ import AccountSecurity from "./pages/Profile/AccountSecurity/index.tsx";
 import OrdersHistory from "./pages/Profile/OrdersHistory/index.tsx";
 import OrderDetails from "./pages/Profile/OrdersHistory/OrderDetails/index.tsx";
 import LayoutWithSearchBar from "@/components/Layout/LayoutWithSearchBar.tsx";
-import ForgotPassword from "./pages/ForgotPassword/ForgotPassword.tsx";
+import ForgotPassword from "./pages/ForgotPassword/index.tsx";
 import ResetPassword from "./pages/ForgotPassword/ResetPassword.tsx";
 
 const router = createBrowserRouter([
