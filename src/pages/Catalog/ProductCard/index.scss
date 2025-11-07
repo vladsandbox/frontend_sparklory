@@ -1,3 +1,4 @@
+@use "@/styles/skeleton" as skeleton;
 @use "@/styles/variables" as var;
 @use "@/styles/colors" as colors;
 @use "@/styles/mixins" as mixins;
@@ -91,7 +92,6 @@
     }
   }
 }
-
 
 .card-content {
   display: flex;
@@ -234,5 +234,25 @@
     gap: 14px;
     width: 100%;
     order: 4;
+  }
+}
+
+.skeleton-card {
+  border-radius: 12px;
+  background: colors.$skeleton-background;
+  border: 1px solid colors.$skeleton-border;
+
+  .skeleton-image {
+    width: 100%;
+    height: 320px;
+    background: colors.$skeleton-image;
+    border-radius: 12px 12px 0 0;
+  }
+
+  .skeleton-info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 18px 24px 24px;
   }
 }

@@ -1,16 +1,18 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import type { RootState, AppDispatch } from "@/store";
 
 import { fetchSearchResults } from "@/store/thunks/productsThunk";
 import { clearSearchResults } from "@/store/slices/productsSlice";
 import { useProductNavigation } from "@/utils/hooks/useProductNavigation";
+import type { RootState, AppDispatch } from "@/store";
+
 import Button from "@/components/Button.tsx";
+import Modal from "@/components/Modal";
+import ModalCatalog from "@/components/ModalCatalog";
 
-import styles from "./index.module.scss";
-
-import { search } from "@/assets";
 import Catalog from "@/assets/icons/catalog.svg?react";
+import { search } from "@/assets";
+import styles from "./index.module.scss";
 
 export default function CatalogSearchBar() {
     const { goToProduct } = useProductNavigation()
@@ -20,6 +22,8 @@ export default function CatalogSearchBar() {
 
     const [query, setQuery] = useState("");
     const [debouncedQuery, setDebouncedQuery] = useState("");
+
+    const [isModalOpen, setModalOpen] = useState(false);
 
     useEffect(() => {
         const handler = setTimeout(() => {
@@ -44,7 +48,11 @@ export default function CatalogSearchBar() {
 
     return (
         <div className={`wrapper ${styles.bar}`}>
-            <Button iconLeft={<Catalog />} className={`primary-btn btn--big ${styles.button}`}>
+            <Button
+                iconLeft={<Catalog />}
+                className={`primary-btn btn--big ${styles.button}`}
+                onClick={() => setModalOpen(true)}
+            >
                 Catalog
             </Button>
 
@@ -78,6 +86,13 @@ export default function CatalogSearchBar() {
                     </ul>
                 )}
             </div>
+
+            <Modal
+                title="Catalog"
+                children={<ModalCatalog handleClose={() => setModalOpen(false)}/>}
+                isOpen={isModalOpen}
+                onClose={() => setModalOpen(false)}
+            />
         </div>
     );
 }

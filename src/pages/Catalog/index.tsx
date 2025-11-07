@@ -5,9 +5,9 @@ import { useEffect, useMemo, useCallback, useState } from "react";
 import { fetchProducts } from "@/store/thunks/productsThunk";
 import type { AppDispatch, RootState } from "@/store";
 
+import { capitalizeFirstLetter, spaceBetweenWords } from "@/utils/wordsFormatting.ts";
 import ProductsListFilterSection from "@/pages/Catalog/ProductsList/ProductsListFilterSection.tsx";
 import CatalogSubcategoriesSlider from "@/pages/Catalog/SubcategoriesSlider";
-import { capitalizeFirstLetter, spaceBetweenWords } from "@/components/wordsFormatting.ts";
 import SubscribeSection from "@/components/SubscribeSection";
 import CatalogProductsList from "./ProductsList";
 import Filter from "./Filter";
@@ -67,7 +67,6 @@ export default function Catalog() {
         }
 
         dispatch(fetchProducts(params));
-
     }, [category, dispatch, searchParams]);
 
     useEffect(() => {
@@ -79,8 +78,6 @@ export default function Catalog() {
         if (category) {
             params.category = category;
         }
-        dispatch(fetchProducts(params));
-
     }, [category, currentPage, dispatch]);
 
     useEffect(() => {

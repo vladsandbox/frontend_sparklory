@@ -105,6 +105,17 @@
     }
 }
 
+.btn--clear,
+.btn--clear:hover,
+.btn--clear:active,
+.btn--clear:disabled {
+    background-color: transparent;
+    color: $color-button;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+}
+
 /* SIZES */
 
 .btn--normal {

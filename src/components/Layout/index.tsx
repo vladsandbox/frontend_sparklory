@@ -35,7 +35,7 @@ const Layout = () => {
                         </div>
 
                         <nav className={styles['nav-links']}>
-                            <NavLink className="h3" to="/best-sellers">Best sellers</NavLink>
+                            <NavLink className="h3" to="/catalog?action=best+seller">Best sellers</NavLink>
                             <NavLink className="h3" to="/gifts">Gifts</NavLink>
                             <NavLink className="h3" to="/community">Community</NavLink>
                             <NavLink className="h3" to="/company">Company</NavLink>

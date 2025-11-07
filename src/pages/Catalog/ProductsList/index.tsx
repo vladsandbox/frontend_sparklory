@@ -1,5 +1,7 @@
 import type { PaginatedProductsResponse } from "@/types/Pagination.ts";
 
+import SkeletonProductCard from "@/pages/Catalog/ProductCard/SkeletonProductCard.tsx";
+import ProductsListFilterSection from "./ProductsListFilterSection";
 import CatalogProductCard from "../ProductCard";
 import CatalogPagination from "../Pagination";
 
@@ -16,7 +18,13 @@ export default function CatalogProductsList({ data, loading, changePage, current
     const { products, pages } = data;
 
     if (loading) {
-        return <p className="loading">Loading...</p>;
+        return (
+            <div className="catalog-products-wrapper">
+                {Array.from({ length: 12 }).map((_, i) => (
+                    <SkeletonProductCard key={i} />
+                ))}
+            </div>
+        );
     }
 
     if (!data) {

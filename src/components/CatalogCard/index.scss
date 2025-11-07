@@ -1,3 +1,6 @@
+@use "@/styles/skeleton" as skeleton;
+@use "@/styles/colors" as colors;
+
 .catalog-card {
   display: flex;
   flex-direction: column;
@@ -12,9 +15,10 @@
     width: 200px;
     height: 200px;
     border-radius: 12px;
+    object-fit: cover;
 
     &.has-border {
-      border: 1px solid var(--buttons, #5E4B4B);
+      border: 1px solid var(--buttons, colors.$color-button);
     }
 
     &.is-fallback {
@@ -22,5 +26,22 @@
       overflow: hidden;
       object-fit: contain;
     }
+  }
+}
+
+.skeleton-catalog-card {
+  width: 200px;
+  cursor: none;
+  background: colors.$skeleton-background;
+
+  .skeleton-image {
+    width: 200px;
+    height: 200px;
+    border-radius: 12px;
+    background: colors.$skeleton-image;
+  }
+
+  .skeleton-line {
+    border-radius: 6px;
   }
 }

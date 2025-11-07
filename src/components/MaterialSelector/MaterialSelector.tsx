@@ -1,9 +1,10 @@
-import { noImg } from "@/assets";
-import type { Material } from "./materials.ts";
-import styles from "./index.module.scss";
-
 import Tippy from '@tippyjs/react';
 import { roundArrow } from 'tippy.js';
+
+import type { Material } from "./materials.ts";
+
+import { noImg } from "@/assets";
+import styles from "./index.module.scss";
 
 type Props = {
     productId: string;
