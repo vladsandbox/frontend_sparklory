@@ -6,6 +6,7 @@ import { fetchProducts } from "@/store/thunks/productsThunk";
 import type { AppDispatch, RootState } from "@/store";
 
 import { capitalizeFirstLetter, spaceBetweenWords } from "@/utils/wordsFormatting.ts";
+import ProductsListFilterSection from "@/pages/Catalog/ProductsList/ProductsListFilterSection.tsx";
 import CatalogSubcategoriesSlider from "@/pages/Catalog/SubcategoriesSlider";
 import SubscribeSection from "@/components/SubscribeSection";
 import CatalogProductsList from "./ProductsList";
@@ -109,12 +110,12 @@ export default function Catalog() {
                     <title>{pageTitle}</title>
                     <h1 className="catalog-title">{pageTitle}</h1>
                     {category && <CatalogSubcategoriesSlider category={category} />}
+                    <ProductsListFilterSection total={data.total} loading={loading} onFilterOpen={openFilter}/>
                     <CatalogProductsList
                         data={data}
                         loading={loading}
                         changePage={changePage}
                         currentPage={currentPage}
-                        onFilterOpen={openFilter}
                     />
                 </div>
                 <SubscribeSection imageSrc={subscribeImg}/>

@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 
 import SkeletonCatalogCard from "@/components/CatalogCard/SkeletonCatalogCard.tsx";
-import { allToLowerCase } from "@/components/wordsFormatting.ts";
+import { allToLowerCase } from "@/utils/wordsFormatting.ts";
 import CatalogCard from "@/components/CatalogCard";
 import type { Category } from "@/types/Categories.ts";
 
