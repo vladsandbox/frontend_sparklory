@@ -2,14 +2,14 @@ import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 import { logout } from "../slices/userSlice";
-import { getLocalStorage } from "../../utils/localStorage";
-import { instance } from "../../api/axios.api";
+import { getLocalStorage } from "@/utils/localStorage";
+import { instance } from "@/api/axios.api";
 
 import type {
     ILoginUserData,
     IRegistrationUserData, IResponseUser,
     IResponseUserData,
-} from "../../types/Auth";
+} from "@/types/Auth";
 
 const apiLoginUrl = import.meta.env.VITE_APP_LOGIN_URL ?? "";
 const apiRegistrationUrl = import.meta.env.VITE_APP_REGISTRATION_URL ?? "";

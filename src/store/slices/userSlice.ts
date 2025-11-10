@@ -1,6 +1,6 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-import { checkAuth, loginUser, registration, resetPassword, updateUser } from "../thunks/userThunk.ts";
-import type { IResponseUser, IResponseUserData } from "../../types/Auth";
+import { checkAuth, loginUser, registration, resetPassword, updateUser } from "@/store/thunks/userThunk.ts";
+import type { IResponseUser, IResponseUserData } from "@/types/Auth";
 
 interface UserState {
     user: IResponseUser | null;
