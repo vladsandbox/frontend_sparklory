@@ -2,7 +2,7 @@ import React from "react";
 
 export type Button = {
     children?: React.ReactNode;
-    variant?: "primary" | "secondary" | "secondary-white";
+    variant?: "primary" | "secondary" | "secondary-white" | "empty" | "clear";
     size?: "normal" | "big";
     iconLeft?: React.ReactNode;
     iconRight?: React.ReactNode;

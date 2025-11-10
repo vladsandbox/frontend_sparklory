@@ -19,4 +19,9 @@
     font-size: var.$font-title-m-size;
     font-weight: 300;
   }
+
+  &-buttons {
+    display: flex;
+    gap: 16px;
+  }
 }

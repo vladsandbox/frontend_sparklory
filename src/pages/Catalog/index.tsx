@@ -1,18 +1,19 @@
 import { useParams, useSearchParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useMemo, useCallback, useState } from "react";
-import subscribeImg from "@/assets/images/subscribe-img-2.png";
 
 import { fetchProducts } from "@/store/thunks/productsThunk";
 import type { AppDispatch, RootState } from "@/store";
 
+import { capitalizeFirstLetter, spaceBetweenWords } from "@/utils/wordsFormatting.ts";
+import ProductsListFilterSection from "@/pages/Catalog/ProductsList/ProductsListFilterSection.tsx";
 import CatalogSubcategoriesSlider from "@/pages/Catalog/SubcategoriesSlider";
 import SubscribeSection from "@/components/SubscribeSection";
 import CatalogProductsList from "./ProductsList";
 import Filter from "./Filter";
 
+import subscribeImg from "@/assets/images/subscribe-img-2.png";
 import "./index.scss";
-import { capitalizeFirstLetter, spaceBetweenWords } from "@/components/wordsFormatting.ts";
 
 export default function Catalog() {
     const { category } = useParams<{ category?: string }>();
@@ -66,7 +67,6 @@ export default function Catalog() {
         }
 
         dispatch(fetchProducts(params));
-
     }, [category, dispatch, searchParams]);
 
     useEffect(() => {
@@ -78,8 +78,6 @@ export default function Catalog() {
         if (category) {
             params.category = category;
         }
-        dispatch(fetchProducts(params));
-
     }, [category, currentPage, dispatch]);
 
     useEffect(() => {
@@ -112,12 +110,12 @@ export default function Catalog() {
                     <title>{pageTitle}</title>
                     <h1 className="catalog-title">{pageTitle}</h1>
                     {category && <CatalogSubcategoriesSlider category={category} />}
+                    <ProductsListFilterSection total={data.total} loading={loading} onFilterOpen={openFilter}/>
                     <CatalogProductsList
                         data={data}
                         loading={loading}
                         changePage={changePage}
                         currentPage={currentPage}
-                        onFilterOpen={openFilter}
                     />
                 </div>
                 <SubscribeSection imageSrc={subscribeImg}/>

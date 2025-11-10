@@ -29,6 +29,8 @@ import AccountSecurity from "./pages/Profile/AccountSecurity/index.tsx";
 import OrdersHistory from "./pages/Profile/OrdersHistory/index.tsx";
 import OrderDetails from "./pages/Profile/OrdersHistory/OrderDetails/index.tsx";
 import LayoutWithSearchBar from "@/components/Layout/LayoutWithSearchBar.tsx";
+import ForgotPassword from "./pages/ForgotPassword/index.tsx";
+import ResetPassword from "./pages/ForgotPassword/ResetPassword.tsx";
 
 const router = createBrowserRouter([
   {
@@ -49,6 +51,8 @@ const router = createBrowserRouter([
           <OrderConfirmation />
         )
       },
+      { path: "forgot-password", element: <ForgotPassword /> },
+      { path: "reset-password", element: <ResetPassword /> },
 
       /* Layout with the search bar routes */
       {
@@ -62,9 +66,9 @@ const router = createBrowserRouter([
           {
             path: "profile",
             element: (
-                <PrivateRoute>
-                  <Profile />
-                </PrivateRoute>
+              <PrivateRoute>
+                <Profile />
+              </PrivateRoute>
             ),
             children: [
               { index: true, element: <Navigate to="contact" replace /> },
@@ -83,9 +87,9 @@ const router = createBrowserRouter([
           { path: "cart", element: <ShopCart /> },
           {
             path: "order-checkout", element: (
-                <PrivateOrderCheckout>
-                  <OrderCheckout />
-                </PrivateOrderCheckout>
+              <PrivateOrderCheckout>
+                <OrderCheckout />
+              </PrivateOrderCheckout>
             )
           },
 

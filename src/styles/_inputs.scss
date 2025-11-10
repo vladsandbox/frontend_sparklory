@@ -54,3 +54,14 @@
     right: 12.5px;
   }
 }
+
+.passwordInputWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  input {
+    width: 100%;
+    padding-right: 40px;
+  }
+}

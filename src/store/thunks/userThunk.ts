@@ -158,3 +158,43 @@ export const updateUser = createAsyncThunk<
         }
     }
 );
+
+export const forgotPassword = createAsyncThunk<
+  void,
+  { email: string },
+  { rejectValue: string }
+>(
+  "user/forgotPassword",
+  async ({ email }, { rejectWithValue }) => {
+    try {
+      await instance.post("/auth/forgot-password", { email });
+    } catch (error: any) {
+      const message =
+        error?.response?.data?.message ??
+        (error instanceof Error ? error.message : "Unknown error");
+      return rejectWithValue(message);
+    }
+  }
+);
+
+export const resetForgottenPassword = createAsyncThunk<
+  void,
+  { email: string; code: string; newPassword: string },
+  { rejectValue: string }
+>(
+  "user/resetForgottenPassword",
+  async ({ email, code, newPassword }, { rejectWithValue }) => {
+    try {
+      await instance.post("/auth/reset-password", {
+        email,
+        code,
+        newPassword,
+      });
+    } catch (error: any) {
+      const message =
+        error?.response?.data?.message ??
+        (error instanceof Error ? error.message : "Unknown error");
+      return rejectWithValue(message);
+    }
+  }
+);

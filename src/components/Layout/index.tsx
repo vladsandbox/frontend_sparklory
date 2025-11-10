@@ -1,4 +1,4 @@
-import { Outlet, NavLink } from 'react-router-dom';
+import { Outlet, NavLink, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from 'react';
 
@@ -22,6 +22,9 @@ const Layout = () => {
     useEffect(() => {
         dispatch(fetchCartProducts({ guest: !isAuth }));
     }, [dispatch, isAuth]);
+
+    const location = useLocation();
+    const paddingTop = location.pathname === "/forgot-password" ? 0 : 24;
 
     return (
         <>
@@ -76,7 +79,7 @@ const Layout = () => {
                 </div>
             </header>
 
-            <main style={{ paddingTop: 24 }}>
+            <main style={{ paddingTop }}>
                 <Outlet />
             </main>
 
