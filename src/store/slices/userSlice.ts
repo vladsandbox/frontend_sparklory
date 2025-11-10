@@ -1,5 +1,5 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-import { checkAuth, loginUser, registration, resetPassword, forgotPassword, resetForgottenPassword } from "@/store/thunks/userThunk.ts";
+import { checkAuth, loginUser, registration, resetPassword, updateUser, forgotPassword, resetForgottenPassword } from "@/store/thunks/userThunk.ts";
 import type { IResponseUser, IResponseUserData } from "@/types/Auth";
 
 interface UserState {
@@ -96,6 +96,20 @@ const userSlice = createSlice({
                 state.resetPasswordError = action.payload || "Failed to reset password";
             })
 
+            // updateUser
+            .addCase(updateUser.pending, (state) => {
+                state.loading = true;
+                state.error = "";
+            })
+            .addCase(updateUser.fulfilled, (state, action: PayloadAction<IResponseUser>) => {
+                state.loading = false;
+                state.error = "";
+                state.user = action.payload;
+            })
+            .addCase(updateUser.rejected, (state, action: PayloadAction<string | undefined>) => {
+                state.loading = false;
+                state.error = action.payload || "Failed to update user";
+          
             // forgot password
             .addCase(forgotPassword.pending, (state) => {
                 state.resetPasswordLoading = true;

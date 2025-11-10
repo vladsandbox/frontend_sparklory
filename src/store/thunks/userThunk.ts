@@ -2,14 +2,14 @@ import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 import { logout } from "../slices/userSlice";
-import { getLocalStorage } from "../../utils/localStorage";
-import {instance} from "../../api/axios.api";
+import { getLocalStorage } from "@/utils/localStorage";
+import { instance } from "@/api/axios.api";
 
 import type {
     ILoginUserData,
     IRegistrationUserData, IResponseUser,
     IResponseUserData,
-} from "../../types/Auth";
+} from "@/types/Auth";
 
 const apiLoginUrl = import.meta.env.VITE_APP_LOGIN_URL ?? "";
 const apiRegistrationUrl = import.meta.env.VITE_APP_REGISTRATION_URL ?? "";
@@ -135,6 +135,28 @@ export const resetPassword = createAsyncThunk<
       return rejectWithValue(message);
     }
   }
+);
+
+export const updateUser = createAsyncThunk<
+    IResponseUser,
+    { name: string; email: string },
+    { rejectValue: string }
+>(
+    "user/updateUser",
+    async ({ name, email }, { rejectWithValue }) => {
+        try {
+            const { data } = await instance.patch<IResponseUser>("/user/me", {
+                name,
+                email,
+            });
+            return data;
+        } catch (error: any) {
+            const message =
+                error?.response?.data?.message ??
+                (error instanceof Error ? error.message : "Unknown error");
+            return rejectWithValue(message);
+        }
+    }
 );
 
 export const forgotPassword = createAsyncThunk<
