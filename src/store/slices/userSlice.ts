@@ -109,6 +109,7 @@ const userSlice = createSlice({
             .addCase(updateUser.rejected, (state, action: PayloadAction<string | undefined>) => {
                 state.loading = false;
                 state.error = action.payload || "Failed to update user";
+            })
           
             // forgot password
             .addCase(forgotPassword.pending, (state) => {
