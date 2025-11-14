@@ -1,7 +1,6 @@
 import type { PaginatedProductsResponse } from "@/types/Pagination.ts";
 
 import SkeletonProductCard from "@/pages/Catalog/ProductCard/SkeletonProductCard.tsx";
-import ProductsListFilterSection from "./ProductsListFilterSection";
 import CatalogProductCard from "../ProductCard";
 import CatalogPagination from "../Pagination";
 
