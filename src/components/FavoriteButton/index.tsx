@@ -32,7 +32,7 @@ export default function FavoriteButton({ productId, initialFavorite = false, onT
         setIsFavorite(shouldBeFavorite);
       }
     }
-  }, [wishlist, productId, isAuth]);
+  }, [wishlist, productId, isAuth, isFavorite]);
 
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {

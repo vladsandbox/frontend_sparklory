@@ -37,7 +37,7 @@ export default function OrderDetails() {
                     );
             }
         });
-    }, [order]);
+    }, [order, productsData]);
 
     if (!order) {
         return <p>Order not found</p>;
