@@ -11,8 +11,7 @@ This is the frontend for **Sparklory**, a modern and elegant e-commerce applicat
 *   **Wishlist:** Ability to add products to a personal wishlist with persistence for both guests and logged-in users.
 *   **Checkout Process:** A multi-step checkout process with shipping address validation, delivery method selection, and payment processing.
 *   **Customer Profile:** A dedicated user dashboard with contact information, account security, and a detailed order history.
-*   **Customer Reviews:** Users can leave reviews and upload photos for products they've purchased.
-*   **Responsive Design:** The interface is optimized for a seamless experience across various devices, from mobile to desktop.
+*   **Customer Reviews:** Users can leave reviews for products they've purchased.
 
 ## 🛠️ Tech Stack
 
