@@ -11,6 +11,7 @@ $color-button: rgba(94, 75, 75, 1);
 $color-button-hover: rgba(81, 62, 62, 1);
 $color-slider: rgba(211, 190, 170, 1);
 $color-background-ratings: rgba(211, 190, 170, 0.3);
+$color-checkbox-label: rgb(92, 74, 60);
 
 // Gradient
 $gradient-background: linear-gradient(
@@ -19,3 +20,13 @@ $gradient-background: linear-gradient(
   rgba(211, 190, 170, 0.8) 73.94%,
   rgba(211, 190, 170, 0.8) 100%
 );
+
+// Tag
+$tag-background: rgb(234, 224, 213);
+$tag-color: rgb(92, 74, 60);
+
+// Skeleton
+$skeleton-background: rgb(245, 245, 245);
+$skeleton-border: rgb(221, 221, 221);
+$skeleton-image: rgb(224, 224, 224);
+$skeleton-shimmer: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);

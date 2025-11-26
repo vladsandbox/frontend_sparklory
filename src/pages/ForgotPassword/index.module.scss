@@ -1,0 +1,32 @@
+.wrapper {
+    padding-left: 172px !important;
+    display: flex;
+    justify-content: space-between;
+}
+
+.content {
+    max-width: 424px;
+    display: flex;
+    align-items: center;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+
+    button {
+        width: 100%;
+    }
+}
+
+.inputWrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+
+    input {
+        width: 100%;
+        padding-right: 40px;
+    }
+}

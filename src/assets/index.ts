@@ -11,12 +11,6 @@ import slider_3 from './images/slider-3.webp';
 import slider_4 from './images/slider-4.webp'
 import arrow_left from './icons/arrow-left.svg';
 import arrow_right from './icons/arrow-right.svg';
-import bracelets from './images/bracelets.png';
-import earrings from './images/earrings.png';
-import mens from './images/mens.png';
-import necklaces from './images/necklaces.png';
-import rings from './images/rings.png';
-import watches from './images/watches.png';
 import whiteGold from './icons/white-gold.svg';
 import gold from './icons/gold.svg';
 import silver from './icons/silver.svg'
@@ -42,6 +36,12 @@ import cardPos from './icons/card-pos.svg'
 import getNotified from './icons/getNotified.svg'
 import closeBtnSubscribe from './icons/closeBtnSubscribe.svg'
 import orderConfirm from './images/orderConfirm.webp'
+import sparkloryBonus from './images/sparkloryBonus.webp'
+import arrowDown from './icons/arrow-down.svg'
+import eye from './icons/eye.svg'
+import forgotPass1 from './images/forgotPass1.webp'
+import forgotPass2 from './images/forgotPass2.webp'
+import forgotPass3 from './images/forgotPass3.webp'
 
 export {
   heart,
@@ -57,12 +57,6 @@ export {
   slider_4,
   arrow_left,
   arrow_right,
-  bracelets,
-  earrings,
-  mens,
-  necklaces,
-  rings,
-  watches,
   silver,
   gold,
   whiteGold,
@@ -87,5 +81,11 @@ export {
   cardPos,
   getNotified,
   closeBtnSubscribe,
-  orderConfirm
+  orderConfirm,
+  sparkloryBonus,
+  arrowDown,
+  eye,
+  forgotPass1,
+  forgotPass2,
+  forgotPass3
 };

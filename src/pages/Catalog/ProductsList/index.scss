@@ -20,6 +20,8 @@
     font-weight: 300;
   }
 
-  .catalog-filter-interactive {
+  &-buttons {
+    display: flex;
+    gap: 16px;
   }
 }

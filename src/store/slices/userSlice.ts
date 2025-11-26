@@ -1,19 +1,23 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-import { checkAuth, loginUser, registration } from "../thunks/userThunk.ts";
-import type { IResponseUser, IResponseUserData } from "../../types/Auth";
+import { checkAuth, loginUser, registration, resetPassword, updateUser, forgotPassword, resetForgottenPassword } from "@/store/thunks/userThunk.ts";
+import type { IResponseUser, IResponseUserData } from "@/types/Auth";
 
 interface UserState {
     user: IResponseUser | null;
     isAuth: boolean,
     loading: boolean
     error: string
+    resetPasswordLoading: boolean;
+    resetPasswordError: string;
 }
 
 const initialState: UserState = {
     user: null,
     isAuth: false,
     loading: false,
-    error: ''
+    error: '',
+    resetPasswordLoading: false,
+    resetPasswordError: ''
 }
 
 const userSlice = createSlice({
@@ -23,10 +27,14 @@ const userSlice = createSlice({
         logout: (state) => {
             state.user = null;
             state.isAuth = false;
+        },
+        clearResetPasswordError: (state) => {
+            state.resetPasswordError = '';
         }
     },
     extraReducers: (builder) => {
         builder
+            // check authentication
             .addCase(checkAuth.pending, (state) => {
                 state.loading = true;
                 state.error = '';
@@ -72,9 +80,64 @@ const userSlice = createSlice({
             .addCase(loginUser.rejected, (state, action: PayloadAction<string | undefined>) => {
                 state.loading = false;
                 state.error = action.payload || "Login failed";
+            })
+
+            // reset password in profile page
+            .addCase(resetPassword.pending, (state) => {
+                state.resetPasswordLoading = true;
+                state.resetPasswordError = '';
+            })
+            .addCase(resetPassword.fulfilled, (state) => {
+                state.resetPasswordLoading = false;
+                state.resetPasswordError = '';
+            })
+            .addCase(resetPassword.rejected, (state, action: PayloadAction<string | undefined>) => {
+                state.resetPasswordLoading = false;
+                state.resetPasswordError = action.payload || "Failed to reset password";
+            })
+
+            // updateUser
+            .addCase(updateUser.pending, (state) => {
+                state.loading = true;
+                state.error = "";
+            })
+            .addCase(updateUser.fulfilled, (state, action: PayloadAction<IResponseUser>) => {
+                state.loading = false;
+                state.error = "";
+                state.user = action.payload;
+            })
+            .addCase(updateUser.rejected, (state, action: PayloadAction<string | undefined>) => {
+                state.loading = false;
+                state.error = action.payload || "Failed to update user";
+            })
+          
+            // forgot password
+            .addCase(forgotPassword.pending, (state) => {
+                state.resetPasswordLoading = true;
+                state.resetPasswordError = "";
+            })
+            .addCase(forgotPassword.fulfilled, (state) => {
+                state.resetPasswordLoading = false;
+            })
+            .addCase(forgotPassword.rejected, (state, action) => {
+                state.resetPasswordLoading = false;
+                state.resetPasswordError = action.payload || "Failed to send reset email";
+            })
+
+            // reset forgotten password
+            .addCase(resetForgottenPassword.pending, (state) => {
+                state.resetPasswordLoading = true;
+                state.resetPasswordError = "";
+            })
+            .addCase(resetForgottenPassword.fulfilled, (state) => {
+                state.resetPasswordLoading = false;
+            })
+            .addCase(resetForgottenPassword.rejected, (state, action) => {
+                state.resetPasswordLoading = false;
+                state.resetPasswordError = action.payload || "Failed to reset password";
             });
     }
 })
 
-export const { logout } = userSlice.actions;
+export const { logout, clearResetPasswordError } = userSlice.actions;
 export default userSlice.reducer;

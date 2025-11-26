@@ -10,6 +10,7 @@ import { isValidEmail } from "@/utils/validation";
 import styles from "./index.module.scss";
 
 import CloseBtn from "@/assets/icons/closeBtnSubscribe.svg?react"
+import Input from "../Input";
 
 type Props = {
     productId: string;
@@ -51,18 +52,18 @@ export default function SubscribePopup({ productId, onClose }: Props) {
 
                 <form onSubmit={handleSubmit}>
                     <div className={styles.inputWrapper}>
-                        <input
+                        <Input
                             type="email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             onBlur={() => setTouched(true)}
                             placeholder="E-mail"
-                            required
-                            className={`primary-input input ${isInvalid ? "error-state" : ""}`}
-                            style={{ width: "100%" }}
+                            error={isInvalid}
                         />
                         {isInvalid && (
-                            <p className={`input-error ${styles.inputError}`}>Please enter a valid email</p>
+                            <p className={`input-error ${styles.inputError}`}>
+                                Please enter a valid email
+                            </p>
                         )}
                     </div>
 

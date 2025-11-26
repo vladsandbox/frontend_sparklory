@@ -1,25 +1,45 @@
-import { useState, useMemo } from "react";
-import { useSelector } from "react-redux";
-import type { RootState } from "@/store";
+import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
+import { fetchSearchResults } from "@/store/thunks/productsThunk";
+import { clearSearchResults } from "@/store/slices/productsSlice";
 import { useProductNavigation } from "@/utils/hooks/useProductNavigation";
-import { search } from "@/assets";
-import Catalog from "@/assets/icons/catalog.svg?react"
-import styles from "./index.module.scss";
+import type { RootState, AppDispatch } from "@/store";
+
 import Button from "@/components/Button.tsx";
+import Modal from "@/components/Modal";
+import ModalCatalog from "@/components/ModalCatalog";
+
+import Catalog from "@/assets/icons/catalog.svg?react";
+import { search } from "@/assets";
+import styles from "./index.module.scss";
 
 export default function CatalogSearchBar() {
     const { goToProduct } = useProductNavigation()
-    const products = useSelector((state: RootState) => state.products.data.products);
-    const loading = useSelector((state: RootState) => state.products.loading);
-    const [query, setQuery] = useState("");
+    const dispatch = useDispatch<AppDispatch>()
+    const searchResults = useSelector((state: RootState) => state.products.searchResults);
+    const searchLoading = useSelector((state: RootState) => state.products.searchLoading);
 
-    const filteredProducts = useMemo(() => {
-        if (!query.trim()) return [];
-        return products.filter((p) =>
-            p.name.toLowerCase().includes(query.toLowerCase())
-        );
-    }, [query, products]);
+    const [query, setQuery] = useState("");
+    const [debouncedQuery, setDebouncedQuery] = useState("");
+
+    const [isModalOpen, setModalOpen] = useState(false);
+
+    useEffect(() => {
+        const handler = setTimeout(() => {
+            setDebouncedQuery(query);
+        }, 300);
+
+        return () => clearTimeout(handler);
+    }, [query]);
+
+    useEffect(() => {
+        if (!debouncedQuery.trim()) {
+            dispatch(clearSearchResults());
+        } else {
+            dispatch(fetchSearchResults({ query: debouncedQuery }));
+        }
+    }, [debouncedQuery, dispatch]);
 
     const handleClick = (id: string) => {
         setQuery("");
@@ -28,7 +48,11 @@ export default function CatalogSearchBar() {
 
     return (
         <div className={`wrapper ${styles.bar}`}>
-            <Button iconLeft={<Catalog />} className={`primary-btn btn--big ${styles.button}`}>
+            <Button
+                iconLeft={<Catalog />}
+                className={`primary-btn btn--big ${styles.button}`}
+                onClick={() => setModalOpen(true)}
+            >
                 Catalog
             </Button>
 
@@ -44,15 +68,14 @@ export default function CatalogSearchBar() {
 
                 {query && (
                     <ul className={styles.results}>
-                        {loading ? (
+                        {searchLoading ? (
                             <li className="input">Loading...</li>
-                        ) : filteredProducts.length > 0 ? (
-                            filteredProducts.slice(0, 5).map((product) => (
+                        ) : searchResults.length > 0 ? (
+                            searchResults.slice(0, 5).map((product) => (
                                 <li
                                     key={product._id}
                                     className="input"
                                     onClick={() => handleClick(product._id)}
-                                    style={{ cursor: "pointer" }}
                                 >
                                     {product.name}
                                 </li>
@@ -63,6 +86,13 @@ export default function CatalogSearchBar() {
                     </ul>
                 )}
             </div>
+
+            <Modal
+                title="Catalog"
+                children={<ModalCatalog handleClose={() => setModalOpen(false)}/>}
+                isOpen={isModalOpen}
+                onClose={() => setModalOpen(false)}
+            />
         </div>
     );
 }

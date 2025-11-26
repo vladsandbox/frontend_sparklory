@@ -7,13 +7,12 @@ import type { RootState, AppDispatch } from "@/store";
 import { fetchCartProducts } from "@/store/thunks/cartThunk";
 import { useAuth } from "@/utils/hooks/useAuth";
 import CartTotals from "../ShoppingCart/CartTotals/CartTotals";
-import CheckoutInputField from "./CheckoutInputField";
 import DeliveryMethodSelector from "./DeliveryMethodSelector";
 import { deliveryMethods, type DeliveryMethod } from "./deliveryMethods";
 import Payment from "./Payment";
 import { normalizePrice } from "@/utils/formatPrice";
 import Button from "@/components/Button";
-import CatalogSearchBar from "@/components/CatalogSearchBar";
+import Input from "@/components/Input";
 
 import styles from "./index.module.scss";
 import { deliveryCar } from "@/assets";
@@ -82,8 +81,6 @@ export default function OrderCheckout() {
     };
 
     return (
-        <>
-        <CatalogSearchBar />
         <div className="wrapper">
             <div className={styles.container}>
                 <div className={styles.contactInfoCointainer}>
@@ -91,43 +88,50 @@ export default function OrderCheckout() {
 
                     {step === 1 && (
                         <div className={styles.formBlock}>
-                            <CheckoutInputField
+                            <Input
                                 label="Full Name"
+                                labelClassName={styles.label}
+                                placeholder="Full Name"
                                 value={formik.values.name}
-                                error={formik.touched.name ? formik.errors.name : undefined}
-                                onChange={(val) => formik.setFieldValue("name", val)}
+                                onChange={(e) => formik.setFieldValue("name", e.target.value)}
+                                error={!!(formik.touched.name && formik.errors.name)}
+                                errorMessage={formik.touched.name ? formik.errors.name : undefined}
                             />
-                            <CheckoutInputField
+                            <Input
                                 label="Delivery Address"
+                                labelClassName={styles.label}
+                                placeholder="Delivery Address"
                                 value={formik.values.address}
-                                error={formik.touched.address ? formik.errors.address : undefined}
-                                onChange={(val) => formik.setFieldValue("address", val)}
+                                onChange={(e) => formik.setFieldValue("address", e.target.value)}
+                                error={!!(formik.touched.address && formik.errors.address)}
+                                errorMessage={formik.touched.address ? formik.errors.address : undefined}
                             />
-                            <CheckoutInputField
+                            <Input
                                 label="Phone Number"
+                                labelClassName={styles.label}
                                 type="tel"
+                                placeholder="Phone Number"
                                 value={formik.values.phone}
-                                error={formik.touched.phone ? formik.errors.phone : undefined}
-                                onChange={(val) => {
-                                    let sanitized = val.replace(/[^0-9+]/g, "");
-
+                                onChange={(e) => {
+                                    let sanitized = e.target.value.replace(/[^0-9+]/g, "");
                                     if (sanitized.includes("+")) {
-                                        sanitized =
-                                            "+" + sanitized.replace(/\+/g, "").replace(/^0+/, "");
+                                        sanitized = "+" + sanitized.replace(/\+/g, "").replace(/^0+/, "");
                                     }
-
                                     sanitized = sanitized.slice(0, 15);
-
                                     formik.setFieldValue("phone", sanitized);
                                 }}
+                                error={!!(formik.touched.phone && formik.errors.phone)}
+                                errorMessage={formik.touched.phone ? formik.errors.phone : undefined}
                             />
                             {!isAuth && (
-                                <CheckoutInputField
+                                <Input
                                     label="Email Address"
                                     type="email"
+                                    placeholder="Email Address"
                                     value={formik.values.email}
-                                    error={formik.touched.email ? formik.errors.email : undefined}
-                                    onChange={(val) => formik.setFieldValue("email", val)}
+                                    onChange={(e) => formik.setFieldValue("email", e.target.value)}
+                                    error={!!(formik.touched.email && formik.errors.email)}
+                                    errorMessage={formik.touched.email ? formik.errors.email : undefined}
                                 />
                             )}
                             <Button
@@ -209,6 +213,5 @@ export default function OrderCheckout() {
                 </div>
             </div>
         </div>
-        </>
     );
 }

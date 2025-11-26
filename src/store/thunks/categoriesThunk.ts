@@ -17,7 +17,7 @@ export const fetchCategories = createAsyncThunk<
     async (_, { rejectWithValue }) => {
         try {
             const response = await instance.get(apiCategoriesUrl);
-            return response.data;
+            return response.data.categories;
         } catch (error) {
             const message = error instanceof Error ? error.message : "Unknown error";
             return rejectWithValue(message);

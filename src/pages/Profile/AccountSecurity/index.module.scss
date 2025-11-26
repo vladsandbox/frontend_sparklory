@@ -1,0 +1,55 @@
+@use '@/styles/typography.scss';
+@use '@/styles/inputs.scss';
+@use "@/styles/colors" as colors;
+
+.passwordContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+
+    >div {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+
+        p {
+            @extend .text-s;
+            line-height: 21px;
+        }
+
+        span {
+            @extend .h3;
+            line-height: 30px;
+        }
+    }
+
+    button {
+        width: 254px;
+    }
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    width: 364px;
+
+    button {
+        width: 100%;
+    }
+}
+
+.forgotPassword {
+    @extend .text-s;
+    line-height: 21px;
+    text-decoration: underline;
+    display: block;
+    margin-top: 8px;
+}
+
+.labelPassword {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}

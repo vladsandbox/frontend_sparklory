@@ -1,0 +1,57 @@
+@use "@/styles/colors" as colors;
+@use "@/styles/variables" as var;
+
+.tabs {
+  width: 100%;
+  padding: 24px;
+
+  .tabHeader {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 63px;
+    flex-wrap: wrap;
+  }
+
+  button {
+    background: transparent;
+    border-radius: 0;
+    border-bottom: 1px solid colors.$color-button;
+    color: colors.$color-button;
+    opacity: 0.5;
+    transition: background 0.2s, color 0.2s, opacity 0.7s;
+    width: 200px;
+
+    &.active, &:hover, &:active {
+      opacity: 1;
+      border-bottom: 1px solid colors.$color-button;
+    }
+  }
+
+  .tabContent {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 40px 0;
+    width: 100%;
+    max-height: 70vh;
+    height: 100%;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding-right: 8px;
+    padding-bottom: 32px;
+
+    &::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: colors.$color-button;
+      border-radius: 8px;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+      cursor: pointer;
+      background-color: colors.$color-button-hover;
+    }
+  }
+}

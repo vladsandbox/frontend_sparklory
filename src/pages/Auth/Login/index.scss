@@ -9,21 +9,11 @@
   .secondary-btn {
     display: flex;
   }
-
-  label {
-    font-size: 18px;
-  }
-
-  input, label {
-    margin-top: 12px;
-    width: 424px;
-  }
 }
 
 .auth-buttons {
   display: flex;
   flex-direction: column;
-  gap:8px;
   margin-top: 23px;
 
   .auth-button {
@@ -43,4 +33,18 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
+}
+
+.password-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-error {
+  display: inline-flex;
+    gap: 4px;
+    margin-top: 2px;
+    flex-wrap: wrap;
+    align-items: center;
 }

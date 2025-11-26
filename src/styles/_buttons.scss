@@ -53,7 +53,7 @@
 
         &:active {
             background-color: $color-disabled;
-            box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.25);
+            box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.25);
         }
     }
 }
@@ -74,7 +74,7 @@
         color: $color-button-hover;
         border-color: $color-button-hover;
         background-color: rgba(255, 255, 255, 0.4);
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.35);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
     }
 
     &:disabled {
@@ -92,6 +92,28 @@
             opacity: 0.7;
         }
     }
+}
+
+.btn--empty {
+    background-color: transparent;
+    color: $color-button;
+    border: none;
+
+    &:active {
+        background-color: rgba($color-black, 0.03);
+        box-shadow: 0 0 10px rgba($color-black, 0.05);
+    }
+}
+
+.btn--clear,
+.btn--clear:hover,
+.btn--clear:active,
+.btn--clear:disabled {
+    background-color: transparent;
+    color: $color-button;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
 }
 
 /* SIZES */
@@ -118,4 +140,9 @@
 .secondary-white-btn {
     @extend .btn;
     @extend .btn--secondary-white;
+}
+
+.empty-btn {
+    @extend .btn;
+    @extend .btn--empty;
 }
