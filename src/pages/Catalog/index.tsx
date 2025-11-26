@@ -86,13 +86,13 @@ export default function Catalog() {
                 prev.set('page', '1');
                 return prev;
             }, { replace: true });
-        } else if (data.products.length === 0 && data.total > 0 && currentPage > 1) {
+        } else if (!loading && data?.products?.length === 0 && (data?.total || 0) > 0 && currentPage > 1) {
             setSearchParams(prev => {
-                prev.set('page', String(data.pages));
+                prev.set('page', String(data?.pages || 1));
                 return prev;
             }, { replace: true });
         }
-    }, [data, currentPage, setSearchParams]);
+    }, [data, currentPage, setSearchParams, loading]);
 
     const changePage = useCallback((page: number) => {
         setSearchParams(prev => {
