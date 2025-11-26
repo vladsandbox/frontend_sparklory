@@ -73,18 +73,24 @@ export default function TrendingNow({ products, loading }: Props) {
             <div className="slider-window">
               <div ref={sliderRef} className="keen-slider">
                 {trendingProducts.map((product) => {
-                  const selectedMaterialId = selectedMaterials[product._id] || product.variants[0]?.material;
-                  const currentVariant: ProductVariant | null =
-                    product.variants.find((v) => v.material === selectedMaterialId) || null;
+                  const minPriceVariant = product.variants.reduce(
+                    (min, current) => current.price < min.price ? current : min,
+                    product.variants[0]
+                  );
 
-                  const materials = product.variants.map((variant) => {
-                    const found = MATERIALS.find((m) => m.id === variant.material);
-                    return found ?? {
-                      id: variant.material,
-                      label: variant.material.replace(/\b\w/g, (c) => c.toUpperCase()),
-                      img: noImg,
-                    };
-                  });
+                  const selectedMaterial = selectedMaterials[product._id] ?? minPriceVariant.material;
+
+                  const materials = Array.from(
+                    new Map(
+                      product.variants.map((variant) => {
+                        const found = MATERIALS.find((m) => m.id === variant.material);
+                        return [variant.material, found ?? { id: variant.material, label: variant.material, img: noImg }];
+                      })
+                    ).values()
+                  );
+
+                  const currentVariant: ProductVariant | null =
+                    product.variants.find((variant) => variant.material === selectedMaterial) || null;
 
                   return (
                     <div
@@ -113,7 +119,7 @@ export default function TrendingNow({ products, loading }: Props) {
 
                         <MaterialSelector
                           productId={product._id}
-                          selectedMaterial={selectedMaterialId}
+                          selectedMaterial={selectedMaterial}
                           onChange={(id) => handleMaterialChange(product._id, id)}
                           materials={materials}
                         />
