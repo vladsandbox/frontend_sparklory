@@ -11,7 +11,7 @@ export default function Product() {
   const { id } = useParams();
   const dispatch: AppDispatch = useDispatch();
   const product = useSelector((state: RootState) => state.products.singleProduct);
-  const allProducts = useSelector((state: RootState) => state.products.data.products);
+  const allProducts = useSelector((state: RootState) => state.products.data?.products ?? []);
   const loading = useSelector((state: RootState) => state.products.loading);
 
   useEffect(() => {
