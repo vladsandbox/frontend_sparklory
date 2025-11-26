@@ -14,7 +14,6 @@ type Props = {
 };
 
 export default function CatalogProductsList({ data, loading, changePage, currentPage }: Props) {
-    const { products, pages } = data;
 
     if (loading) {
         return (
@@ -30,7 +29,9 @@ export default function CatalogProductsList({ data, loading, changePage, current
         return <p className="error">Failed to load products</p>;
     }
 
-    if (products.length === 0) {
+    const { products, pages } = data;
+
+    if (!products || products.length === 0) {
         return <p className="error">No products found</p>
     }
 
@@ -41,7 +42,7 @@ export default function CatalogProductsList({ data, loading, changePage, current
                     <CatalogProductCard product={product} key={product._id} />
                 ))}
             </div>
-            { pages > 1 &&
+            { pages && pages > 1 &&
                 <CatalogPagination
                     currentPage={currentPage}
                     totalPages={pages}
