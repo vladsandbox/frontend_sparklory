@@ -37,6 +37,7 @@ export default function CategoriesList({categories, loading}: Props) {
             <div className="categories-wrapper">
                 {categories.map((category) =>
                     <CatalogCard
+                        key={category._id}
                         cardData={category}
                         handleClick={() => handleClick(category.name)}
                         withBorder={false}
